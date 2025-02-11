@@ -6,9 +6,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from '../../configurations/index'
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from 'src/modules/user/models/user.model';
+import { AuthModule } from '../auth/auth.module';
+import { TokenModule } from '../token/token.module';
 
 @Module({
-  imports: [UserModule,
+  imports: [
+    UserModule,
     ConfigModule.forRoot({isGlobal: true, load:[config]}),
     SequelizeModule.forRootAsync({
       imports: [ConfigModule], 
@@ -23,7 +26,9 @@ import { User } from 'src/modules/user/models/user.model';
         synchronize: true,
         autoLoadModels: true,
         models : [User]
-       })})
+       })}),
+    AuthModule,
+    TokenModule
   ],
   controllers: [AppController],
   providers: [AppService],

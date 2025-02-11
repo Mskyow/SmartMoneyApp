@@ -3,17 +3,17 @@ services:
     image: postgres
     container_name: ogl
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       - POSTGRES_HOST=localhost
-      - POSTGRES_USER=user
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=dkfll
       - POSTGRES_DATABASE=smartappdb
     command: postgres
     restart: always
 
   redis:
-    image: redis:latest
+    image: redis
     container_name: redis-oogl
     ports:
       - "6379:6379"

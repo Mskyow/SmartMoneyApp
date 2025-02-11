@@ -18,6 +18,11 @@ async function bootstrap() {
   .build()
   const document = SwaggerModule.createDocument(app,config);
   SwaggerModule.setup('api',app,document);
+  app.enableCors({
+    origin: 'http://localhost:3000', // Разрешите только этот источник
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Разрешённые методы
+    credentials: true, // Если нужно передавать куки
+  });
   await app.listen(port);
 }
 bootstrap();
