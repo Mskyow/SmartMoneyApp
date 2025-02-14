@@ -27,7 +27,7 @@ const AuthRootComponent = () => {
             <div className="form" onSubmit={handleSubmit} >
                 <Box
                 >
-                  { location.pathname === '/Login' ? <SignInSide setEmail={setEmail} setPassword={setPassword}/> : location.pathname === '/register' ? <RegisterPage /> : null }
+                  { location.pathname === '/login' ? <SignInSide setEmail={setEmail} setPassword={setPassword}/> : location.pathname === '/register' ? <RegisterPage /> : null }
                 </Box>
             </div>
         </div>
