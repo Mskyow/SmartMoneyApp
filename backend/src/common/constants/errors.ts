@@ -3,5 +3,7 @@ export const  AppError = {
     USER_NOT_EXIST: "User with this email does not exist",
     USER_WRONG_DATA: "Wrong data",
 
-    JWT_SECRET_UNDEFINED: "JWT secret is undefined"
+    JWT_SECRET_UNDEFINED: "JWT secret is undefined",
+
+    SOLANA_HTTPS_PROVIDER_UNDEFIND: "SOLANA_HTTPS_PROVIDER_UNDEFIND"
 }

@@ -17,6 +17,9 @@ const sequelize_1 = require("@nestjs/sequelize");
 const user_model_1 = require("../user/models/user.model");
 const auth_module_1 = require("../auth/auth.module");
 const token_module_1 = require("../token/token.module");
+const watchlist_module_1 = require("../watchlist/watchlist.module");
+const watchlist_model_1 = require("../watchlist/models/watchlist.model");
+const block_chain_module_1 = require("../../block-chain/block-chain.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,11 +40,13 @@ exports.AppModule = AppModule = __decorate([
                     database: configService.get('db_name'),
                     synchronize: true,
                     autoLoadModels: true,
-                    models: [user_model_1.User]
+                    models: [user_model_1.User, watchlist_model_1.Watchlist]
                 })
             }),
             auth_module_1.AuthModule,
-            token_module_1.TokenModule
+            token_module_1.TokenModule,
+            watchlist_module_1.WatchlistModule,
+            block_chain_module_1.BlockChainModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

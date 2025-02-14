@@ -24,12 +24,8 @@ constructor(private readonly userService : UserService,
         if(!existUser) throw new BadRequestException(AppError.USER_NOT_EXIST);
         const validatePassword = await bcrypt.compare(dto.password, existUser.password)
         if(!validatePassword) throw new BadRequestException(AppError.USER_WRONG_DATA)
-            const userData = {
-                username : existUser.username,
-                email : existUser.email
-            }
-        const token = await this.tokenService.generateJWTToken(userData);
         const user = await this.userService.publicUser(dto.email); // два запроса в базу данных , костыль возможно
+        const token = await this.tokenService.generateJWTToken(user);
         if(!user) throw new BadRequestException(AppError.USER_NOT_EXIST);
         return {...user,token};
     }

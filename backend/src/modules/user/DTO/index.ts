@@ -24,3 +24,4 @@ export class updateUserDTO {
     @IsString()
     email : string
 }
+
