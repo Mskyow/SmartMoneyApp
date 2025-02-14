@@ -7,4 +7,6 @@ export default () => ( {
     db_name: process.env.DB_NAME,
     secret_jwt: process.env.SECRET,
     expire_time_jwt: process.env.EXPIRE_TIME,
+    solana_https_provider: process.env.SOLANA_HTTPS_PROVIDER,
+    solana_wss_provider: process.env.SOLANA_wss_PROVIDER
 } )

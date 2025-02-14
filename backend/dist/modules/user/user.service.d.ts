@@ -8,5 +8,5 @@ export declare class UserService {
     createUser(dto: createUserDTO): Promise<createUserDTO>;
     publicUser(email: string): Promise<User | null>;
     updateUser(email: string, dto: updateUserDTO): Promise<updateUserDTO>;
-    deleteUser(email: string): Promise<boolean>;
+    deleteUser(email: string): Promise<Boolean>;
 }

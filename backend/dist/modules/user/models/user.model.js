@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const watchlist_model_1 = require("../../watchlist/models/watchlist.model");
 let User = class User extends sequelize_typescript_1.Model {
 };
 exports.User = User;
@@ -26,6 +27,13 @@ __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => watchlist_model_1.Watchlist, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "watchlist", void 0);
 exports.User = User = __decorate([
     sequelize_typescript_1.Table
 ], User);

@@ -33,12 +33,8 @@ let AuthService = class AuthService {
         const validatePassword = await bcrypt.compare(dto.password, existUser.password);
         if (!validatePassword)
             throw new common_1.BadRequestException(errors_1.AppError.USER_WRONG_DATA);
-        const userData = {
-            username: existUser.username,
-            email: existUser.email
-        };
-        const token = await this.tokenService.generateJWTToken(userData);
         const user = await this.userService.publicUser(dto.email);
+        const token = await this.tokenService.generateJWTToken(user);
         if (!user)
             throw new common_1.BadRequestException(errors_1.AppError.USER_NOT_EXIST);
         return { ...user, token };
