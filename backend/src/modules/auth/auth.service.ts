@@ -18,7 +18,7 @@ constructor(private readonly userService : UserService,
         if(existUser) throw new BadRequestException(AppError.USER_EXIST)
         return this.userService.createUser(dto)
     }
-    async loginUser(dto: UserLoginDTO):Promise<AuthUserResponse>{
+    async loginUser(dto: UserLoginDTO):Promise<any>{
         const existUser = await this.userService.findUserByEmail(dto.email)
         // console.log(existUser)
         if(!existUser) throw new BadRequestException(AppError.USER_NOT_EXIST);
@@ -27,7 +27,7 @@ constructor(private readonly userService : UserService,
         const user = await this.userService.publicUser(dto.email); // два запроса в базу данных , костыль возможно
         const token = await this.tokenService.generateJWTToken(user);
         if(!user) throw new BadRequestException(AppError.USER_NOT_EXIST);
-        return {...user,token};
+        return {user,token};
     }
 
 }
