@@ -9,7 +9,6 @@ export class BlockChainController {
     constructor(private readonly blockChainService : BlockChainService){}
     
     @ApiResponse({status:200})
-    @UseGuards(JwtAuthGuard)
     @Get("/test-blockchain")
     testblockchain(){
      this.blockChainService.testfunc();
