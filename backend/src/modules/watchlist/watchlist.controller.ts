@@ -17,7 +17,7 @@ export class WatchlistController {
        return this.watchListService.getAllAddresses(user);
    }
 
-       @ApiResponse({status:200,type:addAddressDTO})
+       @ApiResponse({status:201,type:addAddressDTO})
        @UseGuards(JwtAuthGuard)
        @Post("/add-address")
        addAddressToWatchList(@Body() addAddressDTO : addAddressDTO, @Req() request):Promise<addAddressDTO>{
