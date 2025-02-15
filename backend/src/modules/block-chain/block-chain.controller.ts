@@ -8,11 +8,12 @@ import { JwtAuthGuard } from 'src/guards/jwt-guard';
 export class BlockChainController {
     constructor(private readonly blockChainService : BlockChainService){}
     
+    @ApiResponse({status:200})
     @Get("/test-blockchain")
     testblockchain(){
      this.blockChainService.testfunc();
     }
-   @ApiTags("BlockChain")
+
     @ApiResponse({status:200})
     @UseGuards(JwtAuthGuard)
     @Post("get-transactions")
