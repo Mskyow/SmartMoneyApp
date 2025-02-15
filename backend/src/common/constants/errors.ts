@@ -5,5 +5,9 @@ export const  AppError = {
 
     JWT_SECRET_UNDEFINED: "JWT secret is undefined",
 
-    SOLANA_HTTPS_PROVIDER_UNDEFIND: "SOLANA_HTTPS_PROVIDER_UNDEFIND"
+    SOLANA_HTTPS_PROVIDER_UNDEFIND: "Solana https provider is undefind" ,
+
+    UPDATE_WATCHLIST_ADDRESS_ERROR : "no one rows was updated. Update was failed",
+    DELETE_WATCHLIST_ADDRESS_ERROR : "Delete was failed. No one rows was deleted",
+    ADD_WATCHLIST_ADDRESS_ERROR :  "New address was not added to watchlist. Watchlist obj is undefined",
 }
