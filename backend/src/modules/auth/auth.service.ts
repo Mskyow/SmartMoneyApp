@@ -18,7 +18,7 @@ constructor(private readonly userService : UserService,
         if(existUser) throw new BadRequestException(AppError.USER_EXIST)
         return this.userService.createUser(dto)
     }
-    async loginUser(dto: UserLoginDTO):Promise<any>{
+    async loginUser(dto: UserLoginDTO):Promise<AuthUserResponse>{
         const existUser = await this.userService.findUserByEmail(dto.email)
         // console.log(existUser)
         if(!existUser) throw new BadRequestException(AppError.USER_NOT_EXIST);
