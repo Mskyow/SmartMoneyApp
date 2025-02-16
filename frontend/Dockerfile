@@ -1,15 +1,27 @@
-FROM node:18.20.6-alpine
+FROM node:18.20.6-alpine AS build
 WORKDIR /app
 
-RUN addgroup -g 1001 nodegroup && \
-    adduser -S -G nodegroup -u 1001 nodeuser
+COPY package*.json ./
+RUN npm install
 
 COPY . ./
+RUN npm run build
 
-RUN npm install && npm run build && \
-    chown -R nodeuser:nodegroup /app
+FROM nginx:stable-alpine AS production
 
-USER nodeuser
+RUN apk add --no-cache libcap && \
+    setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
 
-EXPOSE 3000
-CMD ["npm", "start"]
+COPY --from=build /app/build /usr/share/nginx/html
+
+COPY nginx/musiify.conf /etc/nginx/conf.d/musiify.conf
+
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    sed -i 's|/var/run/nginx.pid|/tmp/nginx.pid|' /etc/nginx/nginx.conf && \
+    rm -f /etc/nginx/conf.d/default.conf
+
+USER nginx
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
