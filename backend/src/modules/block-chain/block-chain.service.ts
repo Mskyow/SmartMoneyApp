@@ -14,30 +14,42 @@ export class BlockChainService {
         if(!https_provider_link) throw new BadRequestException(AppError.SOLANA_HTTPS_PROVIDER_UNDEFIND)
         this.solana = new web3.Connection(https_provider_link);
     }
-
+    
     async testfunc(){
        
+       try {
         console.log(await this.solana.getSlot());
+       } catch (error) {
+        throw new Error(error);
+       }
     }
 
     async getTransctionsSignatures(walletAddress: string){
-        console.log(walletAddress)
+        try {
+            console.log(walletAddress)
         const publicKey = new web3.PublicKey(walletAddress);
         const signatures = await this.solana.getSignaturesForAddress(publicKey, { limit: 10 });
         console.log("Signatures:", signatures);
         await this.getTransactSignatureInfo(signatures);
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
     async getTransactSignatureInfo(signatures) {
-        const transactions = await Promise.all(signatures.map(
-            async (tx) => {
-                return await this.solana.getTransaction(tx.signature,{
-                    commitment: "finalized",
-                    maxSupportedTransactionVersion : 0,
-                })
-            }
-        ))
-        console.log("Transactions:", transactions);
-        return transactions;
+        try {
+            const transactions = await Promise.all(signatures.map(
+                async (tx) => {
+                    return await this.solana.getTransaction(tx.signature,{
+                        commitment: "finalized",
+                        maxSupportedTransactionVersion : 0,
+                    })
+                }
+            ))
+            console.log("Transactions:", transactions);
+            return transactions;
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 }

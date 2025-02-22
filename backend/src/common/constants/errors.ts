@@ -4,6 +4,7 @@ export const  AppError = {
     USER_WRONG_DATA: "Wrong data",
 
     JWT_SECRET_UNDEFINED: "JWT secret is undefined",
+    JWT_AUNTIFICATION_FAILED: "Invalid token: missing userId",
 
     SOLANA_HTTPS_PROVIDER_UNDEFIND: "Solana https provider is undefind" ,
 

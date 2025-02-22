@@ -14,20 +14,30 @@ constructor(private readonly userService : UserService,
 ){}
 
     async registerUsers(dto: createUserDTO):Promise<createUserDTO>{
-        const existUser = await this.userService.findUserByEmail(dto.email);
+        try {
+            const existUser = await this.userService.findUserByEmail(dto.email);
         if(existUser) throw new BadRequestException(AppError.USER_EXIST)
         return this.userService.createUser(dto)
+        } catch (error) {
+            throw new Error(error)
+        }
     }
     async loginUser(dto: UserLoginDTO):Promise<AuthUserResponse>{
+       try {
         const existUser = await this.userService.findUserByEmail(dto.email)
         // console.log(existUser)
         if(!existUser) throw new BadRequestException(AppError.USER_NOT_EXIST);
         const validatePassword = await bcrypt.compare(dto.password, existUser.password)
         if(!validatePassword) throw new BadRequestException(AppError.USER_WRONG_DATA)
         const user = await this.userService.publicUser(dto.email); // два запроса в базу данных , костыль возможно
-        const token = await this.tokenService.generateJWTToken(user);
+        // console.log("login user log ")
+        // console.log(user);
+        const token = await this.tokenService.generateJWTToken(user?.dataValues.id);
         if(!user) throw new BadRequestException(AppError.USER_NOT_EXIST);
         return {user,token};
+       } catch (error) {
+        throw new Error(error)
+       }
     }
 
 }
