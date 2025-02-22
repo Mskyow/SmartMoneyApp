@@ -9,14 +9,17 @@ export class TokenService {
         private readonly configService : ConfigService
     ){}
 
-    async generateJWTToken(user ){
-        const payload = {user};
+    async generateJWTToken(userId : string ){
+       try {
+        const payload = { sub : userId};
  
-        console.log(this.configService.get('expire_time_jwt'))
-    
+        console.log(payload)
         return this.JWTService.sign(payload,{
             secret: this.configService.get('secret_jwt'),
             expiresIn: this.configService.get('expire_time_jwt')
         })
+       } catch (error) {
+        throw new Error(error);
+       }
     }
 }

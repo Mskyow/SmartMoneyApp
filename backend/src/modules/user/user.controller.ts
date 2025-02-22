@@ -17,20 +17,19 @@ export class UserController {
     @ApiTags("User")
     @ApiResponse({status:200, type: updateUserDTO})
     @UseGuards(JwtAuthGuard)
-    @Patch("/update-user")
-    updateuser(@Body() updateDTO : updateUserDTO, @Req() request):Promise<updateUserDTO>{
-        const user = request.user;
-        //console.log(user);
-        return this.userService.updateUser(user.email,updateDTO)
+    @Patch("/update-user") // данный метод разбить на два : отдельно name отдельно email
+    async updateuser(@Body() updateDTO : updateUserDTO, @Req() request):Promise<updateUserDTO>{
+        const userEmail = request.user.email;
+        return await this.userService.updateUser(userEmail,updateDTO)
     }
+    
 
-    @ApiTags("User")
+    // @ApiTags("User")
     @ApiResponse({status:200})
     @UseGuards(JwtAuthGuard)
     @Delete("/delete-user")
-    deleteUser(@Req() request) : Promise<Boolean>{
-        const user = request.user;
-        //console.log(user);
-        return this.userService.deleteUser(user.email)
+    async deleteUser(@Req() request) : Promise<Boolean>{
+        const userEmail = request.user.email;
+        return await this.userService.deleteUser(userEmail)
     }
 }

@@ -10,14 +10,14 @@ export class BlockChainController {
     
     @ApiResponse({status:200})
     @Get("/test-blockchain")
-    testblockchain(){
+    async testblockchain(){
      this.blockChainService.testfunc();
     }
 
     @ApiResponse({status:200})
     @UseGuards(JwtAuthGuard)
     @Post("get-transactions")
-    getTransctions(@Body() body){
+    async getTransctions(@Body() body){
         console.log(body.walletAddress)
         this.blockChainService.getTransctionsSignatures(body.walletAddress)
     }

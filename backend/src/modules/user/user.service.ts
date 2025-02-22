@@ -8,14 +8,32 @@ import { Watchlist } from '../watchlist/models/watchlist.model';
 @Injectable()
 export class UserService {
   constructor (@InjectModel(User) private readonly userRepository: typeof User) {}
-  async hashPassword(password){
-    return bcrypt.hash(password,10);
+
+  async hashPassword(password : string):Promise<string>{
+    try {
+      return bcrypt.hash(password,10);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
-  async findUserByEmail(email : string){
-    return this.userRepository.findOne({ where : {email}});
+ // обратить внимание на метод этот 25 видос
+  async findUserByEmail(email : string):Promise<User | null>{
+    try {
+      return this.userRepository.findOne({ where : {email}});
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+  async findUserById(id : string):Promise<User | null>{
+    try {
+      return this.userRepository.findOne({ where : {id}});
+    } catch (error) {
+      throw new Error(error)
+    }
   }
   async createUser(dto : createUserDTO) : Promise<createUserDTO>{
     
+       try {
         dto.password = await this.hashPassword(dto.password);
         await this.userRepository.create(
             {
@@ -26,8 +44,13 @@ export class UserService {
         )
     
     return dto;
+       } catch (error) {
+        throw new Error(error);
+       }
   }
-  async publicUser (email: string) {
+  //возврат
+  async publicUser (email: string) : Promise<User | null>{
+  try {
     return this.userRepository.findOne(
       {
         where: {email},
@@ -38,13 +61,24 @@ export class UserService {
         }
       }
     )
+  } catch (error) {
+    throw new Error(error)
+  }
   }
   async updateUser(email : string, dto: updateUserDTO):Promise<updateUserDTO>{
-    await this.userRepository.update(dto,{where:{email}})
-    return dto
+   try {
+      await this.userRepository.update(dto,{where:{email}})
+      return dto
+   } catch (error) {
+    throw new Error(error);
+   }
   }
   async deleteUser(email:string) : Promise<Boolean>{
-     await this.userRepository.destroy({where:{email}})
+     try {
+      await this.userRepository.destroy({where:{email}})
      return true;
+     } catch (error) {
+      throw new Error(error);
+     }
   }
 }

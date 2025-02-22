@@ -13,24 +13,25 @@ export class WatchlistController {
    @UseGuards(JwtAuthGuard)
    @Get("/get-all-addresses")
    getAddressesFromWatchList(@Req() request):Promise<Watchlist[]>{
-       const user = request.user;
-       return this.watchListService.getAllAddresses(user);
+       const userid = request.user.id as number;
+    //    console.log(request)
+       return this.watchListService.getAllAddresses(userid);
    }
 
        @ApiResponse({status:200,type:addAddressDTO})
        @UseGuards(JwtAuthGuard)
        @Post("/add-address")
        addAddressToWatchList(@Body() addAddressDTO : addAddressDTO, @Req() request):Promise<addAddressDTO>{
-           const user = request.user.id as number;
-           return this.watchListService.addAddressToWatchList(user, addAddressDTO)
+           const userid = request.user.id as number;
+           return this.watchListService.addAddressToWatchList(userid, addAddressDTO)
        }
 
        @ApiResponse({status:200,type: Boolean})
        @UseGuards(JwtAuthGuard)
        @Delete("/delete-address") // возможно лучше удалять по имени адреса , выданное юзером нашего прило.
        deleteAddressFromWatchList(@Body() deleteAddressDTO : deleteAddressDTO, @Req() request):Promise<Boolean>{
-           const user = request.user.id as number;
-           return this.watchListService.deleteAddressFromWatchList(user,deleteAddressDTO.account_address)
+           const userid = request.user.id as number;
+           return this.watchListService.deleteAddressFromWatchList(userid,deleteAddressDTO.account_address)
        }
 
        
@@ -38,9 +39,11 @@ export class WatchlistController {
         @UseGuards(JwtAuthGuard)
         @Patch("/update-address-name")
         async updateWatchListAddressName(@Body() updateAddressNameDTO : updateAddressNameDTO, @Req() request):Promise<updateAddressNameDTO>{
-            const user = request.user.id as number;
-            return this.watchListService.updateWatchListAddressName (user,updateAddressNameDTO)
+            const userid = request.user.id as number;
+            return this.watchListService.updateWatchListAddressName (userid,updateAddressNameDTO)
         }
+
+
         @ApiResponse({status:200,type:updateAddressImgDTO})
         @UseGuards(JwtAuthGuard)
         @Patch("/update-address-img")
@@ -48,8 +51,8 @@ export class WatchlistController {
             @Body() updateAddressImgDTO : updateAddressImgDTO, 
             @Req() request 
         ):Promise<updateAddressImgDTO>{
-            const user = request.user.id as number ;
-            return this.watchListService.updateWatchListAddressImage (user,updateAddressImgDTO)
+            const userid = request.user.id as number ;
+            return this.watchListService.updateWatchListAddressImage (userid,updateAddressImgDTO)
         }
 
 
