@@ -11,7 +11,7 @@ export class BlockChainController {
     @ApiResponse({status:200})
     @Get("/test-blockchain")
     async testblockchain(){
-     this.blockChainService.testfunc();
+     await this.blockChainService.testfunc();
     }
 
     @ApiResponse({status:200})
