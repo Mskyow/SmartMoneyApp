@@ -9,9 +9,6 @@ RUN npm run build
 
 FROM nginx:stable-alpine AS production
 
-RUN apk add --no-cache libcap && \
-    setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
-
 COPY --from=build /app/build /usr/share/nginx/html
 
 COPY nginx/musiify.conf /etc/nginx/conf.d/musiify.conf
