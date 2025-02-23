@@ -16,6 +16,7 @@ import { styled } from '@mui/material/styles';
 import AppTheme from '../theme/appTheme';
 import ColorModeSelect from '../theme/colorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../customIcons';
+import { JSX } from 'react';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -58,8 +59,12 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
     }),
   },
 }));
-
-export default function SignUp(props: { disableCustomTheme?: boolean }) {
+interface ISignUpSideProps {
+  disableCustomTheme?: boolean;
+  setEmail: (value: string) => void ;
+  setUserName: (value: string) => void  ;
+  setPassword: (value: string) => void ;}
+export default function SignUp(props: ISignUpSideProps) : JSX.Element{
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -138,17 +143,18 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">Full name</FormLabel>
+              <FormLabel htmlFor="name">User name</FormLabel>
               <TextField
                 autoComplete="name"
                 name="name"
                 required
                 fullWidth
                 id="name"
-                placeholder="Jon Snow"
+                placeholder="Username"
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? 'error' : 'primary'}
+                onChange={(e)=>{props.setUserName(e.target.value)}}
               />
             </FormControl>
             <FormControl>
@@ -164,6 +170,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                 error={emailError}
                 helperText={emailErrorMessage}
                 color={passwordError ? 'error' : 'primary'}
+                onChange={(e)=>{props.setEmail(e.target.value)}}
               />
             </FormControl>
             <FormControl>
@@ -180,6 +187,8 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                 error={passwordError}
                 helperText={passwordErrorMessage}
                 color={passwordError ? 'error' : 'primary'}
+                onChange={(e)=>{props.setPassword(e.target.value)}}
+
               />
             </FormControl>
             <FormControlLabel
