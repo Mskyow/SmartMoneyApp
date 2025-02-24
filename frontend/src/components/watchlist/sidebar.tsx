@@ -5,10 +5,12 @@ import { Button, Typography } from '@mui/material';
 
 // Определяем Item вне функции
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
     ...theme.typography.body2,
     color: theme.palette.text.secondary,
     height: '100vh', // Растянуть на всю высоту страницы
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     ...theme.applyStyles('dark', {
         backgroundColor: 'hsla(238, 65.40%, 49.80%, 0.40)',
     }),
@@ -32,12 +34,15 @@ export default function SideBarMenu() {
                 variant="contained" 
                 onClick={() => setActive(!active)} // Переключение состояния при клике
                 sx={{
-                    alignSelf : 'center',  
                     width: '150px', // Установка фиксированной ширины
-                    margin: 'auto', // Центрирование кнопки
-                    backgroundColor: active ? 'primary.main' : 'rgba(114, 114, 114, 0.5)', // Цвет для активного состояния
+                    margin: '20px auto', // Центрирование кнопки
+                    backgroundColor: active ? 'rgba(64, 70, 155, 0.7) !important' : 'rgb(140, 141, 164) !important', // Цвет фона
+                    color: active ? 'rgb(0, 0, 0)' : 'rgb(0, 0, 0)', // Цвет текста
+                    border: 'none', // Убираем обводку
                     '&:hover': {
-                        backgroundColor: active ? 'primary.dark' : 'rgba(16, 27, 193, 0.7)', // Цвет при наведении
+                        border: 'none', // Убираем обводку
+                        backgroundColor: 'rgba(64, 70, 155, 0.7)', // Эффект hover
+                        color: 'rgb(0, 0, 0)', // Цвет текста при hover
                     },
                 }}
             >

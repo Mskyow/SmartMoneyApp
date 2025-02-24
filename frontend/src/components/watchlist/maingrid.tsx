@@ -12,11 +12,21 @@ const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: '#1A2027',
     }),
 }));
+interface AddressData {
+    id: string;
+    account_name: string;
+    account_address: string;
+    profile_image?: string;
+  }
+interface MainGridProps {
+    onAddAddressClick: () => void;
+    addresses: AddressData[];
+}
 
-// Основной компонент MainGrid
-export default function MainGrid() {
+  
+const MainGrid: React.FC<MainGridProps> = ({ onAddAddressClick, addresses }) => {
     // Пример переменных, которые могут изменяться в зависимости от тарифа
-    const currentCount = 0; // Замените на вашу переменную
+    const currentCount = addresses.length; // Замените на вашу переменную
     const maxCount = 10;    // Замените на вашу переменную
 
     return (
@@ -57,6 +67,34 @@ export default function MainGrid() {
                     User
                 </Button>
             </Box>
+            <Box>
+            <Button 
+                    variant="contained" 
+                    onClick={onAddAddressClick}
+                    color="primary" // Синий цвет
+                    sx={{ marginLeft: 2,
+                        background : 'rgb(74, 71, 237) !important',
+                        border : 'none !important',
+                        boxShadow: 'none !important',
+                        transition: 'background-color 0.3s ease', // Плавный переход
+                        '&:hover': {
+                          backgroundColor: 'rgba(74, 71, 237, 0.8) !important', // Цвет фона при наведении
+    },
+                     }} 
+                >
+                    add Solana address
+                </Button>
+            </Box>
+            <Box sx={{ padding: 2 }}>
+                {addresses.map((address) => (
+                    <Box key={address.id} sx={{ marginBottom: 2 }}>
+                        <Typography>{address.account_name}</Typography>
+                        <Typography>{address.profile_image}</Typography>
+                    </Box>
+                ))}
+            </Box>
         </Item>
     );
 }
+
+export default MainGrid;
