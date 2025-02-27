@@ -16,14 +16,13 @@ import { LineAxis } from '@mui/icons-material';
 
 
 const WatchList: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  
 
   return (
     <AppTheme>
     <Box
       sx={{
+        height : '100vh',
         display: "flex",
         backgroundColor: "#000", // Чёрный фон на всю страницу
       }}
@@ -54,9 +53,9 @@ const WatchList: React.FC = () => {
         <Box
           sx={{
             width: "49px", // Фиксированная ширина
-            height: "600px", // Высота, можно адаптировать
+            height: "520px", // Высота, можно адаптировать
             borderRadius: "30px", // Закруглённые углы
-            border: "1px solid #FFF", // Белая рамка
+            border: "1px solid #999;", // Белая рамка
             background: `linear-gradient(
               180deg, 
               rgba(255, 255, 255, 0.10) 0%, 
@@ -94,7 +93,7 @@ const WatchList: React.FC = () => {
       <Box
         sx={{
           flex: 1, // Занимает всё оставшееся пространство
-          height: "100vh", // Высота, можно адаптировать
+          height: "90vh", // Высота, можно адаптировать
           borderRadius: "30px", // Закруглённые углы
           border: "1px solid #FFF", // Белая рамка
           // opacity : '0.6',

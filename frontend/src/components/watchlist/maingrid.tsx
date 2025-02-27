@@ -1,7 +1,9 @@
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Box, Button, TextField, IconButton } from '@mui/material';
+import AddAddressModal from './addAddressModal';
+import { instance } from '../../utils/axios_instance';
 
 export const Line = styled(Box)({
     background: 'linear-gradient(90deg, #FFF 20.6%, rgba(137, 32, 235, 0.66) 40.6%, #272727 90%)',
@@ -52,107 +54,141 @@ export const WatchListTitle = styled(Typography)({
     fontWeight: 500,
     textTransform: "none",
   });
-  export const AddressEntity = () => {
-    return (
-        <Box
-          sx={{
-            width: '15vw',
-            height: '8vh',
-            flexShrink: 0,
-            borderRadius: '10px',
-            background: '#FFF',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '8px',
-            gap: '12px',
-            position: 'relative',
-          }}
-        >
-          {/* Фото */}
-          <Box
-            sx={{
-              width: '3.5vw',
-              height: '7vh',
-              flexShrink: 0,
-              borderRadius: '10px',
-              background: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3xbitvBXWXb3Z86QjvGBcdvpBn5KFgrP8-g&s") center 50% / cover no-repeat',
-            }}
-          />
-    
-          {/* Имя и адрес */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <Typography
-              sx={{
-                color: '#000',
-                fontFamily: '"Inria Serif"',
-                fontSize: '23px',
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: 'normal',
-              }}
-            >
-              Mytrader1
-            </Typography>
-            <Typography
-              sx={{
-                color: '#ADADAD',
-                fontFamily: 'Inter',
-                fontSize: '16px',
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: 'normal',
-              }}
-            >
-              0x13fsjgaldsadess...
-            </Typography>
-          </Box>
-    
-          {/* Три точки (кнопка) */}
-          <IconButton
-            sx={{
-              position: 'absolute',
-              top: '10px',
-              right: '0px',
-              padding: '4px',
-              minWidth: "24px",
-              minHeight: "24px",
-              backgroundColor: 'transparent !important', // Отключаем фоновый цвет
-              border: 'none'
 
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 6 25"
-              fill="none"
-              style={{ display: "block" }} 
-            >
-              <circle cx="2" cy="2" r="2" fill="black" />
-              <circle cx="2" cy="8" r="2" fill="black" />
-              <circle cx="2" cy="14" r="2" fill="black" />
-            </svg>
-          </IconButton>
-        </Box>
-      );
-    };
+interface INewAddress {
+
+    account_address: string 
+
+    account_name: string 
+
+    account_image: string 
+}
+
+
+  // const AddressEntity = ({ name  , address, image }) => {
+  //   return (
+  //       <Box
+  //         sx={{
+  //           width: '15vw',
+  //           height: '8vh',
+  //           flexShrink: 0,
+  //           borderRadius: '10px',
+  //           background: '#FFF',
+  //           display: 'flex',
+  //           alignItems: 'center',
+  //           padding: '8px',
+  //           gap: '12px',
+  //           position: 'relative',
+  //         }}
+  //       >
+  //         {/* Фото */}
+  //         <Box
+  //           sx={{
+  //             width: '3.5vw',
+  //             height: '7vh',
+  //             flexShrink: 0,
+  //             borderRadius: '10px',
+  //             background: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3xbitvBXWXb3Z86QjvGBcdvpBn5KFgrP8-g&s") center 50% / cover no-repeat',
+  //           }}
+  //         />
+    
+  //         {/* Имя и адрес */}
+  //         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+  //           <Typography
+  //             sx={{
+  //               color: '#000',
+  //               fontFamily: '"Inria Serif"',
+  //               fontSize: '23px',
+  //               fontStyle: 'normal',
+  //               fontWeight: 400,
+  //               lineHeight: 'normal',
+  //             }}
+  //           >
+  //           {name}
+  //           </Typography>
+  //           <Typography
+  //             sx={{
+  //               color: '#ADADAD',
+  //               fontFamily: 'Inter',
+  //               fontSize: '16px',
+  //               fontStyle: 'normal',
+  //               fontWeight: 400,
+  //               lineHeight: 'normal',
+  //             }}
+  //           >
+  //           {address}
+  //           </Typography>
+  //         </Box>
+    
+  //         {/* Три точки (кнопка) */}
+  //         <IconButton
+  //           sx={{
+  //             position: 'absolute',
+  //             top: '10px',
+  //             right: '0px',
+  //             padding: '4px',
+  //             minWidth: "24px",
+  //             minHeight: "24px",
+  //             backgroundColor: 'transparent !important', // Отключаем фоновый цвет
+  //             border: 'none'
+
+  //           }}
+  //         >
+  //           <svg
+  //             xmlns="http://www.w3.org/2000/svg"
+  //             width="24"
+  //             height="24"
+  //             viewBox="0 0 6 25"
+  //             fill="none"
+  //             style={{ display: "block" }} 
+  //           >
+  //             <circle cx="2" cy="2" r="2" fill="black" />
+  //             <circle cx="2" cy="8" r="2" fill="black" />
+  //             <circle cx="2" cy="14" r="2" fill="black" />
+  //           </svg>
+  //         </IconButton>
+  //       </Box>
+  //     );
+  //   };
 
   export const AddressStructure = () => {
+    // const dispatch = useDispatch();
+    // const trackedAccounts = useSelector((state) => state.user.trackedAccounts);
+
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleAddAddress = async (newAddress : INewAddress) => {
+    try {
+      const response = await instance.post('/watchlist/add-address', newAddress);
+      
+      if (response.status === 200) {
+        // Обновляем Redux store
+        // dispatch(addTrackedAccount(response.data));
+        console.log('good')
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке:", error);
+    }
+  };
+
+
     return (
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 2 }}>
         {/* Кнопка */}
         <Button 
+        onClick={handleOpenModal}
         variant="contained"
         color="primary"
         sx={{
-            width:'260px',
-            height : '70px',
-            borderRadius : '20px',
+            width:'220px',
+            height : '50px',
+            borderRadius : '15px',
             background : 'radial-gradient(82.47% 50% at 50% 50%, rgba(25, 20, 30, 0.38) 48.6%, rgba(137, 32, 235, 0.38) 100%)',
             color : "#FFF",
             fontFamily : "Inria Serif",
-            fontSize:  '24px',
+            fontSize:  '20px',
             fontStyle: 'normal',
             fontWeight: '200',
             lineHeight: 'normal',
@@ -166,15 +202,10 @@ export const WatchListTitle = styled(Typography)({
                     flexWrap: 'wrap', // Добавлено для переноса на нов
          }}>
           
-          <AddressEntity/>
-          <AddressEntity/>
-          <AddressEntity/>
-          <AddressEntity/>
-          <AddressEntity/>
-          <AddressEntity/>
+        
 
-          {/* Добавьте больше элементов по мере необходимости */}
         </Box>
+            <AddAddressModal open={isModalOpen} onClose={handleCloseModal} onAddAddress={handleAddAddress} />
       </Box>
     );
   };

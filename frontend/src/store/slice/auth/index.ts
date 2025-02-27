@@ -54,5 +54,17 @@ export const authSlice = createSlice({
     }}
 })
 
+
+// export const addAddressSlice = createSlice({
+//     name : "watchlist",
+//     user,
+//     reducers : {
+//         addAddress(state, action){
+//             state.user = action.payload
+//             state.isLogged = true    
+//     }}
+// })
+
+
 export const {login} = authSlice.actions
 export default authSlice.reducer
