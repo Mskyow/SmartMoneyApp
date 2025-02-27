@@ -14,6 +14,7 @@ const AuthRootComponent : React.FC = () : JSX.Element => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if(location.pathname === '/login'){
@@ -23,18 +24,22 @@ const AuthRootComponent : React.FC = () : JSX.Element => {
                 password: password
             }
             const user = await instance.post('auth/login',userData);
-            await dispatch(login(user.data))
+            dispatch( login(user.data))
             navigate('/watchlist');
            } catch (error : any) {
             return error
            }
         } else {
+          try {
             const userData = {
                 username : userName,
                 email: email,
                 password: password
             }
             const user = await instance.post('auth/register',userData);
+          } catch (error) {
+            return error 
+          }
         }
       
 
