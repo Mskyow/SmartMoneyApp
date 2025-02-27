@@ -56,8 +56,8 @@ export const WatchListTitle = styled(Typography)({
     return (
         <Box
           sx={{
-            width: '240px',
-            height: '70px',
+            width: '15vw',
+            height: '8vh',
             flexShrink: 0,
             borderRadius: '10px',
             background: '#FFF',
@@ -71,11 +71,11 @@ export const WatchListTitle = styled(Typography)({
           {/* Фото */}
           <Box
             sx={{
-              width: '64px',
-              height: '53px',
+              width: '3.5vw',
+              height: '7vh',
               flexShrink: 0,
               borderRadius: '10px',
-              background: 'url("C:/Users/dimah/Downloads/images (1).jpg") lightgray 50% / cover no-repeat',
+              background: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3xbitvBXWXb3Z86QjvGBcdvpBn5KFgrP8-g&s") center 50% / cover no-repeat',
             }}
           />
     
@@ -85,7 +85,7 @@ export const WatchListTitle = styled(Typography)({
               sx={{
                 color: '#000',
                 fontFamily: '"Inria Serif"',
-                fontSize: '26px',
+                fontSize: '23px',
                 fontStyle: 'normal',
                 fontWeight: 400,
                 lineHeight: 'normal',
@@ -97,13 +97,13 @@ export const WatchListTitle = styled(Typography)({
               sx={{
                 color: '#ADADAD',
                 fontFamily: 'Inter',
-                fontSize: '18px',
+                fontSize: '16px',
                 fontStyle: 'normal',
                 fontWeight: 400,
                 lineHeight: 'normal',
               }}
             >
-              0x13fdsadess...
+              0x13fsjgaldsadess...
             </Typography>
           </Box>
     
@@ -111,17 +111,23 @@ export const WatchListTitle = styled(Typography)({
           <IconButton
             sx={{
               position: 'absolute',
-              top: '8px',
-              right: '8px',
+              top: '10px',
+              right: '0px',
               padding: '4px',
+              minWidth: "24px",
+              minHeight: "24px",
+              backgroundColor: 'transparent !important', // Отключаем фоновый цвет
+              border: 'none'
+
             }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="4"
-              height="16"
-              viewBox="0 0 4 16"
+              width="24"
+              height="24"
+              viewBox="0 0 6 25"
               fill="none"
+              style={{ display: "block" }} 
             >
               <circle cx="2" cy="2" r="2" fill="black" />
               <circle cx="2" cy="8" r="2" fill="black" />
@@ -140,7 +146,7 @@ export const WatchListTitle = styled(Typography)({
         variant="contained"
         color="primary"
         sx={{
-            width:'270px',
+            width:'260px',
             height : '70px',
             borderRadius : '20px',
             background : 'radial-gradient(82.47% 50% at 50% 50%, rgba(25, 20, 30, 0.38) 48.6%, rgba(137, 32, 235, 0.38) 100%)',

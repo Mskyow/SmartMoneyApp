@@ -113,7 +113,7 @@ const WatchList: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           overflow: "auto",
-          padding: 2,
+          padding: 4,
         }}
       >
           {/* Верхний блок внутри контейнера */}
