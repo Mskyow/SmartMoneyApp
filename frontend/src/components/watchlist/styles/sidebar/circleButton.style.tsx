@@ -1,10 +1,6 @@
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Button, styled } from "@mui/material";
 
-// Стили для круглых кнопок
-const CircleButton = styled(Button)(({ theme }) => ({
+export const CircleButton = styled(Button)(({ theme }) => ({
     borderRadius: '50%', // Делаем кнопку круглой
     width: '35px', // Ширина кнопки
     height: '35px', // Высота кнопки
@@ -19,5 +15,3 @@ const CircleButton = styled(Button)(({ theme }) => ({
         backgroundColor: 'rgba(255, 255, 255, 0.2)', // Эффект при наведении
     },
 }));
-
-export default CircleButton ;

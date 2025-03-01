@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Box, Typography, TextField } from '@mui/material';
-import { instance } from '../../utils/axios_instance';
+import { instance } from '../../../utils/axios_instance';
 import { Height, Padding } from '@mui/icons-material';
 
 const style = {
@@ -15,24 +15,9 @@ const style = {
   background:' rgba(0, 0, 0, 0.77)',
   boxShadow: '0px 4px 4px 0px rgba(255, 255, 255, 0.15) inset, 0px 0px 68px 0px rgba(255, 255, 255, 0.05) inset',
   backdropFilter: 'blur(24px)',
-  
-
 };
 
-interface IAddressData {
-    account_name: string;
-    account_address: string;
-    account_image: string;
-  }
-  
-
-interface AddAddressModalProps {
-    open: boolean;
-    onClose: () => void;
-    onAddAddress: (newAddress: IAddressData) => Promise<void>; // Добавляем onAddAddress
-  }
-
-  const AddAddressModal: React.FC<AddAddressModalProps> = ({ open, onClose,onAddAddress }) => {
+const AddAddressModal: React.FC<AddAddressModalProps> = ({ open, onClose,onAddAddress }) => {
     const [account_name, setName] = useState<string>('');
     const [account_address, setAddress] = useState<string>('');
 

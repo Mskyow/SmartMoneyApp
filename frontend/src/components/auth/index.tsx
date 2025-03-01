@@ -24,7 +24,8 @@ const AuthRootComponent : React.FC = () : JSX.Element => {
                 password: password
             }
             const user = await instance.post('auth/login',userData);
-            dispatch( login(user.data))
+            dispatch( login(user.data.user))
+            localStorage.setItem("token", user.data.token);
             navigate('/watchlist');
            } catch (error : any) {
             return error

@@ -7,7 +7,7 @@ interface IAuthState  {
 
 interface IPublicUser {
     id : number | null,
-    userName : string,
+    username : string,
     email : string,
     createdAt : string ,
     updatedAt : string,
@@ -16,8 +16,9 @@ interface IPublicUser {
 
 interface IWatchList {
         id : number | null,
-        name : string,
-        assetId: string,
+        account_address : string,
+        account_name: string,
+        profile_image: string,
         createdAt : string ,
         updatedAt : string,
         user: number | null
@@ -26,14 +27,15 @@ interface IWatchList {
 const initialState:IAuthState = {
     user : {
         id : null,
-        userName : '',
+        username : '',
         email : '',
         createdAt : '' ,
         updatedAt : '',
         watchlist : [{
             id : null ,
-            name : '',
-            assetId: '',
+            account_address : '',
+            account_name: '',
+            profile_image : '',
             createdAt : '' ,
             updatedAt : '',
             user: null
@@ -44,27 +46,22 @@ const initialState:IAuthState = {
 
 
 
-export const authSlice = createSlice({
-    name : "auth",
-    initialState ,
-    reducers : {
-        login(state, action){
-            state.user = action.payload
-            state.isLogged = true    
-    }}
-})
+    export const authSlice = createSlice({
+        name: "auth",
+        initialState,
+        reducers: {
+            login(state, action) {
+                state.user = action.payload;
+                // console.log(action.payload)
+                state.isLogged = true;
+                // console.log(state.user)
+            },
+            addToWatchlist(state, action) {
+                state.user.watchlist.push(action.payload);
+            }
+        }
+    });
 
 
-// export const addAddressSlice = createSlice({
-//     name : "watchlist",
-//     user,
-//     reducers : {
-//         addAddress(state, action){
-//             state.user = action.payload
-//             state.isLogged = true    
-//     }}
-// })
-
-
-export const {login} = authSlice.actions
+export const {login,addToWatchlist} = authSlice.actions
 export default authSlice.reducer
