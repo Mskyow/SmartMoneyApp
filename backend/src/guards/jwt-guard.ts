@@ -1,5 +1,5 @@
-import { ExecutionContext, Injectable } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
+import { ExecutionContext, Injectable } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext) {
@@ -8,7 +8,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     // const authHeader = request.headers.authorization;
     // const token = authHeader.split(' ')[1];
     // console.log(token)
-   
 
     return super.canActivate(context);
   }

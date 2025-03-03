@@ -4,8 +4,8 @@ import { BlockChainService } from './block-chain.service';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports:[ConfigModule],
+  imports: [ConfigModule],
   controllers: [BlockChainController],
-  providers: [BlockChainService]
+  providers: [BlockChainService],
 })
 export class BlockChainModule {}

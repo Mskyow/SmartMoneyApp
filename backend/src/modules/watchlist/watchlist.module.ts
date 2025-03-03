@@ -7,6 +7,6 @@ import { Watchlist } from './models/watchlist.model';
 @Module({
   imports: [SequelizeModule.forFeature([Watchlist])],
   controllers: [WatchlistController],
-  providers: [WatchlistService]
+  providers: [WatchlistService],
 })
 export class WatchlistModule {}

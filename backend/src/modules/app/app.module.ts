@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from '../user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import config from '../../configurations/index'
+import config from '../../configurations/index';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from 'src/modules/user/models/user.model';
 import { AuthModule } from '../auth/auth.module';
@@ -15,25 +15,25 @@ import { BlockChainModule } from 'src/modules/block-chain/block-chain.module';
 @Module({
   imports: [
     UserModule,
-    ConfigModule.forRoot({isGlobal: true, load:[config]}),
+    ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     SequelizeModule.forRootAsync({
-      imports: [ConfigModule], 
-      inject: [ConfigService], 
-      useFactory: (configService)=>({ 
-        dialect: "postgres", 
-        host: configService.get('db_host'),
-        port: configService.get('db_port'),
-        username: configService.get('db_user'),
-        password: configService.get('db_password'),
-        database : configService.get('db_name'),
-        synchronize: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        dialect: 'postgres',
+        host: configService.get<string>('db_host') || 'localhost',
+        port: configService.get<number>('db_port') || 5432,
+        username: configService.get<string>('db_user') || 'postgres',
+        password: configService.get<string>('db_password') || 'password',
+        database: configService.get<string>('db_name') || 'mydatabase',
         autoLoadModels: true,
-        models : [User, Watchlist]
-       })}),
+        models: [User, Watchlist],
+      }),
+    }),
     AuthModule,
     TokenModule,
     WatchlistModule,
-    BlockChainModule
+    BlockChainModule,
   ],
   controllers: [AppController],
   providers: [AppService],

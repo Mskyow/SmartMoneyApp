@@ -1,24 +1,31 @@
-// переписать без использования библиотеки
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { BlockChainService } from './block-chain.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
 
 @Controller('block-chain')
 export class BlockChainController {
-    constructor(private readonly blockChainService : BlockChainService){}
-    
-    @ApiResponse({status:200})
-    @Get("/test-blockchain")
-    async testblockchain(){
-     await this.blockChainService.testfunc();
+  constructor(private readonly blockChainService: BlockChainService) {}
+
+  @Get('/test-blockchain')
+  async testBlockchain(): Promise<void> {
+    await this.blockChainService.testfunc();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('get-transactions')
+  async getTransactions(
+    @Body() body: { walletAddress: string },
+  ): Promise<void> {
+    if (!body || typeof body.walletAddress !== 'string') {
+      throw new Error('Invalid wallet address');
     }
 
-    @ApiResponse({status:200})
-    @UseGuards(JwtAuthGuard)
-    @Post("get-transactions")
-    async getTransctions(@Body() body){
-        console.log(body.walletAddress)
-        this.blockChainService.getTransctionsSignatures(body.walletAddress)
+    console.log(body.walletAddress);
+
+    try {
+      await this.blockChainService.getTransctionsSignatures(body.walletAddress);
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
     }
+  }
 }
