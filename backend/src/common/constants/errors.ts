@@ -9,6 +9,7 @@ export const  AppError = {
     SOLANA_HTTPS_PROVIDER_UNDEFIND: "Solana https provider is undefind" ,
 
     UPDATE_WATCHLIST_ADDRESS_ERROR : "no one rows was updated. Update was failed",
+    UPDATE_WATCHLIST_ERROR : "no one rows was updated. Update was failed",
     DELETE_WATCHLIST_ADDRESS_ERROR : "Delete was failed. No one rows was deleted",
     ADD_WATCHLIST_ADDRESS_ERROR :  "New address was not added to watchlist. Watchlist obj is undefined",
 }

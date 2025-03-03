@@ -14,7 +14,15 @@ import { Line } from './styles/mainContainer/line.style';
 
 
 const WatchList: React.FC = () => {
-  
+  const[currentCount,setcurrentCount] = React.useState(0);
+  const[planLimit,setPlanLimit] = React.useState(10);
+  const[isExpanded,setIsExpanded]= React.useState(false);
+
+  const handleExpandClick = () => {
+    setIsExpanded(!isExpanded); // Переключаем состояние
+  };
+
+   const handleWatchListCurrentCount = (size:number) =>{setcurrentCount(size)}
   return (
     <AppTheme>
     <Box
@@ -31,19 +39,21 @@ const WatchList: React.FC = () => {
           flexDirection: "column",
           alignItems: "center",
           gap: 1,
+          zIndex : isExpanded ? 3 : 0,
         }}
       >
         <Typography
           sx={{
             color: "#FFF",
             fontFamily: "jsMath-cmti10", // Используемый шрифт
-            fontSize: "64px", // Размер шрифта
+            fontSize: "64px",  // Условный размер текста
             fontStyle: "Italic",
             fontWeight: 500,
             lineHeight: "normal",
+            transition: "font-size 0.3s ease", // Анимация изменения размера текста
           }}
         >
-          Ss
+        {isExpanded ? "SolanaScout" : "Ss"}
         </Typography>
 
         {/* Маленький контейнер SideBar */}
@@ -60,7 +70,7 @@ const WatchList: React.FC = () => {
               gap: "6px",
              }}
           >
-            <CircleButton>1</CircleButton>
+            <CircleButton onClick={handleExpandClick}>1</CircleButton>
             <CircleButton>W</CircleButton>
             <CircleButton>S</CircleButton>
           </Box>
@@ -78,7 +88,7 @@ const WatchList: React.FC = () => {
           <WatchListTitle>WatchList</WatchListTitle>
 
           {/* Прямоугольник с 9/10 */}
-          <Rectangle>9/10</Rectangle>
+          <Rectangle>{currentCount}/{planLimit}</Rectangle>
 
           {/* Кнопка "+ add more" */}
           <AddMoreButton>
@@ -91,7 +101,7 @@ const WatchList: React.FC = () => {
         </Box>
         <Line/>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, padding: 2 }}>
-        <AddressList/>
+        <AddressList onWatchListCurrentCount={handleWatchListCurrentCount}/>
         </Box>
         </Box>
     </Box>

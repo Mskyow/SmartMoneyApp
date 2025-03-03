@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from '@nes
 import { WatchlistService } from './watchlist.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
-import { addAddressDTO, AddressDTO, deleteAddressDTO, updateAddressImgDTO, updateAddressNameDTO } from './DTO';
+import { addAddressDTO, AddressDTO, deleteAddressDTO, updateAddressDTO, updateAddressImgDTO, updateAddressNameDTO } from './DTO';
 import { Watchlist } from './models/watchlist.model';
 
 @Controller('watchlist')
@@ -38,7 +38,9 @@ export class WatchlistController {
         @ApiResponse({status:200,type:updateAddressNameDTO})
         @UseGuards(JwtAuthGuard)
         @Patch("/update-address-name")
-        async updateWatchListAddressName(@Body() updateAddressNameDTO : updateAddressNameDTO, @Req() request):Promise<updateAddressNameDTO>{
+        async updateWatchListAddressName(
+            @Body() updateAddressNameDTO : updateAddressNameDTO,
+            @Req() request):Promise<updateAddressNameDTO>{
             const userid = request.user.id as number;
             return this.watchListService.updateWatchListAddressName (userid,updateAddressNameDTO)
         }
@@ -54,6 +56,15 @@ export class WatchlistController {
             const userid = request.user.id as number ;
             return this.watchListService.updateWatchListAddressImage (userid,updateAddressImgDTO)
         }
-
+        @ApiResponse({ status: 200, type: updateAddressDTO })
+        @UseGuards(JwtAuthGuard)
+        @Patch("/update-address")
+        async updateWatchListAddress(
+            @Body() updateAddressDTO: updateAddressDTO, 
+            @Req() request
+        ): Promise<updateAddressDTO> {
+            const userid = request.user.id as number;
+            return this.watchListService.updateWatchListAddress(userid, updateAddressDTO);
+        }
 
 }

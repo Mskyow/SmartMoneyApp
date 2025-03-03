@@ -64,3 +64,15 @@ export class updateAddressNameDTO{
     new_account_name: string 
 
 }
+
+export class updateAddressDTO {
+    @ApiProperty()
+    @IsString()
+    account_address: string;
+    @ApiProperty()
+    @IsString()
+    new_account_name?: string; // Опциональное поле
+    @ApiProperty()
+    @IsString()
+    new_account_image?: string; // Опциональное поле
+}

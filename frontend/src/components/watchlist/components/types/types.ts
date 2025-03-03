@@ -5,14 +5,21 @@ interface IWatchList {
     profile_image: string,
   }
 
-  interface INewAddress {
+  interface IAddressEntityProps  {
 
     account_address: string 
 
     account_name: string 
 
     account_image: string 
+
+    onDeleteAddress: (account_address: string) => void; // Добавляем пропс для функции удаления
+
+    onEditAddress: (account_address: string, newName: string, newImage: string) => void;
+
+
 }
+
 
 interface IAddressData {
     account_name: string;

@@ -16,9 +16,10 @@ function App() {
         <Route path='login' element={<AuthRootComponent/>}/>
         <Route path='register' element={<AuthRootComponent/>}/>
 
-       
+        <Route element={<PrivateRoute/>}>
           <Route path='/watchlist' element={<WatchList/>}/>
-      
+          </Route>
+
       </Routes>
     </div>
   );

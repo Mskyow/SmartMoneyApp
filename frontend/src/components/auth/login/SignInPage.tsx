@@ -37,7 +37,7 @@ export default function SignInSide(props: ISignInSideProps ) {
               backgroundRepeat: 'no-repeat',
               ...theme.applyStyles('dark', {
                 backgroundImage:
-                  'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
+                  'radial-gradient(at 50% 50%, hsl(284, 83.70%, 9.60%), hsl(220, 80%, 0%))',
               }),
             },
           }),

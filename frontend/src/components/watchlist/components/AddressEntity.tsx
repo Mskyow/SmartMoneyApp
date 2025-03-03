@@ -1,19 +1,59 @@
-import { Box, Typography, IconButton, Popover, Button } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Typography, IconButton, Popover, Button, TextField } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { instance } from "../../../utils/axios_instance";
 
-export const AddressEntity = ({  account_name, account_address ,account_image }:INewAddress) => {
-    const [anchorEl, setAnchorEl] = useState(null);
+export const AddressEntity = ({  account_name, account_address ,account_image,onDeleteAddress,onEditAddress }:IAddressEntityProps) => {
+const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event : any) => {setAnchorEl(anchorEl ? null : event.currentTarget);};
+  const handleClose = () => {setAnchorEl(null);};
+  const [isEditing, setIsEditing] = useState(false); // Режим редактирования
+  const [newName, setNewName] = useState(account_name); // Новое имя
+  const [newImage, setNewImage] = useState(account_image); // Новое изображение
+  const containerRef = useRef<HTMLDivElement>(null); // Ref для отслеживания кликов внутри компонента
 
-  const handleClick = (event : any) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const handleDeleteAddress = async () => {
+    try {
+       await onDeleteAddress(account_address);
+        } 
+        catch (error) {
+        console.error("Ошибка при удалении адреса:", error);
+        }
+  }
+  const handleEditClick = () => {
+    setIsEditing(true); // Включаем режим редактирования
+    handleClose(); // Закрываем Popover
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleSaveClick = async () => {
+    try {
+        if (newName !== account_name || newImage !== account_image) { // подумать про пустые значения
+            await onEditAddress(account_address, newName, newImage); // Отправляем изменения на бэкенд
+          }
+        setIsEditing(false); // Возвращаемся в режим просмотра
+
+    } catch (error) {
+      console.error("Ошибка при сохранении изменений:", error);
+    }
   };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+        if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+            setIsEditing(false);
+          }
+    };
+
+    // Добавляем обработчик при монтировании компонента
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Убираем обработчик при размонтировании компонента
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <Box
+    ref={containerRef} // Привязываем ref к контейнеру
       sx={{
         width: "15vw",
         height: "8vh",
@@ -37,27 +77,55 @@ export const AddressEntity = ({  account_name, account_address ,account_image }:
           background:
             'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3xbitvBXWXb3Z86QjvGBcdvpBn5KFgrP8-g&s") center/cover no-repeat',
         }}
+        /*background: `url(${isEditing ? newImage : account_image}) center/cover no-repeat`*/
       />
 
       {/* Имя и адрес */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        <Typography
-          sx={{
-            color: "black !important",
-            fontFamily: '"Inria Serif"',
-            fontSize: "23px",
-            fontWeight: 400,
-          }}
-        >
-          {account_name}
-        </Typography>
-        <Typography sx={{ color: "#ADADAD", fontFamily: "Inter", fontSize: "16px" }}>
-          {account_address}
-        </Typography>
+     {/* Поля для редактирования */}
+     <Box sx={{ display: "flex", flexDirection: "column", gap: "2", flexGrow: 1 }}>
+        {isEditing ? (
+          <>
+            <TextField
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              sx={{ mb: 2, width:'100px',height:'10px' }}
+            />
+            <TextField
+              value={newImage}
+              onChange={(e) => setNewImage(e.target.value)}
+              size="small"
+              fullWidth
+              sx={{ mb: 2, width:'100px',height:'10px' }}
+              placeholder="Введите URL изображения"
+            />
+          </>
+        ) : (
+          <>
+            <Typography sx={{ color: "black !important", fontFamily: '"Inria Serif"', fontSize: "23px", fontWeight: 400 }}>
+              {account_name}
+            </Typography>
+            <Typography sx={{ color: "#ADADAD", fontFamily: "Inter", fontSize: "16px" }}>
+              {account_address}
+            </Typography>
+          </>
+        )}
       </Box>
 
       {/* Кнопка с тремя точками */}
-      <IconButton
+      {isEditing ? <IconButton
+          onClick={handleSaveClick}
+          sx={{
+            minWidth: "24px",
+            minHeight: "24px",
+            backgroundColor: "rgb(166, 13, 156) !important",
+            border: "none",
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13.8536 3.85355L5.85355 11.8536C5.65829 12.0488 5.34171 12.0488 5.14645 11.8536L2.14645 8.85355C1.95118 8.65829 1.95118 8.34171 2.14645 8.14645C2.34171 7.95118 2.65829 7.95118 2.85355 8.14645L5.5 10.7929L13.1464 3.14645C13.3417 2.95118 13.6583 2.95118 13.8536 3.14645C14.0488 3.34171 14.0488 3.65829 13.8536 3.85355Z" fill="white" />
+          </svg>
+        </IconButton>
+        : <IconButton
         onClick={handleClick}
         sx={{
           position: "absolute",
@@ -76,6 +144,7 @@ export const AddressEntity = ({  account_name, account_address ,account_image }:
           <circle cx="2" cy="14" r="2" fill="black" />
         </svg>
       </IconButton>
+        }
 
       <Popover
         open={Boolean(anchorEl)}
@@ -96,6 +165,7 @@ export const AddressEntity = ({  account_name, account_address ,account_image }:
         }}
       >
         <Button
+        onClick={handleEditClick}
           sx={{
             color: "#FFF",
             fontFamily: "Inria Serif",
@@ -112,7 +182,10 @@ export const AddressEntity = ({  account_name, account_address ,account_image }:
           </svg>
           Edit
         </Button>
+        {/* Кнопка "Сохранить" (галочка) */}
+     
         <Button
+        onClick={handleDeleteAddress}
           sx={{
             color: "#FFF",
             fontFamily: "Inria Serif",

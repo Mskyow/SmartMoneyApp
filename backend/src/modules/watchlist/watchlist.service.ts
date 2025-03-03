@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Watchlist } from './models/watchlist.model';
-import { addAddressDTO, deleteAddressDTO, updateAddressImgDTO, updateAddressNameDTO } from './DTO';
+import { addAddressDTO, deleteAddressDTO, updateAddressDTO, updateAddressImgDTO, updateAddressNameDTO } from './DTO';
 import { AppError } from 'src/common/constants/errors';
 
 @Injectable()
@@ -92,6 +92,28 @@ export class WatchlistService {
                 }
             )
             if(countUpdatedRows === 0) throw new BadRequestException(AppError.UPDATE_WATCHLIST_ADDRESS_ERROR)
+            return dto;
+        } catch (error) {
+            throw new Error(error);
+            
+        }
+    }
+    async updateWatchListAddress (userId: number ,dto:updateAddressDTO):Promise<updateAddressDTO> {
+
+        try {
+            const [countUpdatedRows] = await this.watchListRepository.update(
+                {
+                    account_name : dto.new_account_name,
+                    profile_image : dto.new_account_image
+                },
+                {
+                    where : {
+                        user : userId,
+                        account_address: dto.account_address
+                    }
+                }
+            )
+            if(countUpdatedRows === 0) throw new BadRequestException(AppError.UPDATE_WATCHLIST_ERROR)
             return dto;
         } catch (error) {
             throw new Error(error);
