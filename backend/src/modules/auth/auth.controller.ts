@@ -6,7 +6,7 @@ import { ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
 import { AuthUserResponse } from './response';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
