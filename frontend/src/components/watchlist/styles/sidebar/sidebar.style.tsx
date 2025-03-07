@@ -16,3 +16,5 @@ export const sidebarStyles = {
     `, // Тени (внутренние)
     backdropFilter: "blur(24px)", // Размытие
   };
+
+ 

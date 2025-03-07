@@ -1,6 +1,7 @@
 import { Box, Typography, IconButton, Popover, Button, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { instance } from "../../../utils/axios_instance";
+import { useNavigate } from "react-router-dom";
 
 export const AddressEntity = ({  account_name, account_address ,account_image,onDeleteAddress,onEditAddress }:IAddressEntityProps) => {
 const [anchorEl, setAnchorEl] = useState(null);
@@ -10,7 +11,11 @@ const [anchorEl, setAnchorEl] = useState(null);
   const [newName, setNewName] = useState(account_name); // Новое имя
   const [newImage, setNewImage] = useState(account_image); // Новое изображение
   const containerRef = useRef<HTMLDivElement>(null); // Ref для отслеживания кликов внутри компонента
+  const navigate = useNavigate();
 
+  const handleAddressClick = async () => {
+    navigate(`/watchlist/address/${account_address}`);
+  }
   const handleDeleteAddress = async () => {
     try {
        await onDeleteAddress(account_address);
@@ -53,6 +58,7 @@ const [anchorEl, setAnchorEl] = useState(null);
 
   return (
     <Box
+    onClick={handleAddressClick}
     ref={containerRef} // Привязываем ref к контейнеру
       sx={{
         width: "15vw",
@@ -65,6 +71,10 @@ const [anchorEl, setAnchorEl] = useState(null);
         padding: "8px",
         gap: "12px",
         position: "relative",
+        transition: "all 0.3s ease-in-out",
+        "&:hover": {
+          boxShadow: "0px 10px 20px rgb(112, 15, 172)", // Выпадающая тень
+    },
       }}
     >
       {/* Фото */}
@@ -111,9 +121,11 @@ const [anchorEl, setAnchorEl] = useState(null);
         )}
       </Box>
 
-      {/* Кнопка с тремя точками */}
       {isEditing ? <IconButton
-          onClick={handleSaveClick}
+            onClick={(e) => {
+              e.stopPropagation(); 
+              handleSaveClick(); // Вызываем сохранение
+            }}
           sx={{
             minWidth: "24px",
             minHeight: "24px",
@@ -165,7 +177,10 @@ const [anchorEl, setAnchorEl] = useState(null);
         }}
       >
         <Button
-        onClick={handleEditClick}
+        onClick={(e) => {
+          e.stopPropagation(); 
+          handleEditClick();
+        }}
           sx={{
             color: "#FFF",
             fontFamily: "Inria Serif",
@@ -182,8 +197,7 @@ const [anchorEl, setAnchorEl] = useState(null);
           </svg>
           Edit
         </Button>
-        {/* Кнопка "Сохранить" (галочка) */}
-     
+      
         <Button
         onClick={handleDeleteAddress}
           sx={{

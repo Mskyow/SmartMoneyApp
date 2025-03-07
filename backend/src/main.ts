@@ -26,6 +26,7 @@ async function bootstrap() {
     origin: 'http://localhost:3000', // Разрешите только этот источник
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Разрешённые методы
     credentials: true, // Если нужно передавать куки
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-custom-header'],
   });
   await app.listen(port || 5000);
 }
