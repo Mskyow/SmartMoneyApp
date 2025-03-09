@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Box } from "@mui/material";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { instance } from "../../utils/axios_instance";
+import { useLocation } from "react-router-dom";
 
-const data = Array(10).fill({
-  token: "Doge",
-  value: 240.0,
-  date: "16.07.2025",
-  operation: "long/short/transfer/stake",
-  hash: "0x13fdsadessasdsa1...",
-  to: "0xaddress2113dsa1...",
-});
+
 
 const mockChartData = [
   { time: "10:00", price: 240 },
@@ -17,14 +12,41 @@ const mockChartData = [
   { time: "12:00", price: 238 },
   { time: "13:00", price: 245 },
 ];
+interface ItxType{
+    tokenName: string,
+    formattedDate: string,
+    amountTransferred: number,
+    transactionType: string
+}
+
 
 const CustomTable = () => {
   const [activeTab, setActiveTab] = useState("transactions");
   const [selectedRow, setSelectedRow] = useState(null);
   const [page, setPage] = useState(1);
+  const [data,setData] = useState([])
+  const location = useLocation();
+  const { account_name, account_address, account_image } :IAddressData = location.state || {};
   const rowsPerPage = 5;
 
-  const handleClick = (row: typeof data[number]) => {
+  useEffect(() => {
+    if (!account_address) return; 
+    const fetchData = async () => { 
+      try {
+        const token = localStorage.getItem("token");
+        const response = await instance.post("/block-chain/get-transactions",{account_address},
+          {headers: { Authorization: `Bearer ${token}` },}); 
+        console.log(response)
+        setData(response.data); 
+      } catch (err) {
+      } finally {
+      }
+    }; 
+   
+    fetchData();
+  }, []); 
+
+  const handleClick = (row: any) => {
     setSelectedRow(row);
   };
 
@@ -77,19 +99,15 @@ const CustomTable = () => {
                   <TableCell style={{ color: "#fff" }}>Value</TableCell>
                   <TableCell style={{ color: "#fff" }}>Date</TableCell>
                   <TableCell style={{ color: "#fff" }}>Operation Type</TableCell>
-                  <TableCell style={{ color: "#fff" }}>Transaction Hash</TableCell>
-                  <TableCell style={{ color: "#fff" }}>To</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((row, index) => (
+                {data.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((row:ItxType, index) => (
                   <TableRow key={index} onClick={() => handleClick(row)} style={{ cursor: "pointer" }}>
-                    <TableCell style={{ color: "#fff" }}>{row.token}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.value}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.date}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.operation}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.hash}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.to}</TableCell>
+                    <TableCell style={{ color: "#fff" }}>{row.tokenName}</TableCell>
+                    <TableCell style={{ color: "#fff" }}>{row.amountTransferred}</TableCell>
+                    <TableCell style={{ color: "#fff" }}>{row.formattedDate}</TableCell>
+                    <TableCell style={{ color: "#fff" }}>{row.transactionType}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -99,7 +117,7 @@ const CustomTable = () => {
             count={Math.ceil(data.length / rowsPerPage)}
             page={page}
             onChange={(e, value) => setPage(value)}
-            style={{ marginTop: 20, display: "flex", justifyContent: "center" }}
+            style={{ marginTop: 20, display: "flex", justifyContent: "center" , backgroundColor:"rgba(255, 255, 255, 0.35)", color:"white !important"}}
           />
         </>
       ) : (
@@ -108,7 +126,7 @@ const CustomTable = () => {
 
       {selectedRow && (
         <Box style={{ marginTop: 20 }}>
-          <h3>График стоимости {selectedRow}</h3>
+          <h3>График стоимости {selectedRow}</h3> {/* Используем конкретное свойство */}
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={mockChartData}>
               <CartesianGrid strokeDasharray="3 3" />

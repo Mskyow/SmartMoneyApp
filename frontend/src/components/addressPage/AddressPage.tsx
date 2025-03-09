@@ -5,9 +5,11 @@ import { Line } from "../watchlist/styles/mainContainer/line.style";
 import TokenSelector from "./tokenSelector";
 import CustomTable from "./CustomTable";
 import { accountAddress, accountInfoPanle, accountName, balanceText, headOfPage, logoText, mainBoxinsidePage, mainBoxPage, sidebarStyles2, tokensText } from "./styles/styles";
+import { useLocation } from "react-router-dom";
 
 const AddressPage = () => {
-    console.log('sdsd')
+    const location = useLocation();
+    const { account_name, account_address, account_image } :IAddressData = location.state || {};
     return (
         <Box
           sx={mainBoxPage}
@@ -53,12 +55,12 @@ const AddressPage = () => {
                         <Typography
                         sx={accountName}
                         >
-                        MyTrader
+                        {account_name}
                         </Typography>
                         <Typography
                         sx={accountAddress}
                         >
-                        0x12fsadf162f6dvvd7g321f1ctccegf
+                        {account_address}
                         </Typography>
                     </Box>
                     {/*Вторая колонка*/}
@@ -99,7 +101,7 @@ const AddressPage = () => {
                 <Line/>
 
                 <Box sx={{display:"flex"}}>
-                    <CustomTable/>
+                    <CustomTable />
                 </Box>
             </Box>
            

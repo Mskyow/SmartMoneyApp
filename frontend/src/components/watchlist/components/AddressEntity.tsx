@@ -14,7 +14,15 @@ const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
   const handleAddressClick = async () => {
-    navigate(`/watchlist/address/${account_address}`);
+    navigate(`/watchlist/address/${account_address}`,
+      {
+      state: {
+        account_name,
+        account_address,
+        account_image,
+      }
+    }
+    );
   }
   const handleDeleteAddress = async () => {
     try {

@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { BlockChainService } from './block-chain.service';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
+import { VersionedTransactionResponse } from '@solana/web3.js';
 
 @Controller('block-chain')
 export class BlockChainController {
@@ -13,19 +14,24 @@ export class BlockChainController {
 
   @UseGuards(JwtAuthGuard)
   @Post('get-transactions')
-  async getTransactions(
-    @Body() body: { walletAddress: string },
-  ): Promise<void> {
-    if (!body || typeof body.walletAddress !== 'string') {
-      throw new Error('Invalid wallet address');
-    }
-
-    console.log(body.walletAddress);
-
+  async getTransactions (
+   @Body('account_address') account_address: string, 
+  ):  Promise<{
+    tokenName: string;
+    formattedDate: string;
+    amountTransferred: number;
+    transactionType: 'Transfer' | 'Swap' | 'Unknown';
+  }[]> {
     try {
-      await this.blockChainService.getTransctionsSignatures(body.walletAddress);
+      if (!account_address || typeof account_address !== 'string') {
+        throw new BadRequestException('Invalid wallet address');
+      }
+      const resp = await this.blockChainService.getTransctionsSignatures(account_address);
+      await console.log(resp);
+      return resp
     } catch (error) {
       console.error('Error fetching transactions:', error);
+      return error
     }
   }
 }
