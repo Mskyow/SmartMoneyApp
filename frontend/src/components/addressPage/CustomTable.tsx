@@ -3,6 +3,7 @@ import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRo
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { instance } from "../../utils/axios_instance";
 import { useLocation } from "react-router-dom";
+import { green } from "@mui/material/colors";
 
 
 
@@ -34,10 +35,9 @@ const CustomTable = () => {
     const fetchData = async () => { 
       try {
         const token = localStorage.getItem("token");
-        const response = await instance.post("/block-chain/get-transactions",{account_address},
+        const responseTx = await instance.post("/block-chain/get-transactions",{account_address},
           {headers: { Authorization: `Bearer ${token}` },}); 
-        console.log(response)
-        setData(response.data); 
+        setData(responseTx.data); 
       } catch (err) {
       } finally {
       }
@@ -95,17 +95,19 @@ const CustomTable = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ color: "#fff" }}>Token</TableCell>
-                  <TableCell style={{ color: "#fff" }}>Value</TableCell>
-                  <TableCell style={{ color: "#fff" }}>Date</TableCell>
-                  <TableCell style={{ color: "#fff" }}>Operation Type</TableCell>
+                  <TableCell style={{ color: "#fff",fontWeight:'bold'}}>Token</TableCell>
+                  <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Value</TableCell>
+                  <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Date</TableCell>
+                  <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Operation Type</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((row:ItxType, index) => (
                   <TableRow key={index} onClick={() => handleClick(row)} style={{ cursor: "pointer" }}>
-                    <TableCell style={{ color: "#fff" }}>{row.tokenName}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.amountTransferred}</TableCell>
+                    <TableCell style={{ color:  "#fff"}}>{row.tokenName}</TableCell>
+                    <TableCell style={{ color: row.amountTransferred > 0 ?  'rgb(11, 139, 33)' : 'red' }}>{
+                    row.amountTransferred>0? "+" + row.amountTransferred.toFixed(7) : row.amountTransferred.toFixed(7)
+                   }</TableCell>
                     <TableCell style={{ color: "#fff" }}>{row.formattedDate}</TableCell>
                     <TableCell style={{ color: "#fff" }}>{row.transactionType}</TableCell>
                   </TableRow>

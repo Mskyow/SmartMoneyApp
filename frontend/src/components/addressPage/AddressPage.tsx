@@ -1,15 +1,32 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CircleButton } from "../watchlist/styles/sidebar/circleButton.style";
 import { Line } from "../watchlist/styles/mainContainer/line.style";
 import TokenSelector from "./tokenSelector";
 import CustomTable from "./CustomTable";
 import { accountAddress, accountInfoPanle, accountName, balanceText, headOfPage, logoText, mainBoxinsidePage, mainBoxPage, sidebarStyles2, tokensText } from "./styles/styles";
 import { useLocation } from "react-router-dom";
+import { instance } from "../../utils/axios_instance";
 
 const AddressPage = () => {
     const location = useLocation();
     const { account_name, account_address, account_image } :IAddressData = location.state || {};
+    const [balance,setBalance] = useState(null)
+     useEffect(() => {
+        if (!account_address) return; 
+        const fetchData = async () => { 
+          try {
+            const token = localStorage.getItem("token");
+            const responseBalance = await instance.post("/block-chain/get-balance",{account_address},
+              { headers: { Authorization: `Bearer ${token}` }});
+            setBalance(responseBalance.data)
+          } catch (err) {
+          } finally {
+          }
+        }; 
+       
+        fetchData();
+      }, []); 
     return (
         <Box
           sx={mainBoxPage}
@@ -92,7 +109,7 @@ const AddressPage = () => {
                             <Typography
                             sx={{...tokensText,textAlign: "left",}}
                             >
-                                $200
+                                {balance}
                             </Typography>
                             <TokenSelector/>
                         </Box>
