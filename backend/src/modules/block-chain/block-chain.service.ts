@@ -14,7 +14,7 @@ import { AppError } from 'src/common/constants/errors';
 
 @Injectable()
 export class BlockChainService {
-  private solana: Connection;
+  protected solana: Connection;
   private METADATA_PROGRAM_ID =  new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'); 
   constructor(private readonly configService: ConfigService) {
     const httpsProviderLink: string | undefined =
@@ -25,7 +25,7 @@ export class BlockChainService {
     }
 
     this.solana = new web3.Connection(httpsProviderLink);
- 
+    this.solana.onLogs
   }
 
   async testfunc(): Promise<void> {
