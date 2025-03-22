@@ -4,7 +4,8 @@ import { ExpandMore } from '@mui/icons-material';
 
 const tokens = ['SOL', 'ETH', 'BTC', 'USDC'];
 
-const TokenSelector = () => {
+
+const TokenSelector = ({ tokenList }: { tokenList: ITokenListObject[] }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedToken, setSelectedToken] = useState(tokens[0]);
 
@@ -37,7 +38,7 @@ const TokenSelector = () => {
           justifyContent: 'space-between',
           padding: '0 10px',
           textTransform: 'none',
-        }}
+        }} 
       >
         {selectedToken}
         <ExpandMore sx={{ color: '#FFF', marginLeft: '5px' }} />
@@ -55,10 +56,10 @@ const TokenSelector = () => {
           },
         }}
       >
-        {tokens.map((token) => (
+        {tokenList.map((token) => (
           <MenuItem
-            key={token}
-            onClick={() => handleTokenSelect(token)}
+            key={token.symbol}
+            onClick={() => handleTokenSelect(token.symbol)}
             sx={{
               color: '#FFF',
               '&:hover': {
@@ -66,7 +67,25 @@ const TokenSelector = () => {
               },
             }}
           >
-            {token}
+          <Box sx={{display:"flex",flexDirection : "row", padding:'10px'}}>
+            <Box
+              sx={{
+              width: "20vw",
+              height: "5vh",
+              borderRadius: "10px",
+                background:
+              `url(${token.image})  no-repeat`,
+                }}
+                /*background: `url(${isEditing ? newImage : account_image}) center/cover no-repeat`*/
+              />
+            <Box sx={{mr:"500px"}}>
+            {token.name}
+            </Box>
+            <Box>
+              {token.uiAmount}
+            </Box>
+          </Box>
+
           </MenuItem>
         ))}
       </Menu>

@@ -11,7 +11,11 @@ import {
 } from '@solana/web3.js';
 import pLimit from 'p-limit';
 import { AppError } from 'src/common/constants/errors';
-
+interface ITokenMetadata { 
+  name: string; 
+  symbol:string, 
+  image: string 
+}
 @Injectable()
 export class BlockChainService {
   protected solana: Connection;
@@ -52,7 +56,7 @@ export class BlockChainService {
   
       const publicKey = new PublicKey(walletAddress);
       const signatures: ConfirmedSignatureInfo[] = await this.solana.getSignaturesForAddress(publicKey, {
-        limit: 60,
+        limit: 40,
       });
   
       if (signatures.length === 0) {
@@ -177,7 +181,7 @@ export class BlockChainService {
       throw new Error(String(error));
     }
   }
-  
+
   async getTokenName(mintAddress: string): Promise<string> {
     if (!mintAddress) {
       return 'Unknown Token';
@@ -204,7 +208,7 @@ export class BlockChainService {
     }
   }
   
-  async  getTokenMetadata(mint: string): Promise<{ name: string; symbol:string, image: string } | null> {
+  async  getTokenMetadata(mint: string): Promise<ITokenMetadata | null> {
     const mintPublicKey = new PublicKey(mint);
   
     // Вычисляем PDA (предсказуемый адрес) для метаданных
@@ -241,7 +245,7 @@ export class BlockChainService {
   
     
     const normalizeIpfsUrl = metadataUrl.replace('cf-ipfs.com', 'ipfs.io')
-    console.log('Метаданные токена хранятся тут:', normalizeIpfsUrl);
+    //console.log('Метаданные токена хранятся тут:', normalizeIpfsUrl);
 
     await new Promise((resolve) => setTimeout(resolve, 200));
     const response = await fetch(normalizeIpfsUrl);
@@ -265,7 +269,7 @@ export class BlockChainService {
   }
 
   async getTokensOnAccount (walletAddress:string):Promise<any>{
-    const limit = pLimit(5); // Ограничиваем количество одновременных запросов до 5
+    const limit = pLimit(3); // Ограничиваем количество одновременных запросов до 5
     const address  = new PublicKey(walletAddress);
     const tokenAccounts = await this.solana.getParsedTokenAccountsByOwner(address, {
       programId: TOKEN_PROGRAM_ID});
@@ -276,13 +280,13 @@ export class BlockChainService {
           if(tokenAmount.uiAmount>0){
           const mint = account.data.parsed.info.mint;
           const tokenMetadata = await this.getTokenMetadata(mint);
-          return { tokenMetadata, tokenAmount };}
+          return { ...tokenMetadata, ...tokenAmount };}
           else return null;
         }))
       );
 
-    console.log(tokens)
-    return tokens
+    //console.log(tokens)
+    return tokens.filter((item)=>{return item !== null})
   }
 }
 

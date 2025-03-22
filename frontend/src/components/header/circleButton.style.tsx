@@ -1,9 +1,7 @@
 import { Button, styled } from "@mui/material";
 
 export const CircleButton = styled(Button)(({ theme }) => ({
-    borderRadius: '50%', // Делаем кнопку круглой
-    width: '30px', // Ширина кнопки
-    height: '30px', // Высота кнопки
+    borderRadius: '20%', // Делаем кнопку круглой
     minWidth: '30px', // Минимальная ширина
     backgroundColor: 'rgb(255, 255, 255)', // Фон кнопки
     fontFamily: "jsMath-cmti10", // Используемый шрифт
