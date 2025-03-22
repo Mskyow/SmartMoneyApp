@@ -1,5 +1,3 @@
-import * as process from "node:process";
-
 export default () => ({
   port: process.env.PORT,
   db_port: process.env.DB_PORT,

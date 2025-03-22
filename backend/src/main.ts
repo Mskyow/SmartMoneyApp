@@ -3,7 +3,6 @@ import { AppModule } from './modules/app/app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import * as process from "node:process";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +13,6 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('Smart Money App API')
@@ -25,7 +23,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.enableCors({
-    origin: configService.get<string>('cors_origin'), // Разрешите только этот источник
+    origin: 'http://localhost:3000', // Разрешите только этот источник
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Разрешённые методы
     credentials: true, // Если нужно передавать куки
     allowedHeaders: ['Content-Type', 'Authorization', 'x-custom-header'],
