@@ -1,6 +1,7 @@
+import { Margin } from "@mui/icons-material";
+
 export const mainContainerStyles = {
-    flex: 1, // Занимает всё оставшееся пространство
-    height: "90vh", // Высота, можно адаптировать
+    minheight: "50vh", // Высота, можно адаптировать
     borderRadius: "30px", // Закруглённые углы
     border: "1px solid rgba(92, 92, 92, 0.54)", // Белая рамка
     // opacity : '0.6',
@@ -15,9 +16,9 @@ export const mainContainerStyles = {
       0px 0px 78px 0px rgba(255, 255, 255, 0.05) inset
     `, // Тени (внутренние)
     backdropFilter: "blur(24px)", // Размытие
-    marginLeft: 1, // Расстояние между контейнерами
     display: "flex",
     flexDirection: "column",
     overflow: "auto",
-    padding: 4,
+    margin : '0 16px 16px 16px',
+    flex: 1, // Занимает всё доступное пространство
   }

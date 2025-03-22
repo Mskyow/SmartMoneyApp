@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Box } from "@mui/material";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { instance } from "../../utils/axios_instance";
+import { instance, instanceJWT } from "../../utils/axios_instance";
 import { useLocation } from "react-router-dom";
 import { green } from "@mui/material/colors";
+import TokenSelector from "./tokenSelector";
+import Porfolio from "./Portfolio";
 
 
 
@@ -34,9 +36,7 @@ const CustomTable = () => {
     if (!account_address) return; 
     const fetchData = async () => { 
       try {
-        const token = localStorage.getItem("token");
-        const responseTx = await instance.post("/block-chain/get-transactions",{account_address},
-          {headers: { Authorization: `Bearer ${token}` },}); 
+        const responseTx = await instanceJWT.post("/block-chain/get-transactions",{account_address},); 
         setData(responseTx.data); 
       } catch (err) {
       } finally {
@@ -82,49 +82,65 @@ const CustomTable = () => {
         >
           Analytics
         </Button>
+        <Button
+          onClick={() => setActiveTab("portfolio")}
+          style={{
+            borderRadius: "10px",
+            background: activeTab === "portfolio"
+              ? "linear-gradient(90deg, rgba(57, 6, 84, 0.52) 0%, rgba(91, 14, 240, 0.09) 100%)"
+              : "linear-gradient(90deg, #5F0FFF 0%, #360548 100%)",
+            color: "#fff",
+          }}
+        >
+          Portfolio
+        </Button>
       </Box>
 
-      {activeTab === "transactions" ? (
-        <>
-          <TableContainer component={Paper} style={{ 
-            background: "rgb(0, 0, 0)",
-            color: "#fff",
-            borderRadius: "10px",
-            border: "1px solid rgb(142, 142, 142)", 
-            }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ color: "#fff",fontWeight:'bold'}}>Token</TableCell>
-                  <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Value</TableCell>
-                  <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Date</TableCell>
-                  <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Operation Type</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((row:ItxType, index) => (
-                  <TableRow key={index} onClick={() => handleClick(row)} style={{ cursor: "pointer" }}>
-                    <TableCell style={{ color:  "#fff"}}>{row.tokenName}</TableCell>
-                    <TableCell style={{ color: row.amountTransferred > 0 ?  'rgb(11, 139, 33)' : 'red' }}>{
-                    row.amountTransferred>0? "+" + row.amountTransferred.toFixed(7) : row.amountTransferred.toFixed(7)
-                   }</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.formattedDate}</TableCell>
-                    <TableCell style={{ color: "#fff" }}>{row.transactionType}</TableCell>
+      {
+        activeTab === "transactions" ? (
+          <>
+            <TableContainer component={Paper} style={{ 
+              background: "rgb(0, 0, 0)",
+              color: "#fff",
+              borderRadius: "10px",
+              border: "1px solid rgb(142, 142, 142)", 
+              }}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ color: "#fff",fontWeight:'bold'}}>Token</TableCell>
+                    <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Value</TableCell>
+                    <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Date</TableCell>
+                    <TableCell style={{ color: "#fff",fontWeight:'bold'  }}>Operation Type</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Pagination
-            count={Math.ceil(data.length / rowsPerPage)}
-            page={page}
-            onChange={(e, value) => setPage(value)}
-            style={{ marginTop: 20, display: "flex", justifyContent: "center" , backgroundColor:"rgba(255, 255, 255, 0.35)", color:"white !important"}}
-          />
-        </>
-      ) : (
-        <Box>Аналитика (пока пусто)</Box>
-      )}
+                </TableHead>
+                <TableBody>
+                  {data.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((row:ItxType, index) => (
+                    <TableRow key={index} onClick={() => handleClick(row)} style={{ cursor: "pointer" }}>
+                      <TableCell style={{ color:  "#fff"}}>{row.tokenName}</TableCell>
+                      <TableCell style={{ color: row.amountTransferred > 0 ?  'rgb(11, 139, 33)' : 'red' }}>{
+                      row.amountTransferred>0? "+" + row.amountTransferred.toFixed(7) : row.amountTransferred.toFixed(7)
+                    }</TableCell>
+                      <TableCell style={{ color: "#fff" }}>{row.formattedDate}</TableCell>
+                      <TableCell style={{ color: "#fff" }}>{row.transactionType}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Pagination
+              count={Math.ceil(data.length / rowsPerPage)}
+              page={page}
+              onChange={(e, value) => setPage(value)}
+              style={{ marginTop: 20, display: "flex", justifyContent: "center" , backgroundColor:"rgba(255, 255, 255, 0.35)", color:"white !important"}}
+            />
+          </>
+        ) : activeTab === "analytics" ?(
+          <Box>Аналитика (пока пусто)</Box>
+        ) : (
+          <Porfolio/>
+        )
+      }
 
       {selectedRow && (
         <Box style={{ marginTop: 20 }}>
