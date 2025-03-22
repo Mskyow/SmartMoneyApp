@@ -111,6 +111,7 @@
   },
   "include": [
   "src",
-  "src/declaration.d.ts"
+  "src/declaration.d.ts",
+  "craco.config.ts"
   ]
 }

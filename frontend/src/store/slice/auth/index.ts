@@ -43,9 +43,6 @@ const initialState:IAuthState = {
     },
     isLogged: false
     }
-
-
-
     export const authSlice = createSlice({
         name: "auth",
         initialState,
@@ -61,6 +58,7 @@ const initialState:IAuthState = {
             }
         }
     });
+   
 
 
 export const {login,addToWatchlist} = authSlice.actions

@@ -5,6 +5,7 @@ import AppTheme from '../theme/appTheme';
 import ColorModeSelect from '../theme/colorModeSelect';
 import SignInCard from './signInCard';
 import Content from './content';
+import VerticalFooter from '../../footer/footer';
 interface ISignInSideProps {
   disableCustomTheme?: boolean;
   setEmail: any;
@@ -66,6 +67,7 @@ export default function SignInSide(props: ISignInSideProps ) {
           </Stack>
         </Stack>
       </Stack>
+      <VerticalFooter/>
     </AppTheme>
   );
 }
