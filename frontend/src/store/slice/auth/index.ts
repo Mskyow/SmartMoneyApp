@@ -56,11 +56,25 @@ export const authSlice = createSlice({
       state.isLogged = true;
       // console.log(state.user)
     },
-    addToWatchlist(state, action) {
-      state.user.watchlist.push(action.payload);
-    },
-  },
-});
+    isLogged: false
+    }
+    export const authSlice = createSlice({
+        name: "auth",
+        initialState,
+        reducers: {
+            login(state, action) {
+                state.user = action.payload;
+                // console.log(action.payload)
+                state.isLogged = true;
+                // console.log(state.user)
+            },
+            addToWatchlist(state, action) {
+                state.user.watchlist.push(action.payload);
+            }
+        }
+    });
+   
 
-export const { login, addToWatchlist } = authSlice.actions;
-export default authSlice.reducer;
+
+export const {login,addToWatchlist} = authSlice.actions
+export default authSlice.reducer

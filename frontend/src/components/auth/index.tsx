@@ -54,7 +54,9 @@ const AuthRootComponent : React.FC = () : JSX.Element => {
                   { location.pathname === '/login' ? <SignInSide setEmail={setEmail} setPassword={setPassword}/> :
                    location.pathname === '/register' ? <RegisterPage setEmail={setEmail} setUserName={setUserName} setPassword={setPassword}  /> : null }
                 </Box>
+
             </div>
+           
         </div>
     )
     

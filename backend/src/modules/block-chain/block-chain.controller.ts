@@ -6,10 +6,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { BlockChainService } from './block-chain.service';
-import { JwtAuthGuard } from 'src/guards/jwt-guard';
-import { VersionedTransactionResponse } from '@solana/web3.js';
 import { ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/guards/jwt-guard';
+import { BlockChainService } from './block-chain.service';
 interface ItxAnswer {
   tokenName: string;
   formattedDate: string;
@@ -44,8 +43,8 @@ export class BlockChainController {
         throw new BadRequestException('Invalid wallet address');
       }
       const resp =
-        await this.blockChainService.getTransctionsSignatures(account_address);
-      console.log(resp);
+        await this.blockChainService.getTransactionsSignatures(account_address);
+      //console.log(resp);
       return resp;
     } catch (error) {
       console.error('Error fetching transactions:', error);
@@ -59,6 +58,6 @@ export class BlockChainController {
   async getTokens(
     @Body('account_address') account_address: string,
   ): Promise<any> {
-    return await this.blockChainService.getTokensOnAccount(account_address);
+    return this.blockChainService.getTokensOnAccount(account_address);
   }
 }

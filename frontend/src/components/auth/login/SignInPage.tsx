@@ -1,10 +1,10 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
 import * as React from 'react';
+import VerticalFooter from '../../footer/footer';
 import AppTheme from '../theme/appTheme';
 import ColorModeSelect from '../theme/colorModeSelect';
 import Content from './content';
-import SignInCard from './signInCard';
 interface ISignInSideProps {
   disableCustomTheme?: boolean;
   setEmail: any;
@@ -15,6 +15,7 @@ export default function SignInSide(props: ISignInSideProps ) {
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+
       <Stack
         direction="column"
         component="main"
@@ -66,6 +67,7 @@ export default function SignInSide(props: ISignInSideProps ) {
           </Stack>
         </Stack>
       </Stack>
+      <VerticalFooter/>
     </AppTheme>
   );
 }

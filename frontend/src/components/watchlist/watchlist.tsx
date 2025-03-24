@@ -1,15 +1,13 @@
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as React from 'react';
-import AppTheme from '../auth/theme/appTheme';
+import VerticalFooter from '../footer/footer';
+import VerticalHeader from '../header/header';
 import { AddressList } from './components/AddressList';
 import { Rectangle } from './styles/mainContainer/limits.style';
 import { Line } from './styles/mainContainer/line.style';
 import { mainContainerStyles } from './styles/mainContainer/mainContainer.style';
-import { AddMoreButton } from './styles/mainContainer/upgraadeLimitsBtn.style';
-import { WatchListTitle } from './styles/mainContainer/watchListTitle.style';
-import { CircleButton } from './styles/sidebar/circleButton.style';
-import { sidebarStyles } from './styles/sidebar/sidebar.style';
+
+
 
 const WatchList: React.FC = () => {
   const[currentCount,setcurrentCount] = React.useState(0);
@@ -22,59 +20,20 @@ const WatchList: React.FC = () => {
 
    const handleWatchListCurrentCount = (size:number) =>{setcurrentCount(size)}
   return (
-    <AppTheme>
+    <>
+    
     <Box
       sx={{
-        height : '100vh',
+        minHeight: '100vh' ,
+        width: '100vw',
         display: "flex",
         backgroundColor: "#000",
+        flexDirection : 'column',
+        margin: 0, // Убираем отступы
+        padding: 0, // Убираем отступы
       }}
     >
-      {/* Левая колонка: Ss + sidebar */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 1,
-          zIndex : isExpanded ? 3 : 0,
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#FFF",
-            fontFamily: "jsMath-cmti10", // Используемый шрифт
-            fontSize: "64px",  // Условный размер текста
-            fontStyle: "Italic",
-            fontWeight: 500,
-            lineHeight: "normal",
-            transition: "font-size 0.3s ease", // Анимация изменения размера текста
-          }}
-        >
-        {isExpanded ? "SolanaScout" : "Ss"}
-        </Typography>
-
-        {/* Маленький контейнер SideBar */}
-        <Box
-          sx={sidebarStyles}
-        >
-          {/* Buttons container */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginTop : '20px',
-              gap: "6px",
-             }}
-          >
-            <CircleButton onClick={handleExpandClick}>1</CircleButton>
-            <CircleButton>W</CircleButton>
-            <CircleButton>S</CircleButton>
-          </Box>
-        </Box>
-        
-      </Box>
+    <VerticalHeader/>
 
       {/* Большой контейнер mainContainer*/}
       <Box
@@ -101,9 +60,13 @@ const WatchList: React.FC = () => {
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, padding: 2 }}>
         <AddressList onWatchListCurrentCount={handleWatchListCurrentCount}/>
         </Box>
-        </Box>
+      </Box>
+
+       
+      <VerticalFooter/>
     </Box>
-    </AppTheme>
+    
+    </>
   );
 };
 

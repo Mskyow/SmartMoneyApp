@@ -1,58 +1,42 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { instance } from "../../utils/axios_instance";
-import { IAddressData } from "../watchlist/components/types/types";
+import { RootState } from "../../store";
+import { fetchBlockchainData } from "../../store/thunk";
+import { useAppDispatch } from "../../utils/hook";
+import VerticalFooter from "../footer/footer";
+import VerticalHeader from "../header/header";
 import { Line } from "../watchlist/styles/mainContainer/line.style";
-import { CircleButton } from "../watchlist/styles/sidebar/circleButton.style";
 import CustomTable from "./CustomTable";
-import { accountAddress, accountInfoPanle, accountName, balanceText, headOfPage, logoText, mainBoxinsidePage, mainBoxPage, sidebarStyles2, tokensText } from "./styles/styles";
+import Loader from "./loader";
+import { accountAddress, accountInfoPanle, accountName, balanceText, mainBoxinsidePage, mainBoxPage, tokensText } from "./styles/styles";
 import TokenSelector from "./tokenSelector";
 
 const AddressPage = () => {
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const { account_name, account_address, account_image } :IAddressData = location.state || {};
-    const [balance,setBalance] = useState(null)
+    // const [balance,setBalance] = useState(null)
+    // const [tokenList,setTokenList] = useState<ITokenListObject[]>([])
+    const { balance, tokenList, loading, error } = useSelector(
+        (state:RootState) => state.addresPage
+      );
      useEffect(() => {
         if (!account_address) return; 
-        const fetchData = async () => { 
-          try {
-            const token = localStorage.getItem("token");
-            const responseBalance = await instance.post("/block-chain/get-balance",{account_address},
-              { headers: { Authorization: `Bearer ${token}` }});
-            setBalance(responseBalance.data)
-          } catch (err) {
-          } finally {
-          }
-        }; 
-       
-        fetchData();
-      }, []); 
+        dispatch(fetchBlockchainData(account_address));
+        }, [dispatch]);
+
+        // if (loading) return (<Loader/>);
+        // if (error) return <div>Error: error</div>;
+    
     return (
         <Box
           sx={mainBoxPage}
         >
-            <Box
-                sx={headOfPage}
-            >
-                <Typography
-                sx={logoText}
-                >
-                SolanaScout
-                </Typography>
-        
-                {/* Маленький контейнер SideBar */}
-                <Box
-                sx={{...sidebarStyles2}} 
-                >              
-                    <CircleButton>1</CircleButton>
-                    <CircleButton>W</CircleButton>
-                    <CircleButton>S</CircleButton>
-                </Box>
-                
-            </Box>
+            <VerticalHeader/>
     
-                {/*main huynya*/}
+            {/*main huynya*/}
             <Box 
                 sx={mainBoxinsidePage}>
                  {/*для того что сверху, картинка имя адрес и т.п.*/}
@@ -109,20 +93,25 @@ const AddressPage = () => {
                          }}>
                             <Typography
                             sx={{...tokensText,textAlign: "left",}}
-                            >
-                                {balance}
+                            >{
+                                loading === true ? <Loader/> : balance
+                            }
                             </Typography>
-                            <TokenSelector/>
+                            <TokenSelector tokenList={tokenList}/>
                         </Box>
                     </Box>    
                 </Box>
                 <Line/>
-
                 <Box sx={{display:"flex"}}>
+                {
+                    loading === true ? <Loader/> : 
                     <CustomTable />
+                }
                 </Box>
+                  
             </Box>
-           
+             
+           <VerticalFooter/>
         </Box>
     );
 }

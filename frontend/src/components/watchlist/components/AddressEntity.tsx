@@ -12,7 +12,13 @@ const [anchorEl, setAnchorEl] = useState(null);
   const [newImage, setNewImage] = useState(account_image); // Новое изображение
   const containerRef = useRef<HTMLDivElement>(null); // Ref для отслеживания кликов внутри компонента
   const navigate = useNavigate();
-
+  const truncateAddress = (address:string, startChars:number, endChars:number) => {
+    if (address.length <= startChars + endChars) {
+      return address; 
+    }
+    return `${address.slice(0, startChars)}...`;
+  };
+  const truncatedAddress = truncateAddress(account_address, 12, 0);
   const handleAddressClick = async () => {
     navigate(`/watchlist/address/${account_address}`,
       {
@@ -123,7 +129,7 @@ const [anchorEl, setAnchorEl] = useState(null);
               {account_name}
             </Typography>
             <Typography sx={{ color: "#ADADAD", fontFamily: "Inter", fontSize: "16px" }}>
-              {account_address}
+              {truncatedAddress}
             </Typography>
           </>
         )}

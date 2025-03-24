@@ -1,7 +1,6 @@
 import { Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { instance } from "../../../utils/axios_instance";
-import { addAddressBtn } from "../styles/mainContainer/addressList/addAddressBtn.style";
+import { instance, instanceJWT } from "../../../utils/axios_instance";
 import AddAddressModal from "./addAddressModal";
 import { AddressEntity } from "./AddressEntity";
 import { IAddressData, IWatchList } from "./types/types";
@@ -18,9 +17,7 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
     useEffect(() => {
       const fetchWatchlist = async () => {
         try {
-          const token = localStorage.getItem("token");
-          const response = await instance.get("/watchlist/get-all-addresses", {
-            headers: { Authorization: `Bearer ${token}` },
+          const response = await instanceJWT.get("/watchlist/get-all-addresses", {
           });
   
           setWatchlist(response.data); // Обновляем состояние
@@ -35,16 +32,13 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
   
     const handleAddAddress = async (newAddress : IAddressData) => {
       try {
-        const token = localStorage.getItem("token"); // Достаем токен
-        const response = await instance.post('/watchlist/add-address', newAddress, 
-          { headers: { Authorization: `Bearer ${token}` } });
+        const response = await instanceJWT.post('/watchlist/add-address', newAddress, );
         
           if (response.status === 201) {
-            const response = await instance.get("/watchlist/get-all-addresses", {
-              headers: { Authorization: `Bearer ${token}` },
+            const response = await instanceJWT.get("/watchlist/get-all-addresses", {
             });
             localStorage.setItem('watchlist', JSON.stringify(response.data));
-            console.log(response.data.length)
+            //console.log(response.data.length)
             setWatchlist(response.data)
             onWatchListCurrentCount(response.data.length);
           }
