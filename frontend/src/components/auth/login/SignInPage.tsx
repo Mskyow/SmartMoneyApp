@@ -17,7 +17,6 @@ export default function SignInSide(props: ISignInSideProps ) {
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
-      <WalletMultiButton />
 
       <Stack
         direction="column"
