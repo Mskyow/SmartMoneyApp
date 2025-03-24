@@ -21,7 +21,7 @@ export class BlockChainController {
   @UseGuards(JwtAuthGuard)
   @Post('/get-balance')
   async getBalance(@Body('account_address') account_address: string ): Promise<string> {
-    return await this.blockChainService.getAccountBalance(account_address);
+    return this.blockChainService.getAccountBalance(account_address);
   }
 
   @ApiResponse({ status: 200, type: Promise<ItxAnswer[]>  })
@@ -34,8 +34,8 @@ export class BlockChainController {
       if (!account_address || typeof account_address !== 'string') {
         throw new BadRequestException('Invalid wallet address');
       }
-      const resp = await this.blockChainService.getTransctionsSignatures(account_address);
-       console.log(resp);
+      const resp = await this.blockChainService.getTransactionsSignatures(account_address);
+       //console.log(resp);
       return resp
     } catch (error) {
       console.error('Error fetching transactions:', error);
@@ -47,6 +47,6 @@ export class BlockChainController {
   @UseGuards(JwtAuthGuard)
   @Post('/get-tokens')
   async getTokens(@Body('account_address') account_address: string ): Promise<any> {
-    return await this.blockChainService.getTokensOnAccount(account_address);
+    return this.blockChainService.getTokensOnAccount(account_address);
   }
 }

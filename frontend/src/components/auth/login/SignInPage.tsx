@@ -6,6 +6,7 @@ import ColorModeSelect from '../theme/colorModeSelect';
 import SignInCard from './signInCard';
 import Content from './content';
 import VerticalFooter from '../../footer/footer';
+import { WalletMultiButton } from '@solana/wallet-adapter-material-ui';
 interface ISignInSideProps {
   disableCustomTheme?: boolean;
   setEmail: any;
@@ -16,6 +17,8 @@ export default function SignInSide(props: ISignInSideProps ) {
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+      <WalletMultiButton />
+
       <Stack
         direction="column"
         component="main"

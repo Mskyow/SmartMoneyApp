@@ -15,7 +15,6 @@ export const mainContainerStyles = {
       0px 4px 4px 0px rgba(255, 255, 255, 0.09) inset, 
       0px 0px 78px 0px rgba(255, 255, 255, 0.05) inset
     `, // Тени (внутренние)
-    backdropFilter: "blur(24px)", // Размытие
     display: "flex",
     flexDirection: "column",
     overflow: "auto",
