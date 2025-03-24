@@ -11,7 +11,8 @@ export const AppError = {
   UPDATE_WATCHLIST_ADDRESS_ERROR: 'no one rows was updated. Update was failed',
   UPDATE_WATCHLIST_ERROR: 'no one rows was updated. Update was failed',
   DELETE_WATCHLIST_ADDRESS_ERROR: 'Delete was failed. No one rows was deleted',
-  ADD_WATCHLIST_ADDRESS_ERROR:'New address was not added to watchlist. Watchlist obj is undefined',
+  ADD_WATCHLIST_ADDRESS_ERROR:
+    'New address was not added to watchlist. Watchlist obj is undefined',
 
-  GET_ALL_TRANSACIONS_NULL:'This account has no transactions yet'
+  GET_ALL_TRANSACIONS_NULL: 'This account has no transactions yet',
 };

@@ -1,9 +1,10 @@
 import { Box, Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { instance } from "../../../utils/axios_instance";
+import { addAddressBtn } from "../styles/mainContainer/addressList/addAddressBtn.style";
 import AddAddressModal from "./addAddressModal";
 import { AddressEntity } from "./AddressEntity";
-import { addAddressBtn } from "../styles/mainContainer/addressList/addAddressBtn.style";
+import { IAddressData, IWatchList } from "./types/types";
 interface ChildComponentProps {
     onWatchListCurrentCount: (size: number) => void;
   }

@@ -1,4 +1,4 @@
-import { styled, Box } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
 export const Rectangle = styled(Box)({
     width: "59px",

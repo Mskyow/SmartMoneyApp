@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
+import { Box, Button, Menu, MenuItem } from '@mui/material';
+import React, { useState } from 'react';
 
 const tokens = ['SOL', 'ETH', 'BTC', 'USDC'];
 

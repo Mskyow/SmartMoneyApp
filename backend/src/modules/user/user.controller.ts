@@ -29,7 +29,7 @@ export class UserController {
     @Body() updateDTO: updateUserDTO,
     @Req() request,
   ): Promise<updateUserDTO> {
-    const userEmail : string = request.user.email;
+    const userEmail: string = request.user.email;
     return await this.userService.updateUser(userEmail, updateDTO);
   }
 

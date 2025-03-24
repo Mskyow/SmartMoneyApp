@@ -1,17 +1,15 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import AppTheme from '../auth/theme/appTheme';
 import { Typography } from '@mui/material';
-import {CircleButton} from './styles/sidebar/circleButton.style';
-import { sidebarStyles } from './styles/sidebar/sidebar.style';
-import { mainContainerStyles } from './styles/mainContainer/mainContainer.style';
+import Box from '@mui/material/Box';
+import * as React from 'react';
+import AppTheme from '../auth/theme/appTheme';
 import { AddressList } from './components/AddressList';
-import { WatchListTitle } from './styles/mainContainer/watchListTitle.style';
 import { Rectangle } from './styles/mainContainer/limits.style';
-import { AddMoreButton } from './styles/mainContainer/upgraadeLimitsBtn.style';
 import { Line } from './styles/mainContainer/line.style';
-
-
+import { mainContainerStyles } from './styles/mainContainer/mainContainer.style';
+import { AddMoreButton } from './styles/mainContainer/upgraadeLimitsBtn.style';
+import { WatchListTitle } from './styles/mainContainer/watchListTitle.style';
+import { CircleButton } from './styles/sidebar/circleButton.style';
+import { sidebarStyles } from './styles/sidebar/sidebar.style';
 
 const WatchList: React.FC = () => {
   const[currentCount,setcurrentCount] = React.useState(0);

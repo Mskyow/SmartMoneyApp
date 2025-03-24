@@ -1,22 +1,22 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import MuiCard from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
+import * as React from 'react';
+import { JSX } from 'react';
+import { FacebookIcon, GoogleIcon, SitemarkIcon } from '../customIcons';
 import AppTheme from '../theme/appTheme';
 import ColorModeSelect from '../theme/colorModeSelect';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../customIcons';
-import { JSX } from 'react';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',

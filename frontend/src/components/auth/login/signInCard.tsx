@@ -1,19 +1,19 @@
 // если перейти ввести данные в поля перейти на др страницу , вернуться по стрелочке назад заполнить второе поле например и нажать на кнопку входа , то первое поле на клиенте будет заполнено но данные не придут , возможно стоить сделать так чтобы данные email и pass заполнялись после клика по кнопке
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MuiCard from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from './forgotPassword';
+import * as React from 'react';
 import { GoogleIcon, SitemarkIcon } from '../customIcons';
+import ForgotPassword from './forgotPassword';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',

@@ -1,10 +1,10 @@
 import React from 'react';
-import Home from  './components/home/'
-import { Outlet, Route, Routes } from 'react-router-dom';
-import PrivateRoute from './utils/router/privateRoute';
-import AuthRootComponent from './components/auth';
-import WatchList from './components/watchlist/watchlist';
+import { Route, Routes } from 'react-router-dom';
 import AddressPage from './components/addressPage/AddressPage';
+import AuthRootComponent from './components/auth';
+import Home from './components/home/';
+import WatchList from './components/watchlist/watchlist';
+import PrivateRoute from './utils/router/privateRoute';
 
 function App() {
   return (
@@ -21,13 +21,9 @@ function App() {
           <Route path='/watchlist'>
             <Route index element={<WatchList/>}/>
             <Route path='address/:addressId' element={<AddressPage/>}>
-
             </Route>
           </Route>
           </Route>
-
-          
-
       </Routes>
     </div>
   );

@@ -1,10 +1,10 @@
-import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
+import * as React from 'react';
 import AppTheme from '../theme/appTheme';
 import ColorModeSelect from '../theme/colorModeSelect';
-import SignInCard from './signInCard';
 import Content from './content';
+import SignInCard from './signInCard';
 interface ISignInSideProps {
   disableCustomTheme?: boolean;
   setEmail: any;

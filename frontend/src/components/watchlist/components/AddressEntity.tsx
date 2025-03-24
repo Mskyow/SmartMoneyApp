@@ -1,7 +1,7 @@
-import { Box, Typography, IconButton, Popover, Button, TextField } from "@mui/material";
+import { Box, Button, IconButton, Popover, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { instance } from "../../../utils/axios_instance";
 import { useNavigate } from "react-router-dom";
+import { IAddressEntityProps } from "./types/types";
 
 export const AddressEntity = ({  account_name, account_address ,account_image,onDeleteAddress,onEditAddress }:IAddressEntityProps) => {
 const [anchorEl, setAnchorEl] = useState(null);

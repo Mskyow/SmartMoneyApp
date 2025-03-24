@@ -29,7 +29,8 @@ export class AuthService {
     }
   }
 
-  async loginUser(dto: UserLoginDTO): Promise<AuthUserResponse> { //нету обработки ошибки  с неправильным паролем
+  async loginUser(dto: UserLoginDTO): Promise<AuthUserResponse> {
+    //нету обработки ошибки  с неправильным паролем
     try {
       if (!dto.email || !dto.password) {
         throw new BadRequestException(AppError.USER_WRONG_DATA);

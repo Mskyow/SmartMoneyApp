@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { CircleButton } from "../watchlist/styles/sidebar/circleButton.style";
-import { Line } from "../watchlist/styles/mainContainer/line.style";
-import TokenSelector from "./tokenSelector";
-import CustomTable from "./CustomTable";
-import { accountAddress, accountInfoPanle, accountName, balanceText, headOfPage, logoText, mainBoxinsidePage, mainBoxPage, sidebarStyles2, tokensText } from "./styles/styles";
 import { useLocation } from "react-router-dom";
 import { instance } from "../../utils/axios_instance";
+import { IAddressData } from "../watchlist/components/types/types";
+import { Line } from "../watchlist/styles/mainContainer/line.style";
+import { CircleButton } from "../watchlist/styles/sidebar/circleButton.style";
+import CustomTable from "./CustomTable";
+import { accountAddress, accountInfoPanle, accountName, balanceText, headOfPage, logoText, mainBoxinsidePage, mainBoxPage, sidebarStyles2, tokensText } from "./styles/styles";
+import TokenSelector from "./tokenSelector";
 
 const AddressPage = () => {
     const location = useLocation();

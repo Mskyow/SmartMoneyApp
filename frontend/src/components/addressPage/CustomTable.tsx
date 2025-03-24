@@ -1,11 +1,9 @@
+import { Box, Button, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Box } from "@mui/material";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { instance } from "../../utils/axios_instance";
 import { useLocation } from "react-router-dom";
-import { green } from "@mui/material/colors";
-
-
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { instance } from "../../utils/axios_instance";
+import { IAddressData } from "../watchlist/components/types/types";
 
 const mockChartData = [
   { time: "10:00", price: 240 },

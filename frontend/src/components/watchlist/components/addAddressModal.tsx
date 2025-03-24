@@ -1,7 +1,6 @@
+import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Button, Modal, Box, Typography, TextField } from '@mui/material';
-import { instance } from '../../../utils/axios_instance';
-import { Height, Padding } from '@mui/icons-material';
+import { AddAddressModalProps } from './types/types';
 
 const style = {
   position: 'absolute',

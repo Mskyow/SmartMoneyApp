@@ -1,5 +1,4 @@
-export const addAddressBtn = {
-              
+export const addAddressBtn = {    
     width:'220px',
     height : '50px',
     borderRadius : '15px',

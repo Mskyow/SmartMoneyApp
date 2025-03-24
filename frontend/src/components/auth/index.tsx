@@ -1,11 +1,11 @@
-import React, { JSX, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import RegisterPage from "./register/signUp";
 import { Box } from "@mui/material";
-import SignInSide from "./login/SignInPage";
+import React, { JSX, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { login } from "../../store/slice/auth";
 import { instance } from "../../utils/axios_instance";
 import { useAppDispatch } from "../../utils/hook";
-import { login } from "../../store/slice/auth";
+import SignInSide from "./login/SignInPage";
+import RegisterPage from "./register/signUp";
 
 const AuthRootComponent : React.FC = () : JSX.Element => {
     const [email,setEmail] = useState('');
