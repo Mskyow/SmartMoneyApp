@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { SolanaProvider } from '../providers/solana.provider';
 import { ConfigService } from '@nestjs/config';
 import { PublicKey } from '@solana/web3.js';
+import PQueue from 'p-queue';
 
 export interface ITokenMetadata {
     name: string;
@@ -12,9 +13,10 @@ export interface ITokenMetadata {
 @Injectable()
 export class TokenService {
     private METADATA_PROGRAM_ID = new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
-  constructor(
+   constructor(
     private readonly solanaProvider: SolanaProvider,
     private readonly configService: ConfigService,
+    @Inject('P_QUEUE') private readonly birdeyeQueue: PQueue,
   ) {}
 
   async getTokenName(mintAddress: string): Promise<string> {
@@ -74,4 +76,55 @@ export class TokenService {
       image: json.image,
     };
   }
+  async getTokenPrice(tokenAddress : string){
+
+   const options = {method: 'GET', headers: {accept: 'application/json', 'x-chain': 'solana','X-API-KEY': '928a3250d5224d58a7dabf1301d2513f'}};
+
+  return this.birdeyeQueue.add(async () => {
+    try {
+      const response = await fetch(
+        `https://public-api.birdeye.so/defi/price?address=${tokenAddress}`,
+        options
+      );
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data.value;
+    } catch (err) {
+      console.error('Ошибка:', err);
+    }
+    });
+
+  }
+
+  async getTokenPrice2(tokenAddress : string){
+ 
+   return this.birdeyeQueue.add(async () => {
+     try {
+      const response = await fetch(`https://mainnet.helius-rpc.com/?api-key=${this.configService.get<string>('helius_api_key')}`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "jsonrpc": "2.0",
+          "id": "text",
+          "method": "getAsset",
+          "params": { id: tokenAddress },
+        }),
+      });
+       
+       if (!response.ok) {
+         throw new Error(`HTTP error! Status: ${response.status}`);
+       }
+ 
+       const data = await response.json();
+       return data.result.token_info.price_info;
+     } catch (err) {
+       console.error('Ошибка:', err);
+     }
+     });
+ 
+   }
 }

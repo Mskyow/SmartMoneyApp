@@ -24,6 +24,6 @@ export class BlockChainService {
   }
 
   async getTokensOnAccount(walletAddress: string) {
-    return this.accountService.getTokensOnAccount(walletAddress);
+    return this.accountService.getFungibleTokensOnAccountHelius(walletAddress);
   }
 }

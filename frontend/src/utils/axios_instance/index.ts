@@ -8,7 +8,7 @@ export const instance = axios.create({
 
 export const instanceJWT = axios.create({
     baseURL: 'http://localhost:5000/',
-    timeout: 20000,
+    timeout: 60000,
     headers: {'X-Custom-Header': 'foobar'}
   });
 

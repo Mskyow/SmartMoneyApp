@@ -47,6 +47,7 @@ export class TransactionService {
           formattedDate,
           amountTransferred,
           transactionType,
+          mintAddress
         };
       }),
     );

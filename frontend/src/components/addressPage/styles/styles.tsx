@@ -52,7 +52,7 @@ export const sidebarStyles2 = {
     gap:1, 
     padding: 2,
     borderRadius: "30px",
-    border: "1px solid #FFF",
+    //border: "1px solid #FFF",
     background: `radial-gradient(333.47% 130.9% at 10.74% 15.23%, rgba(0, 0, 0, 0.77) 0%, rgba(0, 0, 0, 0.77) 57.98%, rgba(229, 229, 229, 0.24) 93.9%)`,
     boxShadow: `0px 4px 4px 0px rgba(255, 255, 255, 0.15) inset, 0px 0px 68px 0px rgba(255, 255, 255, 0.05) inset`,
     backdropFilter: "blur(24px)",

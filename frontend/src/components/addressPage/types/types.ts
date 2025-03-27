@@ -1,9 +1,22 @@
-interface ITokenListObject {
-  name: string,
-  symbol:string,
-  image: string,
-  amount: string,
-  decimals: number,
-  uiAmount: number
-  uiAmountString: string
+interface ITokenList {
+  total : number ,
+  tokens : ITokens[]
+}
+interface ITokens {
+  id: string,          // Mint address
+  name: string,        // Название токена
+  symbol: string,      // Символ (например USDC)
+  decimals: number,    // Разрядность (6 для USDC)
+  balance: number,     // Реальное количество (balance / 10^decimals)
+  rawBalance: number,  // Баланс в наименьших единицах
+  pricePerToken: number | null,  // Цена за 1 токен
+  totalValue: number | null,     // Общая стоимость
+  currency: string | null,       // Валюта цены (обычно USDC)
+  tokenProgram: string,          // Программа токена
+  associatedTokenAddress: string,// ATA адрес
+  image: string | null,          // Ссылка на изображение
+  metadataUri: string | null,    // Ссылка на метаданные
+  tokenStandard: string | null,  // Стандарт токена
+  extensions: any | null   ,      // Расширения Token-2022
+  percentage : number | null // долю токена в общей стоимости портфеля 
 }

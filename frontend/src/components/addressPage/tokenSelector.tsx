@@ -5,7 +5,7 @@ import { ExpandMore } from '@mui/icons-material';
 const tokens = ['SOL', 'ETH', 'BTC', 'USDC'];
 
 
-const TokenSelector = ({ tokenList }: { tokenList: ITokenListObject[] }) => {
+const TokenSelector = ({ tokenList }: { tokenList: ITokenList }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedToken, setSelectedToken] = useState(tokens[0]);
 
@@ -30,8 +30,8 @@ const TokenSelector = ({ tokenList }: { tokenList: ITokenListObject[] }) => {
           width: '138.073px',
           height: '31.756px',
           borderRadius: '10px',
-          border: '1px solid #FFF',
-          backgroundColor: '#000',
+          border: '1px solid rgb(146, 146, 146)',
+          backgroundColor: 'rgba(59, 59, 59, 0.49)',
           color: '#FFF',
           display: 'flex',
           alignItems: 'center',
@@ -56,7 +56,7 @@ const TokenSelector = ({ tokenList }: { tokenList: ITokenListObject[] }) => {
           },
         }}
       >
-        {tokenList.map((token) => (
+        {tokenList.tokens.map((token) => (
           <MenuItem
             key={token.symbol}
             onClick={() => handleTokenSelect(token.symbol)}
@@ -82,7 +82,7 @@ const TokenSelector = ({ tokenList }: { tokenList: ITokenListObject[] }) => {
             {token.name}
             </Box>
             <Box>
-              {token.uiAmount}
+              {token.balance + '$'}
             </Box>
           </Box>
 

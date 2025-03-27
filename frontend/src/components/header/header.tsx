@@ -19,11 +19,20 @@ const VerticalHeader = ()=>{
             <CircleButton href="/watchlist">WatchList</CircleButton>
             <CircleButton>Settings</CircleButton>
             <CircleButton>Account</CircleButton>
-            <WalletMultiButton />
+            <WalletMultiButton  style={{
+            height: '40px',
+            padding: '0 16px',
+            borderRadius: '20px',
+            background: 'linear-gradient(90deg, rgba(95, 15, 255, 0.7) 0%, rgba(159, 122, 234, 0.5) 100%)',
+            color: '#fff',
+            fontWeight: 600,
+            fontSize: '0.9rem'
+        }}/>
 
         </Box>
 
     </Box>
-)}
+)
+}
 
 export default VerticalHeader

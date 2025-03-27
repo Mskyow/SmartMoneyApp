@@ -3,28 +3,39 @@ import { fetchBlockchainData } from "../../thunk";
 
 interface IInitailState {
     balance: number | null,
-    tokenList: ITokenListObject[],
+    tokenList: ITokenList,
     loading: boolean,
     error: null | unknown,
 }
 
 const initialState : IInitailState= {
     balance: null,
-    tokenList: [{
-        name: '',
-        symbol:'',
-        image: '',
-        amount: '',
-        decimals: 0,
-        uiAmount: 0,
-        uiAmountString: ''
-    }],
+    tokenList:{
+      total : 0,
+      tokens: [{
+      id: '',          // Mint address
+      name: '',        // Название токена
+      symbol: '',      // Символ (например USDC)
+      decimals: 0,    // Разрядность (6 для USDC)
+      balance: 0,     // Реальное количество (balance / 10^decimals)
+      rawBalance: 0,  // Баланс в наименьших единицах
+      pricePerToken:  null,  // Цена за 1 токен
+      totalValue:  null,     // Общая стоимость
+      currency: null,       // Валюта цены (обычно USDC)
+      tokenProgram: '',          // Программа токена
+      associatedTokenAddress: '',// ATA адрес
+      image: null,          // Ссылка на изображение
+      metadataUri: null,    // Ссылка на метаданные
+      tokenStandard: null,  // Стандарт токена
+      extensions: null  ,       // Расширения Token-2022
+      percentage : null , // долю токена в общей стоимости портфеля 
+    }]},
     loading: false,
     error: null as string | unknown,
 }
 interface BlockchainData {
     balance: number;
-    tokenList: ITokenListObject[];
+    tokenList: ITokenList;
   }
 
 const blockchainSlice = createSlice({
