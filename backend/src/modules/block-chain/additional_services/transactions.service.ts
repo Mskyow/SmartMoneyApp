@@ -13,7 +13,6 @@ export class TransactionService {
 
   async getTransactionsSignatures(walletAddress: string): Promise<ITransactionInfo[]> {
     const signatures = await this.solanaProvider.getSignaturesForAddress(walletAddress, 40);
-
     if (signatures.length === 0) {
       throw new BadRequestException(AppError.GET_ALL_TRANSACIONS_NULL);
     }
@@ -26,7 +25,6 @@ export class TransactionService {
       signatures.map(async (tx) => {
         const transaction = await this.solanaProvider.getTransaction(tx.signature);
         if (!transaction) return null;
-
         const formattedDate = transaction.blockTime ? this.formatDate(new Date(transaction.blockTime * 1000)) : 'Unknown Date';
         const mintAddress = transaction.meta?.postTokenBalances?.[0]?.mint || 'Unknown Mint';
 
@@ -51,7 +49,7 @@ export class TransactionService {
         };
       }),
     );
-
+    console.log(transactions)
     return transactions.filter((tx) => tx !== null) as ITransactionInfo[];
   }
 

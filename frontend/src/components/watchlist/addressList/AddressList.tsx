@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { instance, instanceJWT } from "../../../utils/axios_instance";
 import AddAddressModal from "./addAddressModal";
 import { AddressEntity } from "./AddressEntity";
-import { addAddressBtn } from "../styles/mainContainer/addressList/addAddressBtn.style";
+import { addAddressBtn } from "./styles/addAddressBtn.style";
 interface ChildComponentProps {
     onWatchListCurrentCount: (size: number) => void;
   }
@@ -46,16 +46,16 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
         console.error("Ошибка при добавлении адреса:", error);
       }
     };
+    const handleSubscribeAddress = (address: string, subscribe: boolean) => {
+      // Логика подписки/отписки (например, API запрос)
+    };
   
     const handleDeleteAddress = async (account_address: string) => {
         try {
-          const token = localStorage.getItem("token");
-          await instance.delete("/watchlist/delete-address", {
-            headers: { Authorization: `Bearer ${token}` },
+          await instanceJWT.delete("/watchlist/delete-address", {
             data: { account_address }
           });  
       
-          // Обновляем состояние watchlist, удаляя удаленный адрес
           setWatchlist(prevWatchlist => prevWatchlist.filter(address => address.account_address !== account_address));
           onWatchListCurrentCount(watchlist.length - 1); // Обновляем счетчик
         } catch (error) {
@@ -63,29 +63,6 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
         }
       };
 
-      const handleEditAddress = async (account_address: string, newName: string, newImage: string) => {
-        try {
-          const token = localStorage.getItem("token");
-          const response = await instance.patch(
-            "/watchlist/update-address",
-            {  account_address, new_account_name: newName, new_account_image: newImage },
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-      
-          if (response.status === 200) {
-            // Обновляем состояние watchlist
-            setWatchlist(prevWatchlist =>
-              prevWatchlist.map(address =>
-                address.account_address === account_address
-                  ? { ...address, account_name: newName, profile_image: newImage }
-                  : address
-              )
-            );
-          }
-        } catch (error) {
-          console.error("Ошибка при обновлении адреса:", error);
-        }
-      };
       
       return (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, alignItems: 'start' }}>
@@ -98,8 +75,7 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '239px' }}>
           <Button 
            onClick={handleOpenModal}
-           variant="contained"
-            color="primary"
+           
             sx={addAddressBtn}
             >
               + add Solana address
@@ -112,7 +88,7 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
               account_address={address.account_address} 
               account_image={address.profile_image} 
               onDeleteAddress={handleDeleteAddress} // Передаем функцию удаления
-              onEditAddress={handleEditAddress}
+              onSubscribeAddress={handleSubscribeAddress}
               />
             ))}
           </Box>

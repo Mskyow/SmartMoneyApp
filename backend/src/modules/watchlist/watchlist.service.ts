@@ -19,7 +19,7 @@ export class WatchlistService {
     try {
       return await this.watchListRepository.findAll({
         where: {
-          user: userId,
+          userId: userId,
         },
       });
     } catch (e) {
@@ -33,7 +33,7 @@ export class WatchlistService {
   ): Promise<addAddressDTO> {
     try {
       const watchList = {
-        user: userId,
+        userId: userId,
         account_address: dto.account_address,
         account_name: dto.account_name,
         profile_image: dto.account_image,
@@ -57,7 +57,7 @@ export class WatchlistService {
       const result = await this.watchListRepository.destroy({
         where: {
           account_address: account_address,
-          user: userId,
+          userId: userId,
         },
       });
       if (result == 0)
@@ -79,7 +79,7 @@ export class WatchlistService {
         },
         {
           where: {
-            user: userId,
+            userId: userId,
             account_address: dto.account_address,
           },
         },
@@ -104,7 +104,7 @@ export class WatchlistService {
         },
         {
           where: {
-            user: userId,
+            userId: userId,
             account_address: dto.account_address,
           },
         },
@@ -128,7 +128,7 @@ export class WatchlistService {
         },
         {
           where: {
-            user: userId,
+            userId: userId,
             account_address: dto.account_address,
           },
         },

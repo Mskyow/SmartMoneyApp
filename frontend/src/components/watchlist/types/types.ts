@@ -14,8 +14,7 @@ interface IWatchList {
     account_image: string 
 
     onDeleteAddress: (account_address: string) => void; // Добавляем пропс для функции удаления
-
-    onEditAddress: (account_address: string, newName: string, newImage: string) => void;
+    onSubscribeAddress: (address: string, subscribe: boolean) => void;
 
 
 }

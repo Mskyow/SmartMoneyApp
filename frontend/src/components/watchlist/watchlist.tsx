@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import AppTheme from '../auth/theme/appTheme';
 import { mainContainerStyles } from './styles/mainContainer/mainContainer.style';
-import { AddressList } from './components/AddressList';
+import { AddressList } from './addressList/AddressList';
 import { WatchListTitle } from './styles/mainContainer/watchListTitle.style';
 import { Rectangle } from './styles/mainContainer/limits.style';
 import { AddMoreButton } from './styles/mainContainer/upgraadeLimitsBtn.style';

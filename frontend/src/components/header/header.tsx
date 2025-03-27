@@ -6,11 +6,11 @@ import { WalletMultiButton } from "@solana/wallet-adapter-material-ui";
 const VerticalHeader = ()=>{
     return(
     <Box sx={headOfPage}>
-        <Typography
+        <Box
         sx={logoText}
         >
         SolanaScout
-        </Typography>
+        </Box>
 
         {/* Маленький контейнер SideBar */}
         <Box
