@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Box } from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Box, Typography } from "@mui/material";
 import { instance, instanceJWT } from "../../utils/axios_instance";
 import { useLocation } from "react-router-dom";
 import { green } from "@mui/material/colors";
@@ -16,6 +16,9 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import TraderAnalysis from "./analys";
 
 ChartJS.register(
   CategoryScale,
@@ -47,6 +50,9 @@ const CustomTable = () => {
   const { account_name, account_address, account_image } :IAddressData = location.state || {};
   const rowsPerPage = 5;
 
+  const { analytics } = useSelector(
+    (state:RootState) => state.addresPage
+  );
   useEffect(() => {
     if (!account_address) return; 
     const fetchData = async () => { 
@@ -66,7 +72,7 @@ const CustomTable = () => {
     setLoading(true);
     try {
       const now = Math.floor(Date.now() / 1000);
-      const oneMonthAgo = now - (30 * 24 * 60 * 60); // 30 дней назад
+      const oneMonthAgo = now - (90 * 24 * 60 * 60 ); // 30 дней назад
       
       const response = await fetch(
         `https://public-api.birdeye.so/defi/history_price?address=${tokenAddress}&address_type=token&type=1D&time_from=${oneMonthAgo}&time_to=${now}`,
@@ -112,21 +118,35 @@ const CustomTable = () => {
       legend: {
         position: 'top' as const,
         labels: {
-          color: '#fff'
+          color: '#fff',
+          font: {
+            size: 12
+          }
         }
       },
       tooltip: {
         callbacks: {
           label: (context: any) => {
-            return `$${context.parsed.y.toFixed(6)}`;
+            if (context.datasetIndex === 0) {
+              return `Price: $${context.parsed.y.toFixed(6)}`;
+            }
+            return `Your purchase: $${context.parsed.y.toFixed(6)}`;
           }
-        }
+        },
+        displayColors: true,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: 'rgba(91, 14, 240, 0.5)',
+        borderWidth: 1
       }
     },
     scales: {
       x: {
         ticks: {
-          color: '#fff'
+          color: '#fff',
+          maxRotation: 45,
+          minRotation: 45
         },
         grid: {
           color: 'rgba(255, 255, 255, 0.1)'
@@ -155,6 +175,19 @@ const CustomTable = () => {
         tension: 0.1,
         pointRadius: 2,
         pointBackgroundColor: 'rgb(91, 14, 240)'
+      },
+      {
+        label: 'Your Purchase',
+        data: priceHistory.map(item => {
+          // Сравниваем даты в формате timestamp
+          const purchaseDate = new Date(selectedRow?.formattedDate || '').getTime();
+          const itemDate = new Date(item.time).getTime();
+          return Math.abs(purchaseDate - itemDate) < 86400000 ? item.price : null; // ±1 день
+        }),
+        pointBackgroundColor: 'rgb(0, 255, 0)',
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        showLine: false
       }
     ]
   };
@@ -323,7 +356,7 @@ const CustomTable = () => {
             />
           </>
         ) : activeTab === "analytics" ?(
-          <Box>Аналитика (пока пусто)</Box>
+          <Box><TraderAnalysis data={analytics}></TraderAnalysis></Box>
         ) : (
           <Porfolio/>
         )

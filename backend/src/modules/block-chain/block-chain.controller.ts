@@ -49,4 +49,11 @@ export class BlockChainController {
   async getTokens(@Body('account_address') account_address: string ): Promise<any> {
     return this.blockChainService.getTokensOnAccount(account_address);
   }
+
+  @ApiResponse({ status: 200, type: Promise<any>  })
+  @UseGuards(JwtAuthGuard)
+  @Get('/get-analytics')
+  async getAnalytics(): Promise<any> {
+    return this.blockChainService.getAccountAnalytics();
+  }
 }

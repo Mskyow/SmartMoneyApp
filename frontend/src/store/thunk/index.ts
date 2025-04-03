@@ -15,9 +15,13 @@ export const fetchBlockchainData = createAsyncThunk(
           "/block-chain/get-tokens",
           { account_address },
         );
+        const responseAnalytics = await instanceJWT.get(
+          "/block-chain/get-analytics",
+        );
         return {
           balance: responseBalance.data,
           tokenList: responseTokenList.data,
+          analytics : responseAnalytics.data
         };
       } catch (err) {
         return rejectWithValue(err as string );

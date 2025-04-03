@@ -9,7 +9,7 @@ import {PortfolioChart} from "./PortfolioCharts/TokenDiagram";
         const [activeBtn, setActiveBtn] = useState("Tokens");
       const rowsPerPage = 10;
 
-    const { balance, tokenList } = useSelector(
+    const { tokenList } = useSelector(
             (state:RootState) => state.addresPage
           );
 return (

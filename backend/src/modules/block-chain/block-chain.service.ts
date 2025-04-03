@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TransactionService } from './additional_services/transactions.service';
 import { AccountService } from './additional_services/account.service';
 import { SolanaProvider } from './providers/solana.provider';
+import { AnalyticService } from './additional_services/analytics.service';
 
 @Injectable()
 export class BlockChainService {
@@ -9,7 +10,12 @@ export class BlockChainService {
     private readonly transactionService: TransactionService,
     private readonly accountService: AccountService,
     private readonly solanaProvider: SolanaProvider,
+    private readonly analyticService: AnalyticService,
   ) {}
+
+  async getAccountAnalytics(){
+    return await this.analyticService.analyzeSolanaTransactions('src/modules/block-chain/additional_services/files/transactions.json');
+  }
 
   async testfunc(): Promise<void> {
     await this.solanaProvider.getSlot();

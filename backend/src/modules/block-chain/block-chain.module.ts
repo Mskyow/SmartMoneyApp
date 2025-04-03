@@ -7,6 +7,7 @@ import { AccountService } from './additional_services/account.service';
 import { TokenService } from './additional_services/token.service';
 import { TransactionService } from './additional_services/transactions.service';
 import PQueue from 'p-queue';
+import { AnalyticService } from './additional_services/analytics.service';
 
 const queue = new PQueue({   interval: 1000, // 1.2 секунды между партиями
   intervalCap: 5, // 3 запроса за интервал
@@ -21,7 +22,7 @@ const pQueueProvider: Provider = {
 @Module({
   imports: [ConfigModule],
   controllers: [BlockChainController],
-  providers: [BlockChainService,SolanaProvider,AccountService,TokenService,TransactionService,pQueueProvider],
+  providers: [BlockChainService,SolanaProvider,AccountService,TokenService,TransactionService,pQueueProvider,AnalyticService],
   exports: [pQueueProvider]
 })
 export class BlockChainModule {}
