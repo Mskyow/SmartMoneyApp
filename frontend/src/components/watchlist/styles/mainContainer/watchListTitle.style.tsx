@@ -2,9 +2,9 @@ import { styled, Typography } from "@mui/material";
 
 export const WatchListTitle = styled(Typography)({
     color: "rgb(255, 255, 255) !important",
-    fontFamily: "Inria Serif",
-    fontSize: "42px",
+    fontFamily: "Alegreya Sans",
+    fontSize: "1.875rem",
     fontStyle: "normal",
-    fontWeight: 500,
+    //fontWeight: 100,
     lineHeight: "normal",
   });

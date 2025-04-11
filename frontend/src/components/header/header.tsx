@@ -16,13 +16,14 @@ const VerticalHeader = ()=>{
         <Box
         sx={{...sidebarStyles2}} 
         >              
-            <CircleButton href="/watchlist">WatchList</CircleButton>
+            <CircleButton href="/watchlist">Watchlist</CircleButton>
             <CircleButton>Settings</CircleButton>
             <CircleButton>Account</CircleButton>
             <WalletMultiButton  style={{
             height: '40px',
             padding: '0 16px',
             borderRadius: '20px',
+            marginLeft:'1.435rem',
             background: 'linear-gradient(90deg, rgba(95, 15, 255, 0.7) 0%, rgba(159, 122, 234, 0.5) 100%)',
             color: '#fff',
             fontWeight: 600,

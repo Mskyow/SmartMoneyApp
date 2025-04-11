@@ -11,27 +11,27 @@ import { SitemarkIcon } from '../customIcons';
 const items = [
   {
     icon: <SettingsSuggestRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Adaptable performance',
+    title: 'Adaptive Tracking',
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      'SolanaScout instantly adapts to the Solana blockchain, delivering real-time wallet tracking and actionable insights—so you never miss a profitable move.',
   },
   {
     icon: <ConstructionRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Built to last',
+    title: 'Precision Data',
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      'Get unmatched accuracy with deep on-chain analysis. Our algorithms track every transaction, ensuring you invest based on reliable data—not guesswork.',
   },
   {
     icon: <ThumbUpAltRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Great user experience',
+    title: 'Smooth & Intuitive',
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'From beginners to pros, our user-friendly interface makes it easy to monitor wallets, analyze trends, and copy trades in just a few clicks.',
   },
   {
     icon: <AutoFixHighRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Innovative functionality',
+    title: 'Next-Level Alpha',
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
+      'Stay ahead with cutting-edge tools that uncover hidden opportunities. Spot trends early, follow whales, and execute smarter trades—before the crowd.',
   },
 ];
 

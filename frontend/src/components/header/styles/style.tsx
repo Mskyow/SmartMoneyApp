@@ -27,7 +27,6 @@ export const sidebarStyles2 = {
   justifyContent: "left", // Выравнивание по горизонтали
   alignItems: "center", // Выравнивание по вертикали
   borderRadius: "0px 0px 20px 20px", // Закруглённые углы
-  gap: 4,
   marginTop : '0px', 
   marginRight:"20px",
 };

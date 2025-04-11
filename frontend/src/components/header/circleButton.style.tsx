@@ -1,16 +1,25 @@
 import { Button, styled } from "@mui/material";
 
 export const CircleButton = styled(Button)(({ theme }) => ({
-    borderRadius: '30px', // Делаем кнопку круглой   
-    fontFamily: "jsMath-cmti10", // Используемый шрифт
-    fontWeight: '400',
-    fontSize: '16px',
-    color : 'rgb(255, 255, 255)',
-    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.52) -16.22%, rgba(82, 82, 82, 0.52) 34.92%)",
-    // border: '1px solid rgba(95, 15, 255, 0.4)',
-        '&:hover': {
-          background: 'rgba(95, 15, 255, 0.4)',
-          boxShadow: '0 0 10px rgba(95, 15, 255, 0.3)'
-        }
-    
+  fontFamily: "",
+  fontWeight: '400',
+  fontSize: '1.10rem',
+  textTransform: 'none',
+  color: 'rgb(255, 255, 255)',
+  background: 'transparent',
+  border: 'none',
+  padding: '4px 16px',
+  borderRadius: '20px',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+  textDecoration: 'none',
+  
+  '&:hover': {
+      color: 'rgb(112, 15, 172)',
+      //background: 'rgba(95, 15, 255, 0.7)',
+      //boxShadow: '0 0 10px rgba(95, 15, 255, 0.5)',
+      //transform: 'scale(1.05)'
+  },
+  
+
 }));

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const ButtonTelegram = () => {
   return (
     <StyledWrapper>
+      <a href="https://t.me/solanascout" target="_blank" rel="noopener noreferrer">
       <button className="Btn">
         <span className="svgContainer">
           <svg viewBox="0 0 496 512" height="1.4em" xmlns="http://www.w3.org/2000/svg" fill="white">
@@ -12,6 +13,7 @@ const ButtonTelegram = () => {
         </span>
         <span className="BG" />
       </button>
+      </a>
     </StyledWrapper>
   );
 }

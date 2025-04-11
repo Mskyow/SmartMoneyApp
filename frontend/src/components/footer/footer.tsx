@@ -35,10 +35,11 @@ const VerticalFooter = () => {
             <ButtonTelegram/>
         </Box>
       <Box
+      
         sx={{
           display: 'flex',
           gap: '20px',
-        //   padding: '0px',
+          //padding: '0px',
           marginLeft: 'auto', // Выравниваем эту ссылку вправо
           mr:"50px",
           alignItems: 'center', // Выравниваем элементы по центру по вертикали
