@@ -12,7 +12,6 @@ import WatchList from './components/watchlist/watchlist';
 import AddressPage from './components/addressPage/AddressPage';
 import Home from './components/home/';
 
-// Создаем тему Material-UI
 const theme = createTheme();
 
 function App() {
@@ -36,13 +35,9 @@ function App() {
                     <WalletDialogProvider>
                         <div className="App">
                             <Routes>
-                                <Route element={<PrivateRoute />}>
-                                    <Route path="/" element={<Home />} />
-                                </Route>
-
+                                <Route path="/" element={<Home />} />                               
                                 <Route path="login" element={<AuthRootComponent />} />
                                 <Route path="register" element={<AuthRootComponent />} />
-
                                 <Route element={<PrivateRoute />}>
                                     <Route path="/watchlist">
                                         <Route index element={<WatchList />} />

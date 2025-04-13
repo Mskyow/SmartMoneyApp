@@ -1,0 +1,113 @@
+/* --- Hero Section --- */
+.hero-section {
+    padding: 100px 0;
+    min-height: 100vh; /* Можно чуть увеличить высоту */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Нужно для абсолютного позиционирования дочерних элементов */
+    text-align: center; /* Центрируем весь контент */
+    overflow: hidden; /* Предотвратить вылезание абсолютно позиционированных элементов */
+  }
+  
+  /* У контейнера убираем flex, т.к. контент центрируется секцией */
+  .container {
+     position: relative; /* Чтобы z-index текста работал */
+     z-index: 1; /* Текст будет выше фона по умолчанию */
+  }
+  
+  /* Контейнер для фонового изображения */
+  .hero-image-background {
+    position: absolute;
+    left: 50%;
+  
+    /* --- 2) Картинку выше --- */
+    /* Позиционируем верхний край на 45% от верха секции */
+    /* и сдвигаем на половину высоты картинки вверх для центрирования */
+    /* Подберите top и translateY для идеального положения */
+    top: 5%;
+    transform: translate(-50%, -50%);
+  
+    /* --- 1) Картинку увеличить --- */
+    width: 90%; /* Увеличиваем ширину контейнера */
+    max-width: 1050px; /* Увеличиваем максимальную ширину */
+    box-shadow: 0px -15px 30px rgba(255, 255, 255, 0.322); /* Настройте размытие и цвет */
+
+    z-index: 0;
+    opacity: 1; /* Можно сделать чуть менее прозрачной */
+    pointer-events: none;
+  
+    /* Свечение можно применить и сюда через filter, если box-shadow на .hero-image будет конфликтовать с маской */
+    /* filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.3)); */
+  }
+  /* Стили для самого изображения */
+  .hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  
+    /* --- 4.1) Границы у картинки установить --- */
+    border: 1px solid rgba(255, 255, 255, 0.485); /* Тонкая, полупрозрачная белая граница */
+    border-radius: 10px; /* Оставляем небольшое скругление */
+  
+    /* --- 4.2) Подсветить за ней (Свечение) --- */
+    /* Тень с нулевым смещением, большим размытием и фиолетовым цветом */
+  
+    /* --- 3) Затемнение снизу, а не сверху --- */
+    /* Маска: верх видимый (black), низ прозрачный (transparent) */
+    /* Настройте проценты для плавности и зоны видимости */
+    mask-image: linear-gradient(
+      to bottom,         /* Направление вниз */
+      rgba(0, 0, 0, 0) 10%,        /* Верхние 40% видимы */
+      rgba(0,0,0,0.85) 70%, /* Плавный переход */
+      transparent 95%   /* Нижние 5% полностью прозрачны */
+    );
+    /* Префикс для Webkit (Safari) */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 40%,
+      rgba(0,0,0,0.85) 50%,
+      transparent 95%
+    );
+  }
+  
+  /* Контейнер для текста (если нужно явно поднять над фоном) */
+  .hero-text-overlay {
+     position: relative; /* Не обязательно, если у контейнера z-index: 1 */
+     z-index: 1;
+     margin-top: 8em;
+     /* Можно добавить легкую тень тексту для читаемости */
+      text-shadow: 0px 1px 40px rgba(0, 0, 0, 0.7); 
+  }
+  
+  /* Стили текста остаются центрированными */
+  .hero-title {
+    font-size: 3.2em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .hero-subtitle {
+    font-size: 1.15em;
+    max-width: 650px; /* Ограничим ширину подзаголовка */
+    margin: 0 auto 30px auto; /* Центрируем */
+    color: #bdbdbd;
+  }
+  .hero-cta {
+    margin-top: 30px;
+  }
+  
+  /* --- Адаптивность --- */
+  @media (max-width: 768px) {
+    .hero-image-background {
+        top: 40%; /* Может потребоваться другое положение на мобильных */
+        width: 90%;
+        opacity: 0.5;
+    }
+    .hero-image {
+        /* Маска для мобильных - затухание снизу, может быть быстрее */
+        mask-image: linear-gradient(to bottom, black 30%, transparent 80%);
+        -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 80%);
+        box-shadow: 0 0 25px 0px rgba(138, 43, 226, 0.3); /* Меньше свечение */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}

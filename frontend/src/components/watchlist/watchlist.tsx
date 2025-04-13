@@ -9,6 +9,7 @@ import { AddMoreButton } from './styles/mainContainer/upgraadeLimitsBtn.style';
 import { Line } from './styles/mainContainer/line.style';
 import VerticalFooter from '../footer/footer';
 import VerticalHeader from '../header/header';
+import SpaceBackground from './SpaceBackground';
 
 
 
@@ -24,7 +25,6 @@ const WatchList: React.FC = () => {
    const handleWatchListCurrentCount = (size:number) =>{setcurrentCount(size)}
   return (
     <>
-    
     <Box
       sx={{
         minHeight: '100vh' ,
@@ -36,6 +36,7 @@ const WatchList: React.FC = () => {
         padding: 0, // Убираем отступы
       }}
     >
+
     <VerticalHeader/>
 
       {/* Большой контейнер mainContainer*/}

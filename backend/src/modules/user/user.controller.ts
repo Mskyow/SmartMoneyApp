@@ -16,11 +16,6 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('get-user')
-  getus() {
-    return 'aaaa';
-  }
-
   @ApiTags('User')
   @ApiResponse({ status: 200, type: updateUserDTO })
   @UseGuards(JwtAuthGuard)
@@ -33,8 +28,8 @@ export class UserController {
     return await this.userService.updateUser(userEmail, updateDTO);
   }
 
-  // @ApiTags("User")
-  @ApiResponse({ status: 200 })
+  
+  @ApiResponse({ status: 200 , type : Boolean })
   @UseGuards(JwtAuthGuard)
   @Delete('/delete-user')
   async deleteUser(@Req() request): Promise<boolean> {

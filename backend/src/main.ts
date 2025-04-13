@@ -15,7 +15,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Smart Money App API')
+    .setTitle('Solana Scout API')
     .setDescription('This is API for my project')
     .setVersion('1.0')
     .addTag('API')

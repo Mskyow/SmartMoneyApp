@@ -23,3 +23,19 @@ export const CircleButton = styled(Button)(({ theme }) => ({
   
 
 }));
+
+export const CircleButtonLanding = styled(Button)(({ theme }) => ({
+    // Добавляем стили, чтобы сделать ее 'основной'
+    backgroundColor: '#8a2be2', // Фиолетовый фон (пример)
+    color: '#ffffff',          // Белый текст
+    borderRadius : '40px',
+    border: '1px solid #8a2be2', // Можно добавить рамку в цвет фона
+    '&:hover': {
+        color: 'rgb(112, 15, 172)',
+        //background: 'rgba(95, 15, 255, 0.7)',
+        //boxShadow: '0 0 10px rgba(95, 15, 255, 0.5)',
+        //transform: 'scale(1.05)'
+    },
+  
+
+}));

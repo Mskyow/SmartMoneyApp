@@ -5,10 +5,10 @@ export const headOfPage = {
   flexDirection: "row", // Элементы в строку
   alignItems: "center", // Выравнивание по центру по вертикали
   justifyContent: "space-between", // Распределение пространства между элементами
-  padding: 0, // Отсутствие отступов
+  paddingTop: 2, // Отсутствие отступов
   width: "100%", // Контейнер занимает всю ширину
   gap: 20, // Расстояние между элементами
-  marginBottom : '10px'
+  //marginTop : '15px'
 };
 
 export const logoText = {
@@ -29,4 +29,11 @@ export const sidebarStyles2 = {
   borderRadius: "0px 0px 20px 20px", // Закруглённые углы
   marginTop : '0px', 
   marginRight:"20px",
+};
+
+export const ButtonsLanding = {
+  display: "flex",
+  justifyContent: "left", // Выравнивание по горизонтали
+  alignItems: "center", // Выравнивание по вертикали
+  marginRight:"30px",
 };
