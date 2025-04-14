@@ -18,9 +18,9 @@ async function bootstrap() {
     .setTitle('Solana Scout API')
     .setDescription('This is API for my project')
     .setVersion('1.0')
-    .addTag('API')
+    .addBearerAuth()
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config); // full spec
   SwaggerModule.setup('api', app, document);
   app.enableCors({
     origin: 'http://localhost:3000', // Разрешите только этот источник

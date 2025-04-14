@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Patch,
   Req,
   UseGuards,
@@ -10,14 +11,17 @@ import {
 import { UserService } from './user.service';
 import { updateUserDTO } from './DTO';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiTags('User')
-  @ApiResponse({ status: 200, type: updateUserDTO })
+  @ApiOperation({ summary: 'Update user', description: 'Update user : emeail&name' })
+  @ApiResponse({ status: HttpStatus.OK, type: updateUserDTO })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid input data (DTO validation error).' }) 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch('/update-user') // данный метод разбить на два : отдельно name отдельно email
   async updateuser(
@@ -28,8 +32,11 @@ export class UserController {
     return await this.userService.updateUser(userEmail, updateDTO);
   }
 
-  
-  @ApiResponse({ status: 200 , type : Boolean })
+  @ApiOperation({ summary: 'Delete user', description: 'Delete user from database' })
+  @ApiResponse({ status: HttpStatus.OK, type: Boolean })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid input data (DTO validation error).' }) 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete('/delete-user')
   async deleteUser(@Req() request): Promise<boolean> {

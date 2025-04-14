@@ -3,13 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { WatchlistService } from './watchlist.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
 import {
   addAddressDTO,
@@ -24,7 +25,10 @@ import { Watchlist } from './models/watchlist.model';
 export class WatchlistController {
   constructor(private readonly watchListService: WatchlistService) {}
 
-  @ApiResponse({ status: 200, type: Watchlist })
+  @ApiOperation({ summary: 'Get addresses from watchList', description: 'Get all addresses from watchList for user by UserID' })
+  @ApiResponse({ status: HttpStatus.OK, type: Watchlist })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('/get-all-addresses')
   async getAddressesFromWatchList(@Req() request): Promise<Watchlist[]> {
@@ -33,7 +37,10 @@ export class WatchlistController {
     return this.watchListService.getAllAddresses(userId);
   }
 
-  @ApiResponse({ status: 200, type: addAddressDTO })
+  @ApiOperation({ summary: 'Add address to watchList', description: 'Add address to watchList with Solana address&name of this wallet in the app' })
+  @ApiResponse({ status: HttpStatus.OK, type: addAddressDTO })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/add-address')
   async addAddressToWatchList(
@@ -45,7 +52,10 @@ export class WatchlistController {
     return this.watchListService.addAddressToWatchList(userId, addAddressDTO);
   }
 
+  @ApiOperation({ summary: 'Delete addresses from watchList', description: 'Delete addresses from watchList by userId&accountAddress' })
   @ApiResponse({ status: 200, type: Boolean })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete('/delete-address')
   async deleteAddressFromWatchList(
@@ -60,7 +70,10 @@ export class WatchlistController {
     );
   }
 
+  @ApiOperation({ summary: 'Update wallet/address name' , description: 'Update wallet/address name by userid' })
   @ApiResponse({ status: 200, type: updateAddressNameDTO })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch('/update-address-name')
   async updateWatchListAddressName(
@@ -75,7 +88,10 @@ export class WatchlistController {
     );
   }
 
+  @ApiOperation({ summary: 'Update wallet/address image', description: 'Update wallet/address image' })
   @ApiResponse({ status: 200, type: updateAddressImgDTO })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch('/update-address-img')
   async updateWatchListAddressImage(
@@ -89,8 +105,11 @@ export class WatchlistController {
       updateAddressImgDTO,
     );
   }
-
+  
+  @ApiOperation({ summary: 'Update wallet/address on new address', description: 'Update solana wallet/address on new solana address' })
   @ApiResponse({ status: 200, type: updateAddressDTO })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Authorization error (JWT token is missing or invalid).' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch('/update-address')
   async updateWatchListAddress(
