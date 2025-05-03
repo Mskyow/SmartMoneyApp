@@ -1,19 +1,16 @@
-import { Box, Typography, IconButton, TextField, Checkbox } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addressEntityAccountName, addressEntityPanel, addressEntityPhoto, addressEntitySaveBtn } from "./styles/addressEntity.style";
+import { addressEntityAccountName, addressEntityPanel, addressEntityPhoto } from "./styles/addressEntity.style";
 import DeleteButton from "./DeleteBtn";
 import Switch from "./SubscribeButton";
 
-export const AddressEntity = ({ account_name, account_address, account_image, onDeleteAddress,onSubscribeAddress }: IAddressEntityProps) => {
+export const AddressEntity = ({ account_name, account_address, account_image, onDeleteAddress, onSubscribeAddress }: IAddressEntityProps) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
-
   const navigate = useNavigate();
   
   const truncateAddress = (address: string, startChars: number, endChars: number) => {
-    if (address.length <= startChars + endChars) {
-      return address; 
-    }
+    if (address.length <= startChars + endChars) return address; 
     return `${address.slice(0, startChars)}...`;
   };
 
@@ -21,25 +18,14 @@ export const AddressEntity = ({ account_name, account_address, account_image, on
 
   const handleAddressClick = async () => {
     navigate(`/watchlist/address/${account_address}`, {
-      state: {
-        account_name,
-        account_address,
-        account_image,
-      }
+      state: { account_name, account_address, account_image }
     });
   };
 
   const handleDeleteClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Предотвращаем всплытие события, чтобы не срабатывал handleAddressClick
+    e.stopPropagation();
     onDeleteAddress(account_address);
   };
-
-  const handleSubscribeClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const newSubscriptionStatus = !isSubscribed;
-    setIsSubscribed(newSubscriptionStatus);
-    onSubscribeAddress(account_address, newSubscriptionStatus);
-  }
 
   return (
     <Box
@@ -56,31 +42,30 @@ export const AddressEntity = ({ account_name, account_address, account_image, on
 
       {/* Имя и адрес */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: "2", flexGrow: 1 }}>
-
-            <Typography sx={addressEntityAccountName}>
-              {account_name}
-            </Typography>
-            <Typography sx={{ color: "#ADADAD", fontFamily: "Inter", fontSize: "16px" }}>
-              {truncatedAddress}
-            </Typography>
-    
+        <Typography sx={addressEntityAccountName}>
+          {account_name}
+        </Typography>
+        <Typography sx={{ color: "#ADADAD", fontFamily: "Inter", fontSize: "16px" }}>
+          {truncatedAddress}
+        </Typography>
       </Box>
-      <Box sx={{ display: "flex" , flexDirection : 'column'}}>
-      < Box
-          onClick={handleDeleteClick}
-          sx={{mb:'7px',  alignSelf: 'flex-end'}}>
+
+      <Box sx={{ display: "flex", flexDirection: 'column' }}>
+        <Box onClick={handleDeleteClick} sx={{ mb: '7px', alignSelf: 'flex-end' }}>
           <DeleteButton/>
         </Box>
-        <Box 
-          onClick={handleSubscribeClick}
         
-        >
-        <Switch isActive={isSubscribed} /> {/* Передаем состояние в Switch */}
-        </Box>
-        
-        
+              
+        {/* Измененный Switch - без дополнительного Box */}
+        <Switch 
+          isActive={isSubscribed} 
+          onChange={(newState) => {
+            setIsSubscribed(newState);
+            onSubscribeAddress(account_address, newState);
+          }}
+          // sx={{ alignSelf: 'flex-end' }}
+        />
       </Box>
-      
     </Box>
   );
 };

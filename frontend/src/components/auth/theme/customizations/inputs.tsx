@@ -380,10 +380,15 @@ export const inputsCustomizations: Components<Theme> = {
     styleOverrides: {
       input: {
         padding: 0,
+        '&:-webkit-autofill': {
+          WebkitBoxShadow: '1 1 1 10px  rgba(242, 6, 6, 0) inset !important',
+          WebkitTextFillColor: 'rgb(0,0,0) !important', // Если тебе нужен белый цвет текста при автозаполнении
+          caretColor: '#FFF !important', // Если тебе нужен белый цвет каретки при автозаполнении
+        },
       },
       root: ({ theme }) => ({
         padding: '8px 12px',
-        color: (theme.cssVariables || theme).palette.text.primary,
+        color:'black',
         borderRadius: (theme.cssVariables || theme).shape.borderRadius,
         border: `1px solid ${(theme.cssVariables || theme).palette.divider}`,
         backgroundColor: (theme.cssVariables || theme).palette.background.default,
@@ -393,11 +398,11 @@ export const inputsCustomizations: Components<Theme> = {
         },
         [`&.${outlinedInputClasses.focused}`]: {
           outline: `3px solid ${alpha(brand[500], 0.5)}`,
-          borderColor: brand[400],
+          borderColor: brand[100],
         },
         ...theme.applyStyles('dark', {
           '&:hover': {
-            borderColor: gray[500],
+            borderColor: gray[100],
           },
         }),
         variants: [
@@ -427,9 +432,9 @@ export const inputsCustomizations: Components<Theme> = {
   MuiInputAdornment: {
     styleOverrides: {
       root: ({ theme }) => ({
-        color: (theme.cssVariables || theme).palette.grey[500],
+        color: 'black',
         ...theme.applyStyles('dark', {
-          color: (theme.cssVariables || theme).palette.grey[400],
+          color: 'black'
         }),
       }),
     },

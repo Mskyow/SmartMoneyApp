@@ -4,6 +4,8 @@ import { instance, instanceJWT } from "../../../utils/axios_instance";
 import AddAddressModal from "./addAddressModal";
 import { AddressEntity } from "./AddressEntity";
 import { addAddressBtn } from "./styles/addAddressBtn.style";
+import { Notification } from './Notification'; 
+
 interface ChildComponentProps {
     onWatchListCurrentCount: (size: number) => void;
   }
@@ -13,6 +15,11 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
     const [watchlist, setWatchlist] = useState<IWatchList[]>([]);
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
+    const [notifications, setNotifications] = useState<Array<{
+      id: string;
+      type: 'success' | 'error' | 'info' | 'warning';
+      message: string;
+    }>>([]);
   
     useEffect(() => {
       const fetchWatchlist = async () => {
@@ -20,7 +27,7 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
           const response = await instanceJWT.get("/watchlist/get-all-addresses", {
           });
   
-          setWatchlist(response.data); // Обновляем состояние
+          setWatchlist(response.data); 
           onWatchListCurrentCount(response.data.length);
         } catch (error) {
           console.error("Ошибка при загрузке watchlist:", error);
@@ -46,8 +53,33 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
         console.error("Ошибка при добавлении адреса:", error);
       }
     };
-    const handleSubscribeAddress = (address: string, subscribe: boolean) => {
-      // Логика подписки/отписки (например, API запрос)
+    const handleSubscribeAddress = async (address: string, subscribe: boolean) => {
+      try {
+        console.log('atus')
+        const response = await instanceJWT.post('/watchlist/subscribe', {
+          address,
+          subscribe
+        });
+        if (response.status === 200) {
+          addNotification('success', subscribe ? 'Subscribed successfully!' : 'Unsubscribed successfully!');
+
+        }
+      } catch (error) {
+        addNotification('error', 'Failed to update subscription');
+      }
+    };
+
+    const addNotification = (type: 'success' | 'error' | 'info' | 'warning', message: string) => {
+      const id = Date.now().toString();
+      setNotifications(prev => [...prev, { id, type, message }]);
+      
+      setTimeout(() => {
+        removeNotification(id);
+      }, 5000);
+    };
+  
+    const removeNotification = (id: string) => {
+      setNotifications(prev => prev.filter(n => n.id !== id));
     };
   
     const handleDeleteAddress = async (account_address: string) => {
@@ -65,6 +97,25 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
 
       
       return (
+        <>
+        <Box sx={{
+            position: 'fixed',
+            bottom: 0,
+            left: 5,
+            zIndex: 9999,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1
+        }}>
+            {notifications.map(notification => (
+                <Notification
+                    key={notification.id}
+                    type={notification.type}
+                    message={notification.message}
+                    onClose={() => removeNotification(notification.id)}
+                />
+            ))}
+        </Box>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, alignItems: 'start' }}>
           {/* Кнопка */}
           <Box sx={{ display: 'flex', gridTemplateColumns: '220px auto', gap: 3 }}>
@@ -87,15 +138,17 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
               account_name={address.account_name} 
               account_address={address.account_address} 
               account_image={address.profile_image} 
-              onDeleteAddress={handleDeleteAddress} // Передаем функцию удаления
+              onDeleteAddress={handleDeleteAddress}
               onSubscribeAddress={handleSubscribeAddress}
               />
             ))}
           </Box>
-  
+            
+         
           </Box>
               <AddAddressModal open={isModalOpen} onClose={handleCloseModal} onAddAddress={handleAddAddress} />
         </Box>
+      </>
       );
     }
   

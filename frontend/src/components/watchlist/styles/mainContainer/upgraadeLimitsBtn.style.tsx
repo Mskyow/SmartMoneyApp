@@ -7,7 +7,7 @@ import { styled, Button } from "@mui/material";
     justifyContent: "center",
     borderRadius: "20px",
     // opacity: 0.5,
-    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.52) -16.22%, rgba(0, 0, 0, 0.52) 34.92%)",
+    background: "rgba(187, 0, 255, 0.49)",
     padding: "5px 12px",
     color: "#FFF",
     fontFamily: "jsMath-cmti10",

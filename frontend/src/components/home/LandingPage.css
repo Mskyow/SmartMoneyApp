@@ -92,18 +92,114 @@
 
   
   
-  /* --- Problem/Solution --- */
-  .problem-solution-section p {
-      max-width: 600px;
-      margin: 0 auto 30px auto;
-  }
-  .icon-flow span {
-      font-size: 2em;
-      margin: 0 15px;
-      /* Стилизуйте плейсхолдеры или замените реальными иконками */
-  }
+/* --- Problem/Solution Section --- */
+.problem-solution-section {
+  padding: 70px 0;
+  
+  text-align: center;
+  background-color: #111111e2; /* Black background */
+  border-radius: 15px; /* Rounded corners for the section */
+  box-shadow: 0 0 20px rgba(251, 251, 251, 0.537); /* Subtle white glow/shadow */
+  margin: 0px auto; /* Add margin and center the section */
+  max-width: 1200px; /* Limit the width of the section */
+}
+
+.problem-solution-section .container {
+  max-width: 100%; /* Make container take full width of the section */
+  padding: 0 30px;
+  
+}
+
+.problem-solution-section h2 {
+  margin-bottom: 20px;
+  color: #eee; /* Light text color */
+}
+
+.problem-solution-section .section-description {
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  color: #ccc; /* Slightly lighter description text */
+  line-height: 1.6;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0; /* Add some padding around the steps */
+}
+
+.step-card {
+  width: 220px;
+  height: 250px;
+  background-color: #222; /* Darker background for the cards */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.355); /* Subtle glow for the cards */
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Add transition for hover effect */
+}
+
+.step-card:hover {
+  transform: rotate(-5deg) translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1); /* Stronger glow on hover */
+}
+
+.step-card.second-step {
+  transform: none;
+}
+
+.step-card.second-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.step-card.third-step {
+  transform: rotate(5deg);
+}
+
+.step-card.third-step:hover {
+  transform: rotate(5deg) translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.step-card span {
+  font-size: 3em;
+  color: #eee;
+  margin-bottom: 10px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); /* Subtle glow for icons */
+}
+
+.step-card .step-label {
+  font-size: 1em;
+  color: #ccc;
+}
+
+.arrow-container {
+  margin: 0 10px;
+}
+
+.arrow {
+  width: 50px;
+  height: 20px;
+  stroke: #555; /* Darker arrow color */
+}
   
   /* --- Features --- */
+.features-section{
+  padding: 10px 0 50px 0;
+  text-align: center;
+  background-color: #111111e2; /* Black background */
+  border-radius: 15px; /* Rounded corners for the section */
+  box-shadow: 0 0 20px rgba(251, 251, 251, 0.537); /* Subtle white glow/shadow */
+  margin: 200px auto; /* Add margin and center the section */
+  max-width: 1200px; /* Limit the width of the section */
+}
+
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Адаптивная сетка */
@@ -111,11 +207,47 @@
     margin-top: 50px;
   }
   .feature-block {
-    background-color: rgba(255, 255, 255, 0.05); /* Легкий фон для блока */
+    position: relative; /* Нужно для псевдоэлемента */
+    background-color: rgba(0, 0, 0, 0.762);
     padding: 25px;
-    border-radius: 8px;
+    border-radius: 20px;
+    transform: translateY(0);
+    transition: all 0.2s ease-in;
     text-align: center;
+    /* box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.322); */
+    z-index: 1; /* Чтобы контент был поверх градиента */
   }
+  
+  /* Градиентный бордер с помощью псевдоэлемента */
+  .feature-block::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* Заполняет весь блок */
+    border-radius: 20px; /* Такой же, как у родителя */
+    padding: 1px; /* Толщина градиентного бордера */
+    background: linear-gradient(
+      var(--gradient-angle, 145deg), 
+      rgb(71, 71, 71) 50%, 
+      #6464643a 90%, 
+      rgba(94, 94, 94, 0.515) 100%
+    );
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none; /* Чтобы не блокировал клики */
+    z-index: -1; /* Под основным контентом */
+  }
+  .feature-block:hover {
+    background-color: rgba(20, 20, 20, 0.8); /* Чуть светлее фона */
+    box-shadow: 
+    inset
+      0 0 20px rgba(79, 79, 79, 0.44),
+      0 0 0 1px rgba(101, 101, 101, 0.7);
+  }
+  
+ 
   .feature-icon {
     font-size: 3em; /* Размер иконки */
     margin-bottom: 15px;
@@ -144,67 +276,188 @@
   }
   
   /* --- Pricing --- */
-  .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
-      align-items: stretch; /* Выровнять по высоте */
-  }
-  .pricing-tier {
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-  }
-  .pricing-tier.recommended {
-      border-color: #8a2be2;
-      border-width: 2px;
-      transform: scale(1.03); /* Немного увеличить рекомендуемый */
-      box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
-  }
-  .pricing-tier h3 {
-      margin-bottom: 10px;
-      text-align: center;
-  }
-  .price {
-      font-size: 1.8em;
-      font-weight: bold;
-      margin-bottom: 15px;
-      text-align: center;
-  }
-  .description {
-      font-size: 0.9em;
-      color: #ccc;
-      margin-bottom: 20px;
-      text-align: center;
-      min-height: 40px; /* Выровнять высоту описаний */
-  }
-  .features-list {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 30px;
-      flex-grow: 1; /* Растянуть список фич */
-  }
-  .features-list li {
-      margin-bottom: 10px;
-      padding-left: 25px;
-      position: relative;
-  }
-  .features-list li::before {
-      content: '✓'; /* Галочка */
-      color: #32cd32; /* Зеленый */
-      position: absolute;
-      left: 0;
-  }
-  .pricing-tier .button {
-      margin-top: auto; /* Прижать кнопку книзу */
-  }
-  
+ /* PricingSection.css */
+.pricing-section {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #111111a2; /* Black background */
+  border-radius: 15px; /* Rounded corners for the section */
+  box-shadow: 0 0 20px rgba(251, 251, 251, 0.537); /* Subtle white glow/shadow */
+  margin: 200px auto; /* Add margin and center the section */
+  max-width: 1300px; /* Limit the width of the section */
+}
+
+.pricing-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-section .section-title {
+  color: #ffffff;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.pricing-tier {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  /* border: 1px solid #016eeb; */
+}
+
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.pricing-tier.recommended {
+  background-color: #a200ff; /* Primary color for recommended */
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(146, 96, 255, 0.548);
+}
+
+.pricing-tier.recommended h3,
+.pricing-tier.recommended .price,
+.pricing-tier.recommended .description,
+.pricing-tier.recommended .features-list li::before {
+  color: #fff;
+}
+
+.tier-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0px;
+}
+
+.tier-icon img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pricing-tier h3 {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #30313d;
+}
+
+.pricing-tier.recommended h3 {
+  color: #fff;
+}
+
+.price {
+  font-size: 2.5em;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #30313d;
+}
+
+.price .discount {
+  font-size: 0.6em;
+  color: #777;
+}
+
+.pricing-tier.recommended .price {
+
+  color: #fff;
+}
+
+.description {
+  color: #6c757d;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.pricing-tier.recommended .description {
+  color: #f8f9fa;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.features-list li {
+  color: #5a6268;
+  padding-left: 25px;
+  position: relative;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.features-list li::before {
+  content: '✓';
+  color: #28a745;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.pricing-tier.recommended .features-list li {
+  color: #e9ecef;
+}
+
+.pricing-tier.recommended .features-list li::before {
+  color: #fff;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+.button-primary {
+  background-color: #7004f4;
+  color: #fff;
+  /* border: 2px solid #007bff; */
+}
+
+.button-primary:hover {
+  background-color: #6e00b3;
+  border-color: #0056b3;
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: #1900ff;
+  border: 2px solid #007bff;
+}
+
+.button-secondary:hover {
+  background-color: #e7f3ff;
+  color: #0056b3;
+}
+
+.button-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
   /* --- Final CTA --- */
   .final-cta-section {
-      background-color: rgba(138, 43, 226, 0.1); /* Легкий фон для выделения */
+      /* background-color: rgba(255, 255, 255, 0.1); Легкий фон для выделения */
   }
   .final-cta-section h2 {
       margin-bottom: 15px;

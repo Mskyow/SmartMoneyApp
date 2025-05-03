@@ -23,11 +23,11 @@ const HeroSection: React.FC = () => {
           <p className="hero-subtitle">
             Track the blockchain 'stars' in real-time, find hidden alpha opportunities, and trade more confidently with deep on-chain analytics.
           </p>
-          <div className="hero-cta">
+          {/* <div className="hero-cta">
             <a href="/register" className="button button-primary button-large">
               Start Searching
             </a>
-          </div>
+          </div> */}
         </div>
 
       </div>

@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { AppError } from 'src/common/constants/errors';
 import { UserService } from 'src/modules/user/user.service';
+import { VerifyCallback } from 'passport-google-oauth20';
 
 @Injectable()
 export class JWTStrategy extends PassportStrategy(Strategy) {

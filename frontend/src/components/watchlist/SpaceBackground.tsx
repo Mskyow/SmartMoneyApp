@@ -7,44 +7,43 @@ import * as THREE from 'three';
 
 // --- Компонент Stars (без изменений с предыдущего шага, useFrame внутри него - ОК) ---
 const Stars: React.FC<{ count?: number; scrollRatio: React.MutableRefObject<number> }> = ({
-  count = 10000,
+  count = 15000,
   scrollRatio, // Хотя scrollRatio больше не используется здесь
 }) => {
   const meshRef = useRef<THREE.Points>(null!);
-  //const circleTexture = useTexture('D:/SmartMoneyApp/frontend/public/star2.png');
-  const { positions, colors } = useMemo(() => { // Теперь возвращаем объект
+  const circleTexture = useTexture('/star2.png');
+  const { positions } = useMemo(() => { // Теперь возвращаем объект
     const vertices = [];
-    const vertexColors = []; // Массив для цветов
+    // const vertexColors = []; // Массив для цветов
     const radius = 110;
 
-    const baseColor = new THREE.Color('#FFFFFF'); // Базовый белый
-    const warmColor = new THREE.Color('rgb(242, 200, 117)'); // Теплый желтоватый
-    const coolColor = new THREE.Color('rgb(131, 127, 232)'); // Холодный голубоватый
+    // const baseColor = new THREE.Color('#FFFFFF'); // Базовый белый
+    // const warmColor = new THREE.Color('rgb(242, 200, 117)'); // Теплый желтоватый
+    // const coolColor = new THREE.Color('rgb(131, 127, 232)'); // Холодный голубоватый
 
     for (let i = 0; i < count; i++) {
         const phi = Math.acos(-1 + (2 * i) / count);
         const theta = Math.sqrt(count * Math.PI) * phi;
         const x = radius * Math.sin(phi) * Math.cos(theta);
         const y = radius * Math.sin(phi) * Math.sin(theta);
-        const z = radius * Math.cos(phi);
+        const z = radius * Math.cos(phi)*0.9;
         const randomFactor = 0.7 + Math.random() * 0.9;
         vertices.push(x * randomFactor, y * randomFactor, z * randomFactor);
 
         // --- Логика добавления цвета ---
-        let color = baseColor;
-        const rand = Math.random();
-        if (rand < 0.1) { // 10% "теплых" звезд
-            color = warmColor;
-        } else if (rand > 0.9) { // 10% "холодных" звезд
-            color = coolColor;
-        }
-        // Добавляем R, G, B компоненты цвета
-        vertexColors.push(color.r, color.g, color.b);
+        // let color = baseColor;
+        // const rand = Math.random();
+        // if (rand < 0.1) { // 10% "теплых" звезд
+        //     color = warmColor;
+        // } else if (rand > 0.9) { // 10% "холодных" звезд
+        //     color = coolColor;
+        // }
+        // vertexColors.push(color.r, color.g, color.b);
     }
     // Возвращаем позиции и цвета
     return {
         positions: new Float32Array(vertices),
-        colors: new Float32Array(vertexColors)
+       // colors: new Float32Array(vertexColors)
     };
 }, [count]);
 
@@ -68,22 +67,20 @@ const Stars: React.FC<{ count?: number; scrollRatio: React.MutableRefObject<numb
         />
         <bufferAttribute
                 attach="attributes-color" // Стандартное имя для цветов вершин
-                args={[colors, 3]} // Используем colors из useMemo
-                count={colors.length / 3}
+                args={[positions, 3]} // Используем colors из useMemo
+                count={positions.length / 3}
             />
       </bufferGeometry>
       <pointsMaterial /* ... параметры материала ... */
-         attach="material"
-         size={0.5}
-         //color="#FFFFFF"
-         //map={circleTexture} 
-         sizeAttenuation={true}
-         vertexColors={true} 
-         transparent={true}
-         opacity={0.9}
-         depthWrite={false}
-        //blending={THREE.AdditiveBlending} // AdditiveBlending обычно хорошо смотрится для звезд/света
-         blending={THREE.AdditiveBlending}
+        attach="material"
+        size={3} // <<< --- Делаем пыль ЗНАЧИТЕЛЬНО меньше
+        color="rgb(255, 255, 255)"
+        sizeAttenuation={true}
+        transparent={true}
+        //opacity={0.5}
+        map={circleTexture} 
+        depthWrite={false}
+        blending={THREE.NormalBlending}
       />
     </points>
   );
@@ -94,6 +91,7 @@ const Dust: React.FC<{ count?: number; scrollRatio: React.MutableRefObject<numbe
     count = 4000,
     scrollRatio, // Не используется
 }) => {
+    const circleTexture = useTexture('/star2.png');
     const meshRef = useRef<THREE.Points>(null!);
     const positions = useMemo(() => {
         const vertices = [];
@@ -127,11 +125,12 @@ const Dust: React.FC<{ count?: number; scrollRatio: React.MutableRefObject<numbe
             </bufferGeometry>
             <pointsMaterial /* ... параметры материала ... */
                 attach="material"
-                size={0.15} // <<< --- Делаем пыль ЗНАЧИТЕЛЬНО меньше
+                size={3} // <<< --- Делаем пыль ЗНАЧИТЕЛЬНО меньше
                  color="rgb(100, 100, 110)"
                 sizeAttenuation={true}
                 transparent={true}
-                opacity={0.55}
+                opacity={0.5}
+                map={circleTexture} 
                 depthWrite={false}
                 blending={THREE.NormalBlending}
             />
@@ -144,20 +143,29 @@ const Dust: React.FC<{ count?: number; scrollRatio: React.MutableRefObject<numbe
 const CameraController: React.FC<{ scrollRatio: React.MutableRefObject<number> }> = ({ scrollRatio }) => {
   // Используем useFrame ЗДЕСЬ, внутри компонента, который будет рендериться ВНУТРИ Canvas
   useFrame((state, delta) => {
-    const initialZ = 5;
+    const initialZ = 0;
     const maxZOffset = 45;
     const targetZ = initialZ + scrollRatio.current * maxZOffset;
-    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.08);
+    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.18);
     state.camera.lookAt(0, 0, 0);
   });
 
   return null; // Этот компонент ничего не рендерит в DOM, он только выполняет логику анимации
 };
 
-
+const LetterSphere: React.FC = () => {
+  const letterTexture = useTexture(createLetterTexture());
+  return (
+    <mesh position={[0, 0, -50]}>
+      <sphereGeometry args={[3.5, 32, 32]} />
+      <meshStandardMaterial map={letterTexture} color="white" roughness={0.5} metalness={1.1} transparent />
+    </mesh>
+  );
+};
 // Основной компонент фона
 const SpaceBackground: React.FC = () => {
   const scrollRatio = useRef(0);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -170,10 +178,11 @@ const SpaceBackground: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  
   // --- УБРАЛИ useFrame отсюда ---
-
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, background: 'linear-gradient(to bottom, #000000,rgb(56, 0, 56))' }}>
+    
+    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, background: 'linear-gradient(to bottom, #000000,rgba(56, 0, 56, 0.49))' }}>
       <Canvas
         camera={{ position: [0, 0, 1], fov: 70 }}
       >
@@ -193,13 +202,27 @@ const SpaceBackground: React.FC = () => {
         />
         <Stars scrollRatio={scrollRatio} />
         <Dust scrollRatio={scrollRatio} />
-        <mesh position={[0, 0, -50]}> {/* Поставим перед камерой для теста */}
-        <sphereGeometry args={[2.5, 32, 32]} /> {/* Сфера радиусом 2 */}
-        <meshStandardMaterial color="rgba(128, 14, 101, 0)" roughness={0.5} metalness={1.1} />
-        </mesh>
+        <LetterSphere /> {/* Рендерим сферу с текстурой внутри Canvas */}
+
       </Canvas>
     </div>
   );
 };
-
+function createLetterTexture() {
+  const canvas = document.createElement('canvas');
+  const textureSize = 150;
+  canvas.width = textureSize;
+  canvas.height = textureSize;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.91)'; // Прозрачный фон
+    ctx.fillRect(0, 0, textureSize, textureSize);
+    ctx.font = `bold ${textureSize * 0.4}px Arial`;
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'end';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('S', textureSize / 2, textureSize / 2);
+  }
+  return canvas.toDataURL(); // Возвращаем Data URL текстуры
+}
 export default SpaceBackground;

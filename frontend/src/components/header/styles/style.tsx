@@ -5,9 +5,11 @@ export const headOfPage = {
   flexDirection: "row", // Элементы в строку
   alignItems: "center", // Выравнивание по центру по вертикали
   justifyContent: "space-between", // Распределение пространства между элементами
-  paddingTop: 2, // Отсутствие отступов
+   // Отсутствие отступов
+  padding: 3 ,
+  paddingBottom:0,
   width: "100%", // Контейнер занимает всю ширину
-  gap: 20, // Расстояние между элементами
+  //gap: 15, // Расстояние между элементами
   //marginTop : '15px'
 };
 
@@ -35,5 +37,5 @@ export const ButtonsLanding = {
   display: "flex",
   justifyContent: "left", // Выравнивание по горизонтали
   alignItems: "center", // Выравнивание по вертикали
-  marginRight:"30px",
+  marginRight:"70px",
 };

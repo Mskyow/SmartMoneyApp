@@ -5,7 +5,7 @@ export const Rectangle = styled(Box)({
     height: "37px",
     borderRadius: "20px",
     // opacity: 0.5,
-    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.29) 0%, rgba(144, 144, 144, 0.00) 100%)",
+    background: "rgba(255, 255, 255, 0.23)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

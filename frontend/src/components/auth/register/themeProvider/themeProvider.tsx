@@ -107,7 +107,7 @@
 //     },
 // });
 
-// export const ThemeProvider = ({ children }) => {
+// export const ThemeProvider = ( children  : React.ReactNode) => {
 //     return (
 //         <MuiThemeProvider theme={appTheme}>
 //             <CssBaseline />

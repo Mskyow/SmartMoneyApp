@@ -1,6 +1,6 @@
 /* --- Hero Section --- */
 .hero-section {
-    padding: 100px 0;
+    padding: 100px 0 0 0;
     min-height: 100vh; /* Можно чуть увеличить высоту */
     display: flex;
     align-items: center;
@@ -29,7 +29,7 @@
     transform: translate(-50%, -50%);
   
     /* --- 1) Картинку увеличить --- */
-    width: 90%; /* Увеличиваем ширину контейнера */
+    width: 86%; /* Увеличиваем ширину контейнера */
     max-width: 1050px; /* Увеличиваем максимальную ширину */
     box-shadow: 0px -15px 30px rgba(255, 255, 255, 0.322); /* Настройте размытие и цвет */
 
@@ -82,9 +82,11 @@
   
   /* Стили текста остаются центрированными */
   .hero-title {
+    font-family: 'Montserrat', sans-serif;
     font-size: 3.2em;
-    margin-bottom: 20px;
-    line-height: 1.2;
+    margin-bottom: 25px;
+    line-height: 1;
+
   }
   .hero-subtitle {
     font-size: 1.15em;
@@ -93,7 +95,7 @@
     color: #bdbdbd;
   }
   .hero-cta {
-    margin-top: 30px;
+    margin-top: 10px;
   }
   
   /* --- Адаптивность --- */

@@ -3,7 +3,7 @@ import React from 'react';
 import './LandingPage.css'; // Подключаем стили
 import SpaceBackground from '../watchlist/SpaceBackground';
 import Footer from '../footer/footer';
-import FeaturesSection from './blocks/FeaturesSection';
+import FeaturesSection from './blocks/FeatureSection/FeaturesSection';
 import FinalCTASection from './blocks/FinalCTASection';
 import HeroSection from './blocks/HeroSection';
 import HowItWorksSection from './blocks/HowItWorksSection';
@@ -20,7 +20,7 @@ const LandingPage: React.FC = () => {
         <HeroSection />
         <ProblemSolutionSection />
         <FeaturesSection />
-        <HowItWorksSection />
+        {/* <HowItWorksSection /> */}
         <PricingSection />
         <FinalCTASection />
       </main>

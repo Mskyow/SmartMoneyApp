@@ -49,7 +49,7 @@ const AddAddressModal: React.FC<AddAddressModalProps> = ({ open, onClose,onAddAd
           ml:3,
           color: '#FFF',
           fontFamily: "Inria Serif",
-          fontSize: '28px',
+          fontSize: '24px',
           fontStyle: 'normal',
           fontWeight: 400,
           lineHeight: 'normal',
@@ -66,9 +66,32 @@ const AddAddressModal: React.FC<AddAddressModalProps> = ({ open, onClose,onAddAd
           <TextField
             fullWidth
             label="Solana Address"
-            variant="outlined"
             value={account_address}
             onChange={(e) => setAddress(e.target.value)}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '10px',
+                '& fieldset': {
+                  borderColor: '#8920EB',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#B065FF',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#8400FF',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'rgb(166, 166, 166)',
+              },
+              '& .MuiInputBase-input': {
+                color: 'rgb(255, 255, 255)',
+              },
+              '& .MuiOutlinedInput-input': {
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                borderRadius: '10px',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -76,10 +99,43 @@ const AddAddressModal: React.FC<AddAddressModalProps> = ({ open, onClose,onAddAd
             variant="outlined"
             value={account_name}
             onChange={(e) => setName(e.target.value)}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '10px',
+                '& fieldset': {
+                  borderColor: '#8920EB',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#B065FF',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#8400FF',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'rgba(255, 255, 255, 0.61)',
+              },
+              '& .MuiInputBase-input': {
+                color: '#FFF',
+              },
+              '& .MuiOutlinedInput-input': {
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                borderRadius: '10px',
+              },
+            }}
           />
 
           {/* Кнопка выбора картинки */}
-          <Button variant="contained">
+          <Button variant="contained"
+            sx={{
+              borderRadius: '10px !important',
+              border: '1px solid #8920EB !important',
+              color: 'white !important',
+              background: 'rgba(137, 32, 235, 0.2) !important',
+              '&:hover': {
+                background: 'rgba(137, 32, 235, 0.4) !important',
+              }
+            }}>
             Choose image
           </Button>
 
@@ -90,7 +146,10 @@ const AddAddressModal: React.FC<AddAddressModalProps> = ({ open, onClose,onAddAd
             border: '1px solid #000 !important',
             color: 'white !important',
             background: 'linear-gradient(90deg, #12012F 1.63%, #8920EB 30.65%, #8400FF 50.33%, #8920EB 73.44%, #12012F 100%) !important',
-            boxShadow: 'none !important'
+            boxShadow: 'none !important',
+            '&:hover': {
+              background: 'linear-gradient(90deg, #12012F 1.63%, #9B4AFF 30.65%, #9D00FF 50.33%, #9B4AFF 73.44%, #12012F 100%) !important',
+            }
            }}
           >
             Add address

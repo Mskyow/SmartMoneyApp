@@ -11,6 +11,7 @@ import AuthRootComponent from './components/auth';
 import WatchList from './components/watchlist/watchlist';
 import AddressPage from './components/addressPage/AddressPage';
 import Home from './components/home/';
+import PrivacyPolicyPage from './components/privacy_policy';
 
 const theme = createTheme();
 
@@ -35,6 +36,7 @@ function App() {
                     <WalletDialogProvider>
                         <div className="App">
                             <Routes>
+                            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />                               
                                 <Route path="/" element={<Home />} />                               
                                 <Route path="login" element={<AuthRootComponent />} />
                                 <Route path="register" element={<AuthRootComponent />} />

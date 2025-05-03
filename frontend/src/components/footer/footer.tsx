@@ -59,7 +59,7 @@ const VerticalFooter = () => {
           Terms of Service
         </Link>
         <Link
-          href="#"
+          href="/privacy-policy"
           sx={{
             color: '#FFF',
             textDecoration: 'none',

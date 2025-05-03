@@ -7,6 +7,9 @@ import SignInCard from './signInCard';
 import Content from './content';
 import VerticalFooter from '../../footer/footer';
 import { WalletMultiButton } from '@solana/wallet-adapter-material-ui';
+import { Logo } from '../../logo/logo';
+import { Box } from '@mui/material';
+import SpaceBackground from '../../watchlist/SpaceBackground';
 interface ISignInSideProps {
   disableCustomTheme?: boolean;
   setEmail: any;
@@ -15,9 +18,8 @@ export default function SignInSide(props: ISignInSideProps ) {
  
   return (
     <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
+      {/* <CssBaseline enableColorScheme /> */}
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
-
       <Stack
         direction="column"
         component="main"
@@ -40,21 +42,30 @@ export default function SignInSide(props: ISignInSideProps ) {
               backgroundRepeat: 'no-repeat',
               ...theme.applyStyles('dark', {
                 backgroundImage:
-                  'radial-gradient(at 50% 50%, hsl(284, 83.70%, 9.60%), hsl(220, 80%, 0%))',
+                  'radial-gradient(at 50% 50%, hsl(284, 82.00%, 19.60%), hsl(220, 80%, 0%))',
               }),
             },
           }),
         ]}
       >
+      <SpaceBackground/>
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          width: '100%', 
+        }}>
+          <Logo />
+        </Box>        
         <Stack
           direction={{ xs: 'column-reverse', md: 'row' }}
           sx={{
             justifyContent: 'center',
             gap: { xs: 6, sm: 12 },
-            p: 2,
+            p: 1,
             mx: 'auto',
           }}
         >
+         
           <Stack
             direction={{ xs: 'column-reverse', md: 'row' }}
             sx={{
@@ -64,7 +75,7 @@ export default function SignInSide(props: ISignInSideProps ) {
               m: 'auto',
             }}
           >
-            <Content />
+            {/* <Content /> */}
             <SignInCard setEmail={props.setEmail} setPassword={props.setPassword} />
           </Stack>
         </Stack>

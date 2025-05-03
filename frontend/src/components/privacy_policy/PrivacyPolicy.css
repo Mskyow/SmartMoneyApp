@@ -1,0 +1,81 @@
+/* PrivacyPolicy.css */
+.privacy-policy-page-styled {
+  background-color: #000; /* Black background */
+  color: #f0f0f0; /* Light text */
+  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top for better readability */
+}
+
+.privacy-policy-container-styled {
+  max-width: 800px; /* Limit container width */
+  width: 100%;
+  padding: 40px;
+  background-color: #111; /* Darker background for content area */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.7;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif; /* Use a clean, readable font */
+}
+
+.privacy-policy-title {
+  color: #eee;
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left; /* Align title to the left */
+}
+
+.effective-date-styled {
+  color: #777;
+  font-size: 0.9em;
+  margin-bottom: 30px;
+  text-align: left; /* Align effective date to the left */
+}
+
+.policy-section {
+  margin-bottom: 40px;
+}
+
+.policy-section h2 {
+  color: #ddd;
+  font-size: 1.8em;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+  text-align: left; /* Align section titles to the left */
+}
+
+.policy-section p {
+  color: #ccc;
+  margin-bottom: 1em;
+}
+
+.policy-section strong {
+  color: #fff;
+}
+
+.policy-section a {
+  color: #8acfff; /* Light blue link color */
+  text-decoration: none;
+}
+
+.policy-section a:hover {
+  text-decoration: underline;
+}
+
+.policy-section ol,
+.policy-section ul {
+  padding-left: 20px;
+  margin-bottom: 1em;
+  color: #ccc;
+}
+
+.policy-section ol li,
+.policy-section ul li {
+  margin-bottom: 0.5em;
+}

@@ -12,15 +12,13 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from './forgotPassword';
 import { GoogleIcon, SitemarkIcon } from '../customIcons';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
-    maxWidth: '400px',
-    width: '200px',
+    width: '100%',
     opacity : '100%' ,
     padding: theme.spacing(4),
     gap: theme.spacing(2),
@@ -32,7 +30,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
     },
 }));
 
-export default function SignInCard(props: any) {
+export default function SignUpCard(props: any) {
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
@@ -96,7 +94,7 @@ export default function SignInCard(props: any) {
                 variant="h4"
                 sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
             >
-                Sign in
+                Sign up
             </Typography>
             <Box
                 component="form"
@@ -125,15 +123,7 @@ export default function SignInCard(props: any) {
                 <FormControl>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <FormLabel htmlFor="password">Password</FormLabel>
-                        <Link
-                            component="button"
-                            type="button"
-                            onClick={handleClickOpen}
-                            variant="body2"
-                            sx={{ alignSelf: 'baseline' }}
-                        >
-                            Forgot your password?
-                        </Link>
+                        
                     </Box>
                     <TextField
                         error={passwordError}
@@ -150,23 +140,19 @@ export default function SignInCard(props: any) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </FormControl>
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                />
-                <ForgotPassword open={open} handleClose={handleClose} />
+
                 <Button type="submit" fullWidth variant="contained">
-                    Sign in
+                    Sign up
                 </Button>
                 <Typography sx={{ textAlign: 'center' }}>
-                    Don&apos;t have an account?{' '}
+                    Already have an account?{' '}
                     <span>
                         <Link
-                            href="/register"
+                            href="/login"
                             variant="body2"
                             sx={{ alignSelf: 'center' }}
                         >
-                            Sign up
+                            Sign in
                         </Link>
                     </span>
                 </Typography>
@@ -179,7 +165,7 @@ export default function SignInCard(props: any) {
                     onClick={() => alert('Sign in with Google')}
                     startIcon={<GoogleIcon />}
                 >
-                    Sign in with Google
+                    Sign up with Google
                 </Button>
             </Box>
         </Card>
