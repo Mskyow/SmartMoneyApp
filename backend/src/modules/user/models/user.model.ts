@@ -15,6 +15,15 @@ export class User extends Model {
   @Column
   password: string;
 
+  @Column({ defaultValue: '' })
+  telegramId: string;
+
+  @Column({ defaultValue: false })
+  telegramNotify: boolean;
+
+  @Column({ defaultValue: true })
+  emailNotify: boolean;
+
   @HasMany(() => Watchlist, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',

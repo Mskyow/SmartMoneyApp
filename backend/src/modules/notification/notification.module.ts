@@ -10,11 +10,15 @@ import { UserModule } from '../user/user.module';
 import { User } from '../user/models/user.model';
 import { WatchlistModule } from '../watchlist/watchlist.module';
 import { MailModule } from '../mail/mail.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { RedisModule } from '../redis/redis.module';
 
 @Module({
   imports: [
     SequelizeModule.forFeature([Notification,User,Watchlist]), 
-    MailModule
+    MailModule,
+    ScheduleModule.forRoot(),
+    RedisModule
   ],
   controllers: [NotificationController],
   providers: [NotificationService],

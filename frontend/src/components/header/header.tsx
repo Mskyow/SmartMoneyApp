@@ -17,7 +17,7 @@ const VerticalHeader = ()=>{
         sx={{...sidebarStyles2}} 
         >              
             <CircleButton href="/watchlist">Watchlist</CircleButton>
-            <CircleButton>Settings</CircleButton>
+            <CircleButton href="/settings">Settings</CircleButton>
             <CircleButton>Account</CircleButton>
             <WalletMultiButton  style={{
             height: '40px',

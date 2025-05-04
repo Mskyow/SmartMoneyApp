@@ -49,19 +49,21 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
             setWatchlist(response.data)
             onWatchListCurrentCount(response.data.length);
           }
+
+          const responseSub = await instanceJWT.post('/subscriptions/subscribe', {
+            walletAddress : newAddress.account_address
+          });
       } catch (error) {
         console.error("Ошибка при добавлении адреса:", error);
       }
     };
-    const handleSubscribeAddress = async (address: string, subscribe: boolean) => {
+    const handleUpdateSubscribeAddress = async (address: string, isActive: boolean) => {
       try {
-        console.log('atus')
-        const response = await instanceJWT.post('/watchlist/subscribe', {
-          address,
-          subscribe
+        const response = await instanceJWT.put(`/subscriptions/update-is-active/${address}`, {
+          isActive : isActive
         });
         if (response.status === 200) {
-          addNotification('success', subscribe ? 'Subscribed successfully!' : 'Unsubscribed successfully!');
+          addNotification('success', isActive ? 'Subscribed successfully!' : 'Unsubscribed successfully!');
 
         }
       } catch (error) {
@@ -139,7 +141,7 @@ export const AddressList :  React.FC<ChildComponentProps>=  ({onWatchListCurrent
               account_address={address.account_address} 
               account_image={address.profile_image} 
               onDeleteAddress={handleDeleteAddress}
-              onSubscribeAddress={handleSubscribeAddress}
+              onSubscribeAddress={handleUpdateSubscribeAddress}
               />
             ))}
           </Box>

@@ -13,5 +13,7 @@ export default () => ({
   expire_time_jwt: process.env.EXPIRE_TIME,
   solana_https_provider: process.env.SOLANA_HTTPS_PROVIDER,
   solana_wss_provider: process.env.SOLANA_wss_PROVIDER,
-  helius_api_key: process.env.HELIUS_API_KEY
+  helius_api_key: process.env.HELIUS_API_KEY,
+  telegram_bot_username : process.env.TELEGRAM_BOT_USERNAME,
+  telegram_bot_token : process.env.TELEGRAM_BOT_TOKEN
 });

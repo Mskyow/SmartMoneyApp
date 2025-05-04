@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+body {
+  background-color: #121212;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(156, 39, 176, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 20%);
+}
+
+/* Анимация для космического эффекта */
+@keyframes spacePulse {
+  0% { box-shadow: 0 0 10px rgba(156, 39, 176, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(156, 39, 176, 0.5); }
+  100% { box-shadow: 0 0 10px rgba(156, 39, 176, 0.3); }
+}
+
+.MuiCard-root {
+  animation: spacePulse 5s infinite;
+}

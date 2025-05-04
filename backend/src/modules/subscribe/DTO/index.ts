@@ -11,7 +11,7 @@ export class CreateSubscriptionDto {
   
   @ApiProperty()
   @IsBoolean()
-  readonly notifyOnBalanceChange?: boolean = false;
+  readonly notifyOnBalanceChange?: boolean = true;
   
   @ApiProperty()
   @IsBoolean()
@@ -21,8 +21,8 @@ export class CreateSubscriptionDto {
   export class UpdateSubscriptionDto {
     
     @ApiProperty()
-    readonly notifyOnBalanceChange?: boolean;
+    @IsBoolean()
+    readonly isActive: boolean;
 
-    @ApiProperty()
-    readonly notifyOnNewTransaction?: boolean;
+    
   }

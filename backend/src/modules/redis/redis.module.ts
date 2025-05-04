@@ -1,6 +1,6 @@
 // src/redis/redis.module.ts
-import { CacheModule } from '@nestjs/cache-manager';
-import { Module } from '@nestjs/common';
+import { Cache, CACHE_MANAGER, CacheModule } from '@nestjs/cache-manager';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as redisStore from 'cache-manager-redis-store';
 
@@ -18,6 +18,22 @@ import * as redisStore from 'cache-manager-redis-store';
         isGlobal: true,
       }),
     }),
+  ],
+  providers: [
+    {
+      provide: 'REDIS_CONNECTION_CHECK',
+      useFactory: async (cacheManager: Cache) => {
+        const logger = new Logger('RedisModule');
+        try {
+          
+          logger.log('Redis connection established successfully');
+        } catch (error) {
+          logger.error('Failed to connect to Redis', error.stack);
+          throw error;
+        }
+      },
+      inject: [CACHE_MANAGER],
+    },
   ],
   exports: [CacheModule],
 })

@@ -31,7 +31,9 @@ export class Notification extends Model {
   @Column({ type: 'json' })
   metadata: Record<string, unknown>; // или конкретный интерфейс
  // Дополнительные данные: oldBalance, newBalance, txHash и т.д.
-
+  @Column({ defaultValue: false })
+  telegramSent: boolean;
+  
   @Column
   triggeredAt: Date;
 }

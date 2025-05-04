@@ -19,6 +19,7 @@ import { RedisModule } from '../redis/redis.module';
 import { MonitoringModule } from '../monitoring/monitoring.module';
 import { MailModule } from '../mail/mail.module';
 import { NotificationModule } from '../notification/notification.module';
+import { TelegramModule } from 'src/telegram/telegram.module';
 
 @Module({
   imports: [
@@ -47,7 +48,7 @@ import { NotificationModule } from '../notification/notification.module';
     RedisModule,
     MonitoringModule,
     MailModule,
-
+    TelegramModule
     
   ],
   controllers: [AppController],

@@ -16,6 +16,7 @@ constructor(private readonly subscriptionService : SubscriptionService){}
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid input data (DTO validation error).' }) 
     @UseGuards(JwtAuthGuard) 
     @UseGuards(JwtAuthGuard)
+    
     @Post('subscribe')
     async subscribe(@Body() createSubscriptionDto : CreateSubscriptionDto,
                     @Req() request ,)
@@ -33,6 +34,7 @@ constructor(private readonly subscriptionService : SubscriptionService){}
     @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Subscription with the specified ID not found.' }) 
     @ApiBearerAuth() 
     @UseGuards(JwtAuthGuard) 
+
     @Delete(':id')
     async unsubscribe(@Param('id') id: number) {
       await this.subscriptionService.remove(id);
@@ -40,15 +42,19 @@ constructor(private readonly subscriptionService : SubscriptionService){}
     }
 
     
-    @Put(':id')
+    @Put('update-is-active/:walletAddress')
     async updateSubscription(
-        @Param('id') id: number,
+        @Param('walletAddress') walletAddress: string,
         @Body() updateSubscriptionDto: UpdateSubscriptionDto
     ) {
-        const subscription = await this.subscriptionService.update(id, updateSubscriptionDto);
+        console.log(updateSubscriptionDto.isActive)
+        const subscription = await this.subscriptionService.findByWalletAddress(walletAddress)
+        console.log(updateSubscriptionDto.isActive)
+
+        const subscriptionUpdated = await this.subscriptionService.update(subscription?.id, updateSubscriptionDto);
         return {
         message: 'Subscription updated successfully',
-        subscription
+        subscriptionUpdated
         };
     }
 

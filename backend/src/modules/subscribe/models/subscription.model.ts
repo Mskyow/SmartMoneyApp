@@ -39,7 +39,7 @@ export class Subscription extends Model {
   })
   notificationPreferences: string[];
 
-  @Column({ defaultValue: false })
+  @Column({ defaultValue: true })
   notifyOnBalanceChange: boolean;
 
   @Column({ defaultValue: false })

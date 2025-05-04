@@ -54,6 +54,7 @@ export class SubscriptionService {
     if (!subscription) {
       throw new NotFoundException('Subscription not found');
     }
+    // console.log(updateSubscriptionDto.isActive)
     return subscription.update(updateSubscriptionDto);
   }
 
@@ -68,12 +69,12 @@ export class SubscriptionService {
   }
 
   async findByWalletAddress(walletAddress: string) {
-    return this.subscriptionModel.findAll({
-      include: [{
+    return this.subscriptionModel.findOne({
+      include: {
         association: 'watchlist',
         where: { account_address: walletAddress },
         attributes: [],
-      }]
+      }
     });
   }
 

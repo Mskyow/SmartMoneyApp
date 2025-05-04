@@ -1,4 +1,5 @@
 interface ITokenList {
+  [x: string]: any
   total : number ,
   tokens : ITokens[]
 }

@@ -12,6 +12,9 @@ import WatchList from './components/watchlist/watchlist';
 import AddressPage from './components/addressPage/AddressPage';
 import Home from './components/home/';
 import PrivacyPolicyPage from './components/privacy_policy';
+import AuthInitializer from './utils/auth/AuthInitializer'; // Import the new component
+import Settings from './components/settings/settings';
+import SettingsMenu from './components/settings/SettingsMenu';
 
 const theme = createTheme();
 
@@ -35,9 +38,11 @@ function App() {
                 <WalletProvider wallets={wallets} autoConnect>
                     <WalletDialogProvider>
                         <div className="App">
+                            {/* Add AuthInitializer here */}
+                            <AuthInitializer />
                             <Routes>
-                            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />                               
-                                <Route path="/" element={<Home />} />                               
+                                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                                <Route path="/" element={<Home />} />
                                 <Route path="login" element={<AuthRootComponent />} />
                                 <Route path="register" element={<AuthRootComponent />} />
                                 <Route element={<PrivateRoute />}>
@@ -45,6 +50,7 @@ function App() {
                                         <Route index element={<WatchList />} />
                                         <Route path="address/:addressId" element={<AddressPage />} />
                                     </Route>
+                                <Route path="settings" element={<Settings />} />
                                 </Route>
                             </Routes>
                         </div>
